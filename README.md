@@ -21,7 +21,7 @@ The general layout of the webpage will be the following
 
   
 
-![Landmarks sketch](sketch.jpg)
+![Landmarks sketch](Landmarks.jpg)
 
   
   
