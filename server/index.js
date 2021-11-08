@@ -1,14 +1,13 @@
 const express = require("express");
-const app = express();
-const port = 3000;
-const routes = require("./router");
+const app = express()
+const cors = require('cors');
+var config = require('./test.json')
+
+app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("Hello Landmarks!");
+    res.send(config);
 });
-
-app.use("/api", routes);
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.listen(3000, function() {
+    console.log(`Example app listening at http://localhost:{port}`);
 });
