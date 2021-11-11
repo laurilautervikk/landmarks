@@ -1,50 +1,77 @@
-
 <template>
-<div class="container">
-  <div class="row row-cols-4">
-    <div class="col">
-    <a class="col" href="#"><img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg" alt="landmark logo"></a>
-    <h4>Landmark 1</h4>
+  <div class="container">
+    <div class="row row-cols-4">
+      <div class="col">
+        <a class="col" href="#"
+          ><img
+            src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+            alt="landmark logo"
+        /></a>
+        <h4>Landmark 1</h4>
+      </div>
+      <div class="col">
+        <a class="col" href="#"
+          ><img
+            src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+            alt="landmark logo"
+        /></a>
+        <h4>Landmark 1</h4>
+      </div>
+      <div class="col">
+        <a class="col" href="#"
+          ><img
+            src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+            alt="landmark logo"
+        /></a>
+        <h4>Landmark 1</h4>
+      </div>
+      <div class="col">
+        <a class="col" href="#"
+          ><img
+            src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+            alt="landmark logo"
+        /></a>
+        <h4>Landmark 1</h4>
+      </div>
     </div>
-     <div class="col">
-    <a class="col" href="#"><img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg" alt="landmark logo"></a>
-    <h4>Landmark 1</h4>
+    <div class="row row-cols-4">
+      <div class="col">
+        <a class="col" href="#"
+          ><img
+            src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+            alt="landmark logo"
+        /></a>
+        <h4>Landmark 1</h4>
+      </div>
+      <div class="col">
+        <a class="col" href="#"
+          ><img
+            src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+            alt="landmark logo"
+        /></a>
+        <h4>Landmark 1</h4>
+      </div>
+      <div class="col">
+        <a class="col" href="#"
+          ><img
+            src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+            alt="landmark logo"
+        /></a>
+        <h4>Landmark 1</h4>
+      </div>
+      <div class="col">
+        <a class="col" href="#"
+          ><img
+            src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+            alt="landmark logo"
+        /></a>
+        <h4>Landmark 1</h4>
+      </div>
     </div>
-    <div class="col">
-    <a class="col" href="#"><img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg" alt="landmark logo"></a>
-    <h4>Landmark 1</h4>
-    </div>
-    <div class="col">
-    <a class="col" href="#"><img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg" alt="landmark logo"></a>
-    <h4>Landmark 1</h4>
-    </div>
-</div>
-<div class="row row-cols-4">
-    <div class="col">
-    <a class="col" href="#"><img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg" alt="landmark logo"></a>
-    <h4>Landmark 1</h4>
-    </div>
-     <div class="col">
-    <a class="col" href="#"><img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg" alt="landmark logo"></a>
-    <h4>Landmark 1</h4>
-    </div>
-    <div class="col">
-    <a class="col" href="#"><img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg" alt="landmark logo"></a>
-    <h4>Landmark 1</h4>
-    </div>
-    <div class="col">
-    <a class="col" href="#"><img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg" alt="landmark logo"></a>
-    <h4>Landmark 1</h4>
-    </div>
-</div>
-
-</div>
+  </div>
 </template>
 
-<script>
-
-
-</script>
+<script></script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -59,14 +86,11 @@ h4 {
  width: 250px;
 } */
 img {
-  
   margin-top: 20px;
   max-height: 250px;
   max-width: 250px;
-
 }
 .container {
   margin-top: 120px;
 }
-
 </style>
