@@ -1,13 +1,25 @@
+
 const express = require("express");
 const app = express()
-const cors = require('cors');
-var config = require('./test.json')
+//const cors = require('cors');
+//var config = require('./test.json')
 
-app.use(cors());
+
+//ADDED
+const routes = require("./router");
+const port = 3000;
+
+//app.use(cors());
 
 app.get("/", (req, res) => {
-    res.send(config);
+    //res.send(config);
+    res.send('config')
 });
-app.listen(3000, function() {
-    console.log(`Example app listening at http://localhost:{port}`);
+
+//ADDED
+app.use("/api", routes);
+
+//ADDED ${port}
+app.listen(port, function() {
+    console.log(`Example app listening at http://localhost:${port}`);
 });
