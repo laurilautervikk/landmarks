@@ -9,41 +9,49 @@ const landMarks = [
     id: 1,
     title: "Chinese wall",
     imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
+    description: "a building or other place that is of outstanding historical, aesthetic, or cultural importance, often declared as such and given a special status, ordaining its preservation, by some authorizing organization.",
   },
   {
     id: 2,
     title: "Statue of liberty",
     imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
+    description: "a building or other place that is of outstanding historical, aesthetic, or cultural importance, often declared as such and given a special status, ordaining its preservation, by some authorizing organization.",
   },
   {
     id: 3,
     title: "Eiffel Tower",
     imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
+    description: "a building or other place that is of outstanding historical, aesthetic, or cultural importance, often declared as such and given a special status, ordaining its preservation, by some authorizing organization.",
   },
   {
     id: 4,
     title: "Chinese wall2",
     imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
+    description: "a building or other place that is of outstanding historical, aesthetic, or cultural importance, often declared as such and given a special status, ordaining its preservation, by some authorizing organization.",
   },
   {
     id: 5,
     title: "Statue of liberty2",
     imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
+    description: "a building or other place that is of outstanding historical, aesthetic, or cultural importance, often declared as such and given a special status, ordaining its preservation, by some authorizing organization.",
   },
   {
     id: 6,
     title: "Eiffel Tower2",
     imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
+    description: "a building or other place that is of outstanding historical, aesthetic, or cultural importance, often declared as such and given a special status, ordaining its preservation, by some authorizing organization.",
   },
   {
     id: 7,
     title: "Chinese wall3",
     imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
+    description: "a building or other place that is of outstanding historical, aesthetic, or cultural importance, often declared as such and given a special status, ordaining its preservation, by some authorizing organization.",
   },
   {
     id: 8,
     title: "Statue of liberty3",
     imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
+    description: "a building or other place that is of outstanding historical, aesthetic, or cultural importance, often declared as such and given a special status, ordaining its preservation, by some authorizing organization.",
   },
 ];
 

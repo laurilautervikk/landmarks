@@ -4,18 +4,20 @@
   <div class="container">
     <div class="row">
       <div
-        class="col col-sm-12 col-lg-3 img-thumbnail"
+        class="col col-sm-6 col-md-4 col-lg-3 img-thumbnail"
         v-for="landmark in landmarksFromServer"
         :key="landmark"
       >
-        <img
-          :src="landmark.imageUrl"
-          alt="landmark image"
-          width="200"
-          height="200"
-        />
-        <p>ID:{{ landmark.id }}</p>
-        <p>{{ landmark.title }}</p>
+        <router-link :to="`/landmark/${landmark.id}`" class="container">
+          <img
+            :src="landmark.imageUrl"
+            alt="landmark image"
+            width="200"
+            height="200"
+          />
+          <p id="id-info">ID:{{ landmark.id }}</p>
+          <p>{{ landmark.title }}</p>
+        </router-link>
       </div>
     </div>
   </div>
@@ -27,7 +29,9 @@ import axios from "axios";
 export default {
   name: "Imagegrid",
   props: {
+    to: String,
     msg: String,
+    id: Number,
     title: String,
     imageUrl: String,
   },
@@ -40,14 +44,13 @@ export default {
     async function getLandmarks() {
       const result = await axios.get("/api/get-landmarks");
       landmarksFromServer.value = result.data.landmarks;
-      console.log("landmarksFromServer ", landmarksFromServer);
       console.log("landmarksFromServer ", landmarksFromServer.value);
     }
     // call the above function
     getLandmarks();
 
+    // POST request
     async function addNewLandmark() {
-      // POST request using axios with async/await
       const headers = {
         "Content-Type": "application/json",
       };
