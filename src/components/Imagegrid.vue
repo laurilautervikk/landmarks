@@ -48,7 +48,6 @@ export default {
     }
     // call the above function
     getLandmarks();
-
     // POST request
     async function addNewLandmark() {
       const headers = {
@@ -99,3 +98,4 @@ a {
   color: #42b983;
 }
 </style>
+
