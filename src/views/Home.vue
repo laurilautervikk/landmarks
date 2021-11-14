@@ -13,6 +13,6 @@ export default {
   name: "Home",
   components: {
     LandMark,
-},
+  },
 };
 </script>
