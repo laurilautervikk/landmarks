@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 //const request = require("request");
-const app = express();
-
+//const app = express();
 
 //Dummy object to hold info for now
 const landMarks = [
@@ -49,69 +48,38 @@ const landMarks = [
 ];
 
 //GET landmarks list
-router.get('/get-landmarks', (req, res) => {
+router.get("/get-landmarks", (req, res) => {
   res.status(200).send({
-    success: 'true',
-    message: 'landmarks retrieved successfully',
-    landmarks: landMarks
-  })
+    success: "true",
+    message: "landmarks retrieved successfully",
+    landmarks: landMarks,
+  });
 });
 
-//GET a single landmark
-
-router.get('/get-landmark/:id', (req, res) => {
+//GET a single landmark by id
+router.get("/get-landmark/:id", (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  function findId(input) {
-    return input === id;
-  }
+  let result = landMarks.find((landmark) => {
+    return landmark.id === id;
+  });
+  //console.log('result ', result)
 
-  //const result = landMarks.find( ({id}) => id === req.params.id);
-  console.log(landMarks.find(findId))
-  /* if (id == result.id) {
+  if (result) {
     //success
     res.status(200).send({
-      success: 'true',
-      message: 'landmark found',
-      landmark: result
-    })
-
+      success: "true",
+      message: "Landmark found",
+      landmark: result,
+    });
   } else {
     //fail
     return res.status(404).send({
-      success: 'false',
-      message: 'landmark does not exist',
-      });
-  } */
- 
-  })
-
-
-
-
-/* app.get('/get-landmark/:id', (req, res) => {
-
-  const id = parseInt(req.params.id, 10);
-
-  const result = landMarks.find( ({id}) => id === req.params.id);
-
-    if (result.id === id) {
-      console.log('landmark found')
-
-
-      return res.status(200).send({
-        success: 'true',
-        message: 'landmark retrieved successfully',
-        landmark :result,
-      });
-    } 
-  
-
-  return res.status(404).send({
-    success: 'false',
-    message: 'landmark does not exist',
+      success: "false",
+      message: "Landmark does not exist",
     });
-}); */
+  }
+});
 
 
 
@@ -124,5 +92,3 @@ router.post("/post-landmark", function (req, res) {
 });
 
 module.exports = router;
-
-
