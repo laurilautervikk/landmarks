@@ -13,5 +13,10 @@ export default {
   components: {
     Imagegrid,
   },
+  data() {
+    return {
+      id: 0,
+    };
+  },
 };
 </script>
