@@ -1,18 +1,18 @@
 <template>
   <div class="home">
-    <Imagegrid msg="Welcome to Your Vue.js App" />
+    <landMarks msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
-import Imagegrid from "@/components/Imagegrid.vue";
+import landMarks from "../components/landMarks.vue";
 
 export default {
   name: "Home",
   components: {
-    Imagegrid,
-  },
+    landMarks,
+},
 };
 </script>
