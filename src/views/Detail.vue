@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <Imagegrid msg="Message from Home.vue" />
+    <Detailview msg="Message from Detail.vue" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Imagegrid from "@/components/Imagegrid.vue";
+import Detailview from "@/components/Detailview.vue";
 
 export default {
-  name: "Home",
+  name: "Detail",
   components: {
-    Imagegrid,
+    Detailview,
   },
 };
 </script>
