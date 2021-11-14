@@ -8,6 +8,9 @@
 <script>
 // @ is an alias to /src
 
+import Imagegrid from "@/components/Imagegrid.vue";
+
+
 import landMarks from "@/components/landMarks.vue";
 import Imagegrid from "@/components/Imagegrid.vue";
 

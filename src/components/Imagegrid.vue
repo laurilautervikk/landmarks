@@ -35,9 +35,11 @@ export default {
     title: String,
     imageUrl: String,
   },
+
   data() {
     const newLandmark = ref("");
     let landmarksFromServer = ref([]);
+
     //GET request for a list of landmarks
     async function getLandmarks() {
       const result = await axios.get("/api/get-landmarks");
@@ -51,6 +53,7 @@ export default {
       const headers = {
         "Content-Type": "application/json",
       };
+
       let data = {
         title: newLandmark.value,
         imageUrl: "https://en.pimg.jp/065/184/793/1/65184793.jpg",
@@ -68,6 +71,7 @@ export default {
       console.log("newLandmark sent from the front: ", data);
       getLandmarks();
     }
+
     return {
       newLandmark,
       addNewLandmark,
@@ -94,3 +98,4 @@ a {
   color: #42b983;
 }
 </style>
+
