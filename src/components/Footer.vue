@@ -1,7 +1,11 @@
 <template>
   <footer id="footer" role="contentinfo">
     <p>
-        <a
+      Lauri Lauter Edgar Kollamaa Ekaterina Chigasova Mikk Ereline Taavet
+      Lehiste Copyright &copy; 2021
+    </p>
+    <p>
+      <a
         class="social-icon"
         href="https://github.com/laurilautervikk/landmarks"
         target="_blank"
@@ -20,8 +24,6 @@
           />
         </svg>
       </a>
-      Lauri Lauter Edgar Kollamaa Ekaterina Chigasova Mikk Ereline Taavet
-      Lehiste Copyright &copy; 2021
     </p>
   </footer>
 </template>
