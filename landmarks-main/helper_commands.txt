@@ -1,0 +1,6 @@
+to run the backend server:
+npm run dev
+
+
+to run the frontend:
+npm run serve
