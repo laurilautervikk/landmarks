@@ -1,17 +1,30 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <landMarks msg="Welcome to Your Vue.js App" />
+    <Imagegrid msg="Message from Home.vue" />
+    <Footer msg="Message from Footer.vue" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+
+import landMarks from "@/components/landMarks.vue";
+import Imagegrid from "@/components/Imagegrid.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+    landMarks,
+    Imagegrid,
+    Footer,
+},
+  data() {
+    return {
+      id: 0,
+    };
   },
-};
+}
+
 </script>
