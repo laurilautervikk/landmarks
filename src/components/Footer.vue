@@ -30,7 +30,8 @@
 
 <style scoped>
 footer {
-  margin: 20px 20px;
+  margin-top: 90px;
+  font-size: 10px;
 }
 
 </style>
