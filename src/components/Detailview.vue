@@ -14,7 +14,8 @@
             </div>
         </div>
       
-     <button href="/">Main Menu</button>
+     
+      <button @click="$router.go(-1)">Main Menu</button>
 
 </template>
 
