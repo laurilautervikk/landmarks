@@ -13,16 +13,21 @@
 
             </div>
         </div>
-
-        <a href="index.html"><button type="button">Main Menu</button></a>
+      
+     
+      <button @click="$router.go(-1)">Main Menu</button>
 
 </template>
+
+<script>
+
+</script>
+
     
 <style scoped>
 
-.header {
-  text-align: center;
-  margin-top: 20px;
+h1{
+  margin-top: 30px;
 }
 
 img {
@@ -34,6 +39,7 @@ img {
 }
 
 .col-sm {
+  
   padding-top: 200px;
 }
 
