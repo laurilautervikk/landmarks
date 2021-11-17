@@ -1,0 +1,25 @@
+header {
+  text-align: center;
+  margin-top: 20px;
+}
+
+img {
+  height: 500px;
+  width: 700px;
+  margin-top: 50px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.col-sm {
+  padding-top: 200px;
+}
+button {
+  float: right;
+  margin-right: 20px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 245px;
+}
