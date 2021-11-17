@@ -1,60 +1,49 @@
 <template>
-  <div class="container">
-    <p>{{ msg }}</p>
-    <div class="row">
-      <div class="col">
-        <h3>{{ landmarkInfo.title }}</h3>
-        <span>ID:{{ landmarkInfo.id }}</span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <img :src="landmarkInfo.imageUrl" alt="landmark image" />
-      </div>
-      <div class="col">
-        <p>{{ landmarkInfo.description }}</p>
-      </div>
+  <div class="row">
+            <h1>Landmark name</h1>
     </div>
 
-    <router-link :to="'/'" class="container">
-      <p>main page</p>
-    </router-link>
-  </div>
+        <div class="row">
+            <img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
+                alt="mountain">
+
+
+            <div class="col-sm">
+                <h4>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio eveniet optio aspernatur vitae eos laboriosam voluptates architecto ducimus error, laborum recusandae. Omnis, magni molestias quisquam beatae impedit cupiditate quam commodi!</h4>
+
+            </div>
+        </div>
+
+        <a href="index.html"><button type="button">Main Menu</button></a>
+
 </template>
+    
+<style scoped>
 
-<script>
-import { ref } from "vue";
-import axios from "axios";
+.header {
+  text-align: center;
+  margin-top: 20px;
+}
 
-export default {
-  name: "Detailview",
-  props: {
-    msg: String,
-    id: Number,
-    title: String,
-    imageUrl: String,
-    description: String,
-  },
-  data() {
-    //const newLandmark = ref("");
-    let landmarkInfo = ref([]);
+img {
+  height: 500px;
+  width: 700px;
+  margin-top: 50px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
 
-    //GET request for a single landmark
-    async function getLandmark(id) {
-      const result = await axios.get(`/api/get-landmark/${id}`);
-      landmarkInfo.value = result.data.landmark;
-      console.log("landmarkInfo ", landmarkInfo.value);
-      console.log(landmarkInfo.value.title);
-    }
-    // call the above function
-    getLandmark(this.$route.params.id);
+.col-sm {
+  padding-top: 200px;
+}
 
-    return {
-      landmarkInfo,
-    };
-  },
-  
-};
-</script>
+button {
+  float: right;
+  margin-right: 20px;
+}
 
-<style scoped></style>
+</style>
+
+
+
+
