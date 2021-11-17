@@ -4,6 +4,7 @@ const router = express.Router();
 //const app = express();
 
 //Dummy object to hold info for now
+
 const landMarks = [
   {
     id: 1,
@@ -69,48 +70,49 @@ const landMarks = [
     description:
       "Grand Canyon is considered one of the finest examples of arid-land erosion in the world. Incised by the Colorado River, the canyon is immense, averaging 4,000 feet deep for its entire 277 miles.",
   },
+
 ];
 
 //GET landmarks list
 router.get("/get-landmarks", (req, res) => {
-  res.status(200).send({
-    success: "true",
-    message: "landmarks retrieved successfully",
-    landmarks: landMarks,
-  });
+    res.status(200).send({
+        success: "true",
+        message: "landmarks retrieved successfully",
+        landmarks: landMarks,
+    });
 });
 
 //GET a single landmark by id
 router.get("/get-landmark/:id", (req, res) => {
-  const id = parseInt(req.params.id, 10);
+    const id = parseInt(req.params.id, 10);
 
-  let result = landMarks.find((landmark) => {
-    return landmark.id === id;
-  });
-  //console.log('result ', result)
+    let result = landMarks.find((landmark) => {
+        return landmark.id === id;
+    });
+    //console.log('result ', result)
 
-  if (result) {
-    //success
-    res.status(200).send({
-      success: "true",
-      message: "Landmark found",
-      landmark: result,
-    });
-  } else {
-    //fail
-    return res.status(404).send({
-      success: "false",
-      message: "Landmark does not exist",
-    });
-  }
+    if (result) {
+        //success
+        res.status(200).send({
+            success: "true",
+            message: "Landmark found",
+            landmark: result,
+        });
+    } else {
+        //fail
+        return res.status(404).send({
+            success: "false",
+            message: "Landmark does not exist",
+        });
+    }
 });
 
 // route for POST request
-router.post("/post-landmark", function (req, res) {
-  landMarks.push(req.body);
-  console.log("req.body: ", req.body);
-  console.log("new list: ", landMarks);
-  res.send("POST request successful");
+router.post("/post-landmark", function(req, res) {
+    landMarks.push(req.body);
+    console.log("req.body: ", req.body);
+    console.log("new list: ", landMarks);
+    res.send("POST request successful");
 });
 
 module.exports = router;
