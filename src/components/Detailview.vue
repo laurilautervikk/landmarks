@@ -1,32 +1,56 @@
 <template>
   <div class="row">
-            <h1>Landmark name</h1>
+    <h1>{{ landmarkInfo.title }}</h1>
+  </div>
+
+  <div class="row">
+    <img :src="landmarkInfo.imageUrl" alt="landmark image" />
+    <div class="col-sm">
+      <h4>
+        {{ landmarkInfo.description }}
+      </h4>
     </div>
+  </div>
 
-        <div class="row">
-            <img src="https://www.worldatlas.com/r/w1200/upload/56/fb/ee/alaska-mountain-range-csnafzger.jpg"
-                alt="mountain">
-
-
-            <div class="col-sm">
-                <h4>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio eveniet optio aspernatur vitae eos laboriosam voluptates architecto ducimus error, laborum recusandae. Omnis, magni molestias quisquam beatae impedit cupiditate quam commodi!</h4>
-
-            </div>
-        </div>
-      
-     
-      <button @click="$router.go(-1)">Main Menu</button>
-
+  <button @click="$router.go(-1)">Main Menu</button>
 </template>
 
 <script>
+import { ref } from "vue";
+import axios from "axios";
 
+export default {
+  name: "Detailview",
+  props: {
+    msg: String,
+    id: Number,
+    title: String,
+    imageUrl: String,
+    description: String,
+  },
+  data() {
+    //const newLandmark = ref("");
+    let landmarkInfo = ref([]);
+
+    //GET request for a single landmark
+    async function getLandmark(id) {
+      const result = await axios.get(`/api/get-landmark/${id}`);
+      landmarkInfo.value = result.data.landmark;
+      console.log("landmarkInfo ", landmarkInfo.value);
+      console.log(landmarkInfo.value.title);
+    }
+    // call the above function
+    getLandmark(this.$route.params.id);
+
+    return {
+      landmarkInfo,
+    };
+  },
+};
 </script>
 
-    
 <style scoped>
-
-h1{
+h1 {
   margin-top: 30px;
 }
 
@@ -39,7 +63,6 @@ img {
 }
 
 .col-sm {
-  
   padding-top: 200px;
 }
 
@@ -47,9 +70,4 @@ button {
   float: right;
   margin-right: 20px;
 }
-
 </style>
-
-
-
-
