@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <landMarks msg="Welcome to Your Vue.js App" />
-    <!-- <Imagegrid msg="Message from Home.vue" /> -->
+  
+    <landMarks msg="Welcome to Your landMarks.vue" />
     <Footer msg="Message from Footer.vue" />
   </div>
 </template>
@@ -10,14 +10,12 @@
 // @ is an alias to /src
 
 import landMarks from "@/components/landMarks.vue";
-// import Imagegrid from "@/components/Imagegrid.vue";
 import Footer from "@/components/Footer.vue";
 
 export default {
   name: "Home",
   components: {
     landMarks,
-    // Imagegrid,
     Footer,
 },
   data() {
