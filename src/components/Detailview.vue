@@ -115,8 +115,8 @@ h4{
   color: #ffffff;
   text-align: center;
   margin-top: 160px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 16px;
+  padding-left: 16px;
   
 }
 
