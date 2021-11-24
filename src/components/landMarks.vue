@@ -1,10 +1,30 @@
 <template>
-  <div class="row row-cols-4">
-    <div class="col" v-for="landmark in landmarksFromServer" :key="landmark">
-      <router-link :to="`/landmark/${landmark.id}`" class="col">
-        <img :src="landmark.imageUrl" alt="landmark image" />
-        <p class="col" id="title">{{ landmark.title }}</p>
-      </router-link>
+<header>
+    <div class="p-5 text-center bg-image"
+      style="background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg'); height: 150px; width: 110%">
+            <h1 class="mb-3">World landmarks</h1>
+    </div>
+  </header>
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div
+        class="col-12 col-md-4 col-lg-3"
+        v-for="landmark in landmarksFromServer"
+        :key="landmark"
+      >
+        <div class="box mx-auto d-block">
+          <router-link :to="`/landmark/${landmark.id}`" class="col">
+            <div class="img-frame">
+              <img
+                class="mx-auto d-block"
+                :src="landmark.imageUrl"
+                alt="landmark image"
+              />
+            </div>
+            <p class="title" id="title">{{ landmark.title }}</p>
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +54,8 @@ export default {
     }
     // call the above function
     getLandmarks();
+
+    // add new landmark
     async function addNewLandmark() {
       const headers = {
         "Content-Type": "application/json",
@@ -67,15 +89,44 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#title {
-  margin: 10px;
+.mb-3 {
+  font-size: 50px;
+  color: peachpuff;
+  text-shadow: 2px 2px 5px black;
+  text-align: center;
 }
-img {
-  padding: 10px;
-  max-height: 250px;
-  max-width: 250px;
+
+.box {
+  margin: 1em 0;
+  text-align: center;
+  border: 1px solid silver;
+  border-radius: 0.5em;
+  width: fit-content;
+  padding: 0px;
+  box-shadow: 5px 10px 8px silver;
+  background: lightgrey;
 }
-.row.row-cols-4 {
-  margin-top: 120px;
+
+.box img {
+  width: 300px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 0.25em 0.25em 0 0;
+}
+
+.title {
+  margin-top: 5%;
+  font-size: 1.4em;
+  text-decoration: none;
+  color: #454545;
+}
+
+a {
+  text-decoration: none;
+}
+.container-fluid {
+  padding-top: 20px;
+  background-image: url('https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg');
+
 }
 </style>
