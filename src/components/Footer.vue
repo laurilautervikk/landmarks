@@ -45,6 +45,13 @@ footer {
   margin-top: 90px;
   font-size: 10px;
 }
+</style>
+
+<style scoped>
+footer {
+  margin-top: 90px;
+  font-size: 10px;
+}
 
 </style>
 
