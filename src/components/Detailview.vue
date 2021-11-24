@@ -1,21 +1,26 @@
 <template>
-  <div class="row">
+<div class="row">
     <h1>{{ landmarkInfo.title }}</h1>
-  </div>
-
-  <div class="row">
-    <img :src="landmarkInfo.imageUrl" alt="landmark image" />
-    <div class="col-sm">
-      <h4>
-        {{ landmarkInfo.description }}
-      </h4>
+    
+  <div class="container-fluid">
+    <div class="card">
+      <img :src="landmarkInfo.imageUrl" alt="landmark image" />
     </div>
   </div>
-
+  
+  <div class="container-fluid2"> 
+    <div class="cardtext">
+        <h4>{{ landmarkInfo.description }}</h4>
+    </div>
+  </div>
+  
+</div>
+ 
   <button @click="$router.go(-1)">Main Menu</button>
 </template>
 
 <script>
+
 import { ref } from "vue";
 import axios from "axios";
 
@@ -44,30 +49,77 @@ export default {
 
     return {
       landmarkInfo,
+      
     };
   },
 };
+
 </script>
 
 <style scoped>
+
+.row{
+  background-image: url('https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg');
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+ }
+
 h1 {
   margin-top: 30px;
+  margin-bottom: 60px;
+  color: azure;
 }
 
-img {
+.container-fluid {
+ 
+  margin: 1em 0;
+  margin-left: 150px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 0.5em;
+  width: fit-content;
+  padding: 0px;
+  box-shadow: 6px 9px 9px rgb(0, 0, 0);
+  margin-right: 50px;
+}
+
+.card img {
+  
+  object-fit: cover;
   height: 500px;
   width: 700px;
-  margin-top: 50px;
-  margin-right: 30px;
-  margin-left: 30px;
+  border-radius: 10px 10px 10px 10px;
+  }
+  
+.container-fluid2{
+  margin: 1em 0;
+  margin-left: 230px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 0.5em;
+  width: fit-content;
+  padding: 0px;
+  box-shadow: 6px 9px 9px rgb(0, 0, 0);
+  
 }
 
-.col-sm {
-  padding-top: 200px;
+h4{
+  height: 125px;
+  width: 500px;
+  border-radius: 10px 10px 10px 10px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 160px;
 }
 
 button {
   float: right;
   margin-right: 20px;
+  height: 52px;
+  padding: 0 40px;
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
 }
+
 </style>
