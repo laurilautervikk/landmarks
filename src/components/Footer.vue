@@ -35,24 +35,13 @@
 
 <style scoped>
 footer {
-  padding-top: 90px;
-  
+  padding-top: 20px;
+  font-size: 15px;
+  background: lightgrey;
 }
-</style>
-
-<style scoped>
-footer {
-  margin-top: 90px;
-  font-size: 10px;
+span {
+  color: black;
 }
-</style>
-
-<style scoped>
-footer {
-  margin-top: 90px;
-  font-size: 10px;
-}
-
 </style>
 
 

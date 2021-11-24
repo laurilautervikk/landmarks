@@ -5,18 +5,24 @@
   <div class="container-fluid">
     <div class="card">
       <img :src="landmarkInfo.imageUrl" alt="landmark image" />
+      
     </div>
+    
   </div>
   
   <div class="container-fluid2"> 
     <div class="cardtext">
         <h4>{{ landmarkInfo.description }}</h4>
+        
     </div>
+    
   </div>
-  
+  <div class="container mb-3">
+      <button @click="$router.go(-1)">Main Menu</button>
+    </div>
 </div>
  
-  <button @click="$router.go(-1)">Main Menu</button>
+  
 </template>
 
 <script>
@@ -109,6 +115,9 @@ h4{
   color: #ffffff;
   text-align: center;
   margin-top: 160px;
+  padding-right: 16px;
+  padding-left: 16px;
+  
 }
 
 button {
