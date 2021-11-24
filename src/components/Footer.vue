@@ -35,6 +35,13 @@
 
 <style scoped>
 footer {
+  padding-top: 90px;
+  
+}
+</style>
+
+<style scoped>
+footer {
   margin-top: 90px;
   font-size: 10px;
 }
