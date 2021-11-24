@@ -36,8 +36,13 @@ export default {
 </script>
 
 <style>
+
 button {
   margin-top: 20px;
+    background: linear-gradient(to right, #16c0b0, #84cf6a);
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

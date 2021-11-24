@@ -1,21 +1,34 @@
 <template>
   <div class="Popup">
     <div class="Popup-inner">
-     
-        <slot>
-      <form>
-        <label>Landmark name:</label>
-        <input type="landmarkName" required v-model="landmarkName" />
- 
-        <label>Picture url:</label>
-        <input type="url" required v-model="url" />
+      <slot>
+        <form @submit="postLandmark" method="posts">
+          <label>Landmark name:</label>
+          <input
+            type="text"
+            name="landmarkName"
+            required
+            v-model="posts.landmarkName"
+          />
 
-        <label>Description:</label>
-        <input type="description" required v-model="description" />
-        <button @click="isHidden = true">Submit Landmark</button>
+          <label>Picture url:</label>
+          <input
+            type="text"
+            name="pictureUrl"
+            required
+            v-model="posts.pictureUrl"
+          />
 
-      </form>
-        </slot>
+          <label>Description:</label>
+          <input
+            type="text"
+            name="description"
+            required
+            v-model="posts.description"
+          />
+          <button type="submit">Submit Landmark</button>
+        </form>
+      </slot>
       <!-- <p>landmark Name: {{ landmarkName }}</p>
     <p>Url: {{ url }}</p>
     <p>Description: {{ description }}</p> -->
@@ -24,15 +37,31 @@
 </template>
 
 <script>
+
+
 export default {
-  Data() {
-    return {
-      landmarkName: "",
-      url: "",
-      description: "",
-      FormData,
-    };
+  name: "landmarkForm",
+  data() {
+    
+      return {
+        posts: {
+        landmarkName: "",
+        url: "",
+        description: "",
+      }
+    }
   },
+
+  methods: {
+    postLandmark(e) {
+      this.axios.post("http://localhost:3000/api/post-landmark/", this.posts)
+      .then((result) =>{
+        console.warn(result)
+      })
+      e.preventDefault();
+    },
+  },
+
 };
 </script>
 
@@ -83,9 +112,10 @@ input {
   border-bottom: 1px solid #ddd;
   color: #555;
 }
-button{
-  border-radius: 5px;
-  background-color: green;
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+button {
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
 }
 </style>
