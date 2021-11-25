@@ -1,25 +1,23 @@
 <template>
-  
-    <div class="row">
-      <h1>{{ landmarkInfo.title }}</h1>
+  <div class="row">
+    <h1>{{ landmarkInfo.title }}</h1>
 
-      <div class="container-fluid">
-        <div class="card">
-          <img :src="landmarkInfo.imageUrl" alt="landmark image" />
-        </div>
-      </div>
-
-      <div class="container-fluid2">
-        <div class="cardtext">
-          <h4>{{ landmarkInfo.description }}</h4>
-        </div>
-      </div>
-
-      <div class="container mb-3">
-        <button @click="$router.go(-1)">Main Menu</button>
+    <div class="container-fluid">
+      <div class="card">
+        <img :src="landmarkInfo.imageUrl" alt="landmark image" />
       </div>
     </div>
-  
+
+    <div class="container-fluid2">
+      <div class="cardtext">
+        <h4>{{ landmarkInfo.description }}</h4>
+      </div>
+    </div>
+
+    <div class="container mb-3">
+      <button @click="$router.go(-1)">Main Menu</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -73,7 +71,6 @@ h1 {
 .container-fluid {
   margin: 1em 0;
   margin-left: 150px;
-  border: 1px solid rgb(255, 255, 255);
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
@@ -81,11 +78,17 @@ h1 {
   margin-right: 50px;
 }
 
+.card {
+  border-radius: 0.5em;
+  border: none !important;
+}
+
 .card img {
   object-fit: cover;
   height: 500px;
   width: 700px;
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 0.5em;
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .container-fluid2 {
@@ -101,7 +104,7 @@ h1 {
 h4 {
   height: 125px;
   width: 500px;
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 0.5em;
   color: #ffffff;
   text-align: center;
   margin-top: 160px;
