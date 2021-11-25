@@ -1,21 +1,20 @@
 <template>
   <div class="Popup">
     <div class="Popup-inner">
-     
-        <slot>
-      <form>
-        <label>Landmark name:</label>
-        <input type="landmarkName" required v-model="landmarkName" />
- 
-        <label>Picture url:</label>
-        <input type="url" required v-model="url" />
+      <slot>
+        <form>
+          <label>Landmark name:</label>
+          <input type="landmarkName" required v-model="landmarkName" />
 
-        <label>Description:</label>
-        <input type="description" required v-model="description" />
-        <button @click="isHidden = true">Submit Landmark</button>
+          <label>Picture url:</label>
+          <input type="url" required v-model="url" />
 
-      </form>
-        </slot>
+          <label>Description:</label>
+          <input type="description" required v-model="description" />
+          <!-- <button @click="isHidden = true">Submit Landmark</button> -->
+          <button @click="passEvent()">Submit Landmark</button>
+        </form>
+      </slot>
       <!-- <p>landmark Name: {{ landmarkName }}</p>
     <p>Url: {{ url }}</p>
     <p>Description: {{ description }}</p> -->
@@ -25,6 +24,13 @@
 
 <script>
 export default {
+  name: "Form",
+  methods: {
+    passEvent() {
+      this.$emit(FormData);
+      console.log('FormData ', FormData)
+    },
+  },
   Data() {
     return {
       landmarkName: "",
@@ -35,6 +41,9 @@ export default {
   },
 };
 </script>
+
+
+
 
 <style scoped>
 .popup {
@@ -83,9 +92,10 @@ input {
   border-bottom: 1px solid #ddd;
   color: #555;
 }
-button{
+button {
   border-radius: 5px;
   background-color: green;
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 </style>
