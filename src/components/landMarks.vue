@@ -146,6 +146,7 @@ export default {
         description: newDescription.value,
       }; */
 
+      /* THI IS NOT WORKING )) */
       let data = this.$data.params
       console.log(this.$data.params)
 
