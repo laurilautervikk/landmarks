@@ -1,31 +1,29 @@
 <template>
   <div class="home">
-  
-    <landMarks msg="Welcome to Your landMarks.vue" />
-    <Footer msg="Message from Footer.vue" />
+    <LandMarks />
+    <Footer />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
-import landMarks from "@/components/landMarks.vue";
+import LandMarks from "@/components/LandMarks.vue";
 import Footer from "@/components/Footer.vue";
 
 export default {
   name: "Home",
   components: {
-    landMarks,
+    LandMarks,
     Footer,
-},
+  },
   data() {
     return {
       id: 0,
     };
   },
-}
-
+  methods: {
+  },
+};
 </script>
-<style>
 
-</style>
+<style></style>

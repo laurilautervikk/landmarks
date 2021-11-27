@@ -1,16 +1,82 @@
 <template>
   <header>
-    <div
-      class="p-5 text-center bg-image"
-      style="
-        background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');
-        height: 150px;
-        width: 110%;
-      "
-    >
-      <h1 class="mb-3">World landmarks</h1>
+    <div class="d-flex justify-content-between">
+      <div
+        class="p-5 text-center bg-image"
+        style="
+          background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');
+          height: 150px;
+          width: 110%;
+        "
+      >
+        <h1 class="mb-3">World landmarks</h1>
+      </div>
+      <div class="float-right">
+        <!-- MODAL START -->
+        <button @click="openModal" v-if="!showModal">Add Landmark</button>
+        <AddLandmark
+          v-if="showModal"
+          :showModal="showModal"
+          @clicked="onChildClick"
+        >
+          <slot>
+            <h3 class="modal-title">CodeMix</h3>
+          </slot>
+          <slot>
+            <p>
+              With CodeMix, you can join the modern web movement right from your
+              Eclipse IDE!
+            </p>
+          </slot>
+        </AddLandmark>
+        <AddLandmark @custom-change="receiveData" />
+        <!-- MODAL END -->
+      </div>
     </div>
   </header>
+
+  <!-- add landmarks form start-->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <label for="title">Title</label>
+        <input
+          v-model="newTitle"
+          type="text"
+          name="title"
+          class="form-control"
+        />
+        <label for="imageUrl">Image URL</label>
+        <input
+          v-model="newImageUrl"
+          type="text"
+          name="imageUrl"
+          class="form-control"
+        />
+        <label for="description">Description</label>
+        <input
+          v-model="newDescription"
+          type="text"
+          name="description"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <button
+          @click="addNewLandmark"
+          type="submit"
+          class="btn btn-primary w-100 mt-1"
+        >
+          Add new Landmark
+        </button>
+      </div>
+    </div>
+    <br />
+  </div>
+
+  <!-- add landmarks form end-->
 
   <div class="container-fluid">
     <div class="row text-center">
@@ -20,7 +86,7 @@
         :key="landmark"
       >
         <div class="box mx-auto d-block">
-          <router-link :to="`/landmark/${landmark.id}`" class="col">
+          <router-link :to="`/landmark/${landmark._id}`" class="col">
             <div class="img-frame">
               <img
                 class="mx-auto d-block"
@@ -34,52 +100,67 @@
       </div>
     </div>
   </div>
-  <!-- <Form @click="addNewLandmark($event)" /> -->
 </template>
 
 <script>
 import { ref } from "vue";
 import axios from "axios";
-/* import Form from "@/components/landmarkForm.vue"; */
+import AddLandmark from "@/components/AddLandmark.vue";
 export default {
+  name: "Landmarks",
   components: {
-    /* Form, */
+    AddLandmark,
   },
-  name: "Form",
   props: {
-    to: String,
-    msg: String,
-    id: Number,
     title: String,
     imageUrl: String,
+    description: String,
   },
 
   data() {
-    const newLandmark = ref("");
+    //const newLandmark = ref("");
     let landmarksFromServer = ref([]);
+    const newTitle = ref("");
+    const newImageUrl = ref("");
+    const newDescription = ref("");
 
     //GET request for a list of landmarks
     async function getLandmarks() {
       const result = await axios.get("/api/get-landmarks");
-      landmarksFromServer.value = result.data.landmarks;
+      landmarksFromServer.value = result.data;
       console.log("landmarksFromServer ", landmarksFromServer.value);
     }
     // call the above function
     getLandmarks();
 
     // add new landmark
-    async function addNewLandmark(input) {
-      const headers = {
+    async function addNewLandmark() {
+      /* const headers = {
         "Content-Type": "application/json",
-      };
+      }; */
 
-      let data = {
-        title: input.value,
-      };
+      /* UNCOMMMENT THIS TO WORK WITHOUT MODAL */
+      /* let data = {
+        title: newTitle.value,
+        imageUrl: newImageUrl.value,
+        description: newDescription.value,
+      }; */
+
+      let data = this.$data.params
+      console.log(this.$data.params)
+
+      newTitle.value = "";
+      newImageUrl.value = "";
+      newDescription.value = "";
+
+      console.log("data from FE ", data);
       await axios
-        .post("/api/post-landmark", data, {
+        .post(
+          "/api/add-landmark",
+          data /* , {
           headers: headers,
-        })
+        } */
+        )
         .then(function (res) {
           console.log(res);
         })
@@ -90,16 +171,25 @@ export default {
       getLandmarks();
     }
     return {
-      newLandmark,
+      showModal: false,
       addNewLandmark,
       landmarksFromServer,
+      newTitle,
+      newImageUrl,
+      newDescription,
     };
   },
-  /* methods: {
-    inputLandmark(FormData) {
-      this.FormData = FormData;
+  methods: {
+    openModal() {
+      this.showModal = true;
     },
-  }, */
+    onChildClick() {
+      this.showModal = false;
+    },
+    receiveData(data) {
+      console.log('data drom event', data)
+    }
+  },
 };
 </script>
 
@@ -143,5 +233,13 @@ a {
 .container-fluid {
   padding-top: 20px;
   background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg");
+
+  /* background: rgb(255, 255, 255);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgb(49, 124, 158) 50%,
+    rgba(20, 71, 129, 1) 100%
+  ); */
 }
 </style>

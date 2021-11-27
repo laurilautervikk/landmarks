@@ -40,7 +40,7 @@ export default {
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`);
-      landmarkInfo.value = result.data.landmark;
+      landmarkInfo.value = result.data;
       console.log("landmarkInfo ", landmarkInfo.value);
       console.log(landmarkInfo.value.title);
     }
