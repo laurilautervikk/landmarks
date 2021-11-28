@@ -70,12 +70,12 @@ h1 {
 
 .container-fluid {
   margin: 1em 0;
-  margin-left: 150px;
+  margin-left: 290px;
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
-  box-shadow: 6px 9px 9px rgb(0, 0, 0);
-  margin-right: 50px;
+  box-shadow: 0px 9px 6px rgb(192, 192, 192);
+  border-right: none;
 }
 
 .card {
@@ -88,28 +88,30 @@ h1 {
   height: 500px;
   width: 700px;
   border-radius: 0.5em;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgb(192, 192, 192);
+  border-right: none;
 }
 
 .container-fluid2 {
   margin: 1em 0;
-  margin-left: 230px;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgb(192, 192, 192);
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
-  box-shadow: 6px 9px 9px rgb(0, 0, 0);
+  box-shadow: 6px 9px 9px rgb(192, 192, 192);
+  border-left: none;
 }
 
 h4 {
   height: 125px;
   width: 500px;
-  border-radius: 0.5em;
+
   color: #ffffff;
   text-align: center;
   margin-top: 160px;
   padding-right: 15px;
   padding-left: 15px;
+  border-left: none;
 }
 
 button {
