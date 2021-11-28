@@ -9,6 +9,7 @@
           width: 110%;
         "
       >
+      
         <h1 class="mb-3">World landmarks</h1>
       </div>
       <div class="float-right">
