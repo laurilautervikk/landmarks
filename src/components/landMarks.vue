@@ -1,10 +1,19 @@
 <template>
-<header>
-    <div class="p-5 text-center bg-image"
-      style="background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg'); height: 150px; width: 110%">
-            <h1 class="mb-3">World landmarks</h1>
+
+  <header>
+    <div
+      class="p-5 text-center bg-image"
+      style="
+        background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');
+        height: 150px;
+        width: 110%;
+      "
+    >
+      <h1 class="mb-3">World landmarks</h1>
     </div>
   </header>
+
+
   <div class="container-fluid">
     <div class="row text-center">
       <div
@@ -27,13 +36,18 @@
       </div>
     </div>
   </div>
+  <!-- <Form @click="addNewLandmark($event)" /> -->
 </template>
 
 <script>
 import { ref } from "vue";
 import axios from "axios";
+/* import Form from "@/components/landmarkForm.vue"; */
 export default {
-  name: "Imagegrid",
+  components: {
+    /* Form, */
+  },
+  name: "Form",
   props: {
     to: String,
     msg: String,
@@ -56,13 +70,15 @@ export default {
     getLandmarks();
 
     // add new landmark
-    async function addNewLandmark() {
+
+    async function addNewLandmark(input) {
+
       const headers = {
         "Content-Type": "application/json",
       };
 
       let data = {
-        title: newLandmark.value,
+        title: input.value,
       };
       await axios
         .post("/api/post-landmark", data, {
@@ -77,13 +93,17 @@ export default {
       console.log("newLandmark sent from the front: ", data);
       getLandmarks();
     }
-
     return {
       newLandmark,
       addNewLandmark,
       landmarksFromServer,
     };
   },
+  /* methods: {
+    inputLandmark(FormData) {
+      this.FormData = FormData;
+    },
+  }, */
 };
 </script>
 
@@ -111,7 +131,7 @@ export default {
   width: 300px;
   height: 250px;
   object-fit: cover;
-  border-radius: 0.25em 0.25em 0 0;
+  border-radius: 0.5em 0.5em 0 0;
 }
 
 .title {
@@ -119,6 +139,7 @@ export default {
   font-size: 1.4em;
   text-decoration: none;
   color: #454545;
+
 }
 
 a {
@@ -126,7 +147,7 @@ a {
 }
 .container-fluid {
   padding-top: 20px;
-  background-image: url('https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg');
+  background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg");
 
 }
 </style>
