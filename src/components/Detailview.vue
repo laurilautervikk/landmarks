@@ -2,6 +2,7 @@
   <div class="row">
     <h1>{{ landmarkInfo.title }}</h1>
 
+
     <div class="container-fluid">
       <div class="card">
         <img :src="landmarkInfo.imageUrl" alt="landmark image" />
@@ -16,8 +17,11 @@
 
     <div class="container mb-3">
       <button @click="$router.go(-1)">Main Menu</button>
+
     </div>
+    
   </div>
+
 </template>
 
 <script>
@@ -108,8 +112,10 @@ h4 {
   color: #ffffff;
   text-align: center;
   margin-top: 160px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 16px;
+  padding-left: 16px;
+  
+
 }
 
 button {

@@ -2,6 +2,7 @@
   <div class="Popup">
     <div class="Popup-inner">
       <slot>
+
         <form>
           <label>Landmark name:</label>
           <input type="landmarkName" required v-model="landmarkName" />
@@ -13,6 +14,7 @@
           <input type="description" required v-model="description" />
           <!-- <button @click="isHidden = true">Submit Landmark</button> -->
           <button @click="passEvent()">Submit Landmark</button>
+
         </form>
       </slot>
       <!-- <p>landmark Name: {{ landmarkName }}</p>
@@ -23,7 +25,10 @@
 </template>
 
 <script>
+
+
 export default {
+
   name: "Form",
   methods: {
     passEvent() {
@@ -38,7 +43,9 @@ export default {
       description: "",
       FormData,
     };
+
   },
+
 };
 </script>
 
@@ -93,9 +100,11 @@ input {
   color: #555;
 }
 button {
-  border-radius: 5px;
-  background-color: green;
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+
 }
 </style>
