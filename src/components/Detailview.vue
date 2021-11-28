@@ -74,7 +74,7 @@ h1 {
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
-  box-shadow: 0px 9px 6px rgb(192, 192, 192);
+  box-shadow: -6px 9px 9px rgb(0, 0, 0);
   border-right: none;
 }
 
@@ -98,14 +98,13 @@ h1 {
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
-  box-shadow: 6px 9px 9px rgb(192, 192, 192);
+  box-shadow: 6px 9px 9px rgb(0, 0, 0);
   border-left: none;
 }
 
 h4 {
   height: 125px;
   width: 500px;
-
   color: #ffffff;
   text-align: center;
   margin-top: 160px;
