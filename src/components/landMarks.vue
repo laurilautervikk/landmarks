@@ -1,4 +1,5 @@
 <template>
+
   <header>
     <div
       class="p-5 text-center bg-image"
@@ -11,6 +12,7 @@
       <h1 class="mb-3">World landmarks</h1>
     </div>
   </header>
+
 
   <div class="container-fluid">
     <div class="row text-center">
@@ -68,7 +70,9 @@ export default {
     getLandmarks();
 
     // add new landmark
+
     async function addNewLandmark(input) {
+
       const headers = {
         "Content-Type": "application/json",
       };
@@ -135,6 +139,7 @@ export default {
   font-size: 1.4em;
   text-decoration: none;
   color: #454545;
+
 }
 
 a {
@@ -143,5 +148,6 @@ a {
 .container-fluid {
   padding-top: 20px;
   background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg");
+
 }
 </style>
