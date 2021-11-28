@@ -1,27 +1,38 @@
 <template>
   <header>
-    <div class="d-flex justify-content-between">
+    <div
+      class="row d-flex justify-content-between align-items-center"
+      style="
+        background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');
+        min-height: 15%;
+        width: 100%;
+      "
+    >
       <div
-        class="p-5 text-center bg-image"
-        style="
-          background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');
-          height: 150px;
-          width: 110%;
+        class="d-none d-md-block col-sm-12 col col-md-12 col-lg-3 float-left"
+      ></div>
+      <div
+        class="
+          col col-xs-12 col-sm-12 col-md-12 col-lg-6
+          p-5
+          justify-content-center
         "
       >
-      
         <h1 class="mb-3">World landmarks</h1>
       </div>
-      <div class="float-right">
+      <div
+        class="justify-content-center col-lg-3 col-md-12 col-sm-12 float-right"
+      >
         <!-- MODAL START -->
-        <button @click="openModal" v-if="!showModal">Add Landmark</button>
+        <button class="btn btn-info" @click="openModal" v-if="!showModal">Add Landmark</button>
         <AddLandmark
           v-if="showModal"
           :showModal="showModal"
           @clicked="onChildClick"
+          @insertClicked="receiveData"
         >
           <slot>
-            <h3 class="modal-title">CodeMix</h3>
+            <h3 class="modal-title">Add a Landmark</h3>
           </slot>
           <slot>
             <p>
@@ -30,14 +41,15 @@
             </p>
           </slot>
         </AddLandmark>
-        <AddLandmark @custom-change="receiveData" />
+        <!-- <AddLandmark @insertClicked="receiveData" /> -->
         <!-- MODAL END -->
       </div>
     </div>
   </header>
 
   <!-- add landmarks form start-->
-  <div class="container">
+  
+  <!-- <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
         <label for="title">Title</label>
@@ -75,7 +87,7 @@
       </div>
     </div>
     <br />
-  </div>
+  </div> -->
 
   <!-- add landmarks form end-->
 
@@ -148,12 +160,12 @@ export default {
       }; */
 
       /* THI IS NOT WORKING )) */
-      let data = this.$data.params
-      console.log(this.$data.params)
+      let data = {};
+      console.log(this.data);
 
-      newTitle.value = "";
+      /*    newTitle.value = "";
       newImageUrl.value = "";
-      newDescription.value = "";
+      newDescription.value = ""; */
 
       console.log("data from FE ", data);
       await axios
@@ -188,9 +200,10 @@ export default {
     onChildClick() {
       this.showModal = false;
     },
-    receiveData(data) {
-      console.log('data drom event', data)
-    }
+    receiveData(value) {
+      this.data = value;
+      console.log("data from child event: ", value);
+    },
   },
 };
 </script>
@@ -243,5 +256,19 @@ a {
     rgb(49, 124, 158) 50%,
     rgba(20, 71, 129, 1) 100%
   ); */
+}
+
+button {
+  height: 50px;
+  width: fit-content;
+  margin-top: auto;
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
+  border: none;
+  border-radius: 0.5em;
+  font-weight: 600;
+}
+
+div {
+  border: solid 1px red;
 }
 </style>
