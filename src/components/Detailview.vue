@@ -1,18 +1,20 @@
 <template>
-  <div class="row">
+  <div class="row justify-content-center">
     <h1>{{ landmarkInfo.title }}</h1>
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
       <div class="card">
         <img :src="landmarkInfo.imageUrl" alt="landmark image" />
       </div>
     </div>
+    
 
     <div class="container-fluid2">
       <div class="cardtext">
         <h4>{{ landmarkInfo.description }}</h4>
       </div>
     </div>
+    
 
     <div class="container mb-3">
       <button @click="$router.go(-1)">Main Menu</button>
@@ -70,7 +72,6 @@ h1 {
 
 .container-fluid {
   margin: 1em 0;
-  margin-left: 290px;
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
@@ -81,6 +82,7 @@ h1 {
 .card {
   border-radius: 0.5em;
   border: none !important;
+  
 }
 
 .card img {
@@ -100,6 +102,8 @@ h1 {
   padding: 0px;
   box-shadow: 6px 9px 9px rgb(0, 0, 0);
   border-left: none;
+  
+  
 }
 
 h4 {

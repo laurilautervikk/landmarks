@@ -4,10 +4,7 @@
     <div
       class="p-5 text-center bg-image"
       style="
-        background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');
-        height: 150px;
-        width: 110%;
-      "
+        background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');"
     >
       <h1 class="mb-3">World landmarks</h1>
     </div>
@@ -109,6 +106,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+header{
+  height: 150px;
+  width: 100%;
+}
+
 .mb-3 {
   font-size: 50px;
   color: peachpuff;
@@ -148,6 +151,6 @@ a {
 .container-fluid {
   padding-top: 20px;
   background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg");
-
+  
 }
 </style>
