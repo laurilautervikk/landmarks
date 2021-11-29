@@ -47,7 +47,7 @@ router.patch("landmarkdmark/:id", async function (request, response) {
   response.send(result);
 });
 
-//Delete one todo
+//Delete landmark
 router.post("/delete-landmark/:id", async function (request, response) {
   const result = await Landmarks.deleteOne({ _id: request.params.id });
   console.log(result);
