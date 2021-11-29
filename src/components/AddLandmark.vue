@@ -32,6 +32,7 @@
                 type="text"
                 name="title"
                 class="form-control"
+                required
               />
               <label for="imageUrl">Image URL</label>
               <input
@@ -79,24 +80,18 @@ export default {
     const newImageUrl = ref("");
     const newDescription = ref("");
 
-    
-
-  
     /* function sendData(input) {
       this.$emit("insertClicked", input);
     } */
 
-
     return {
-
       newTitle,
       newImageUrl,
       newDescription,
     };
   },
   methods: {
-      async addNewLandmark() {
-
+    async addNewLandmark() {
       let data = {
         title: this.newTitle,
         imageUrl: this.newImageUrl,
@@ -105,10 +100,8 @@ export default {
 
       console.log(data);
 
-
       await axios
-        .post(
-          "/api/add-landmark",data)
+        .post("/api/add-landmark", data)
         .then((res) => {
           console.log(res);
           this.closeModal();
@@ -116,14 +109,12 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-        
     },
     closeModal() {
       this.$emit("clicked");
     },
   },
 };
-
 </script>
 <style>
 .modal {
