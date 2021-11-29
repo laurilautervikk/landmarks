@@ -1,8 +1,28 @@
 <template>
 
 
-<!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
+
+
+
+<!-- old image -->
+
+
+<div class="row">
+    <h1>{{ landmarkInfo.title }}</h1>
+
+    <div class="container-fluid">
+      <div class="card">
+        <img :src="landmarkInfo.imageUrl" alt="landmark image" />
+
+
+
+
+
+
+      <!-- SLIDER START -->
+
+<!--       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -10,24 +30,13 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
 
-
-  <div v-for="image in landmarkInfo.imageUrl" :key="image">
-
-  
-  <div class="carousel-inner" >
+  <div class="carousel-inner" v-for="i in landmarkInfo.imageUrl" :key="i">
     <div class="carousel-item active">
-
-      <img class="d-block w-100" :src="image" alt="First slide">
-
-
-    </div>
-
+      <img class="d-block w-100" :src="i.url" alt="First slide">
 
 </div>
 
   </div>
-
-
 
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -40,14 +49,12 @@
 </div> -->
 
 
+<!-- SLIDER END -->
 
-<!-- old image -->
-  <div class="row">
-    <h1>{{ landmarkInfo.title }}</h1>
 
-    <div class="container-fluid">
-      <div class="card">
-        <img :src="landmarkInfo.imageUrl" alt="landmark image" />
+
+
+
       </div>
     </div>
 
@@ -61,6 +68,9 @@
       <button @click="$router.go(-1)">Main Menu</button>
     </div>
   </div>
+
+
+
 <!-- old image -->
 
 
