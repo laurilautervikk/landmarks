@@ -1,64 +1,52 @@
 <template>
   <div class="modal" v-if="showModal">
     <div v-if="showModal" class="modal-content">
-      <div class="modal-body">
-        <div class="d-flex justify-content-end">
-          <div @click="closeModal">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-x-circle"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-              />
-              <path
-                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-              />
-            </svg>
+      <div class="modal-body px-4">
+        <div class="d-flex justify-content-between">
+          <h3 class="px-5 pt-3 mb-0 align-bottom">Add a new landmark</h3>
+          <div @click="closeModal" class="align-top">
+            <i class="align-top fs-2 bi bi-x-circle"></i>
           </div>
         </div>
 
         <!-- START -->
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-sm-12">
-              <label for="title">Title</label>
-              <input
-                v-model="newTitle"
-                type="text"
-                name="title"
-                class="form-control"
-                required
-              />
-              <label for="imageUrl">Image URL</label>
-              <input
-                v-model="newImageUrl"
-                type="text"
-                name="imageUrl"
-                class="form-control"
-              />
-              <label for="description">Description</label>
-              <input
-                v-model="newDescription"
-                type="text"
-                name="description"
-                class="form-control"
-              />
+        <div class="container py-4">
+          <input
+            v-model="newTitle"
+            type="text"
+            name="title"
+            placeholder="Title"
+            class="form-control"
+            required
+          />
+
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Image URL" />
+            <div class="btn btn-outline-secondary btn-height" type="button">
+              <i class="mt-auto bi bi-plus-square text-dark"></i>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12 col-sm-12">
-              <br />
-              <button @click="addNewLandmark" type="submit" class="w-100 mt-1">
-                Add new Landmark
-              </button>
-            </div>
-          </div>
+
+          <div class="container">No images inserted</div>
+
+          <textarea
+            v-model="newDescription"
+            class="form-control"
+            id="description"
+            name="description"
+            placeholder="Description goes here"
+            style="height: 10em"
+          ></textarea>
+
+          <button
+            @click="addNewLandmark"
+            type="submit"
+            class="homemade-button w-100 mt-1"
+          >
+            Add It
+          </button>
         </div>
+
         <!-- END -->
       </div>
     </div>
@@ -116,7 +104,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .modal {
   position: fixed;
   top: 50%;
@@ -134,7 +122,7 @@ export default {
   border-radius: 0.5em;
 }
 
-button {
+.homemade-button {
   height: 50px;
   width: fit-content;
   margin-top: auto;
@@ -142,5 +130,22 @@ button {
   border: none;
   border-radius: 0.5em;
   font-weight: 600;
+}
+
+.form-control {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+button {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.btn-height {
+  margin-top: 8px;
+  height: 38px;
+  border: 0px;
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
 }
 </style>
