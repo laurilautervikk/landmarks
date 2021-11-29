@@ -124,13 +124,62 @@ button {
 </style>
 =======
 <template>
-  <div class="row">
-    <h1>{{ landmarkInfo.title }}</h1>
 
+
+
+
+
+
+<!-- old image -->
+
+
+<div class="row">
+    <h1>{{ landmarkInfo.title }}</h1>
 
     <div class="container-fluid">
       <div class="card">
         <img :src="landmarkInfo.imageUrl" alt="landmark image" />
+
+
+
+
+
+
+      <!-- SLIDER START -->
+
+<!--       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+
+  <div class="carousel-inner" v-for="i in landmarkInfo.imageUrl" :key="i">
+    <div class="carousel-item active">
+      <img class="d-block w-100" :src="i.url" alt="First slide">
+
+</div>
+
+  </div>
+
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> -->
+
+
+<!-- SLIDER END -->
+
+
+
+
+
       </div>
     </div>
 
@@ -142,17 +191,19 @@ button {
 
     <div class="container mb-3">
       <button @click="$router.go(-1)">Main Menu</button>
-
     </div>
-    
   </div>
+
+
+
+<!-- old image -->
+
 
 </template>
 
 <script>
 import { ref } from "vue";
 import axios from "axios";
-
 export default {
   name: "Detailview",
   props: {
@@ -165,17 +216,18 @@ export default {
   data() {
     //const newLandmark = ref("");
     let landmarkInfo = ref([]);
-
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`);
-      landmarkInfo.value = result.data.landmark;
+      console.log("landmarkInfo is called");
+
+      landmarkInfo.value = result.data;
+
       console.log("landmarkInfo ", landmarkInfo.value);
       console.log(landmarkInfo.value.title);
     }
     // call the above function
     getLandmark(this.$route.params.id);
-
     return {
       landmarkInfo,
     };
@@ -190,59 +242,51 @@ export default {
   background-position: center;
   background-size: cover;
 }
-
 h1 {
   margin-top: 30px;
   margin-bottom: 60px;
   color: azure;
 }
-
 .container-fluid {
   margin: 1em 0;
-  margin-left: 150px;
+  margin-left: 290px;
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
-  box-shadow: 6px 9px 9px rgb(0, 0, 0);
-  margin-right: 50px;
+  box-shadow: -6px 9px 9px rgb(0, 0, 0);
+  border-right: none;
 }
-
 .card {
   border-radius: 0.5em;
   border: none !important;
 }
-
 .card img {
   object-fit: cover;
   height: 500px;
   width: 700px;
   border-radius: 0.5em;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgb(192, 192, 192);
+  border-right: none;
 }
-
 .container-fluid2 {
   margin: 1em 0;
-  margin-left: 230px;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgb(192, 192, 192);
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
   box-shadow: 6px 9px 9px rgb(0, 0, 0);
+  border-left: none;
 }
-
 h4 {
   height: 125px;
   width: 500px;
-  border-radius: 0.5em;
   color: #ffffff;
   text-align: center;
   margin-top: 160px;
-  padding-right: 16px;
-  padding-left: 16px;
-  
-
+  padding-right: 15px;
+  padding-left: 15px;
+  border-left: none;
 }
-
 button {
   float: right;
   margin-right: 20px;
