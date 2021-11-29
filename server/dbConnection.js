@@ -10,7 +10,7 @@ const Schema = mongoose.Schema;
 const LandmarkSchema = new Schema({
   id: { type: Number },
   title: { type: String },
-  imageUrl: { type: String },
+  imageUrlSet: [{ type: String }],
   description: { type: String },
 });
 

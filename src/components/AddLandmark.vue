@@ -21,13 +21,36 @@
           />
 
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Image URL" />
-            <div class="btn btn-outline-secondary btn-height" type="button">
+            <input
+              v-model="newUrl"
+              type="text"
+              class="form-control"
+              placeholder="Image URL"
+            />
+            <div
+              @click="addImage(newUrl)"
+              class="btn btn-outline-secondary btn-height"
+              type="button"
+            >
               <i class="mt-auto bi bi-plus-square text-dark"></i>
             </div>
           </div>
 
-          <div class="container">No images inserted</div>
+          <div class="container">
+            <div class="row">
+              <div
+                class="col-auto"
+                v-for="image in newImageUrlSet"
+                :key="image"
+              >
+                <img
+                  class="tiny-image img-thumbnail"
+                  :src="image"
+                  alt="missin landmark image"
+                />
+              </div>
+            </div>
+          </div>
 
           <textarea
             v-model="newDescription"
@@ -64,8 +87,9 @@ export default {
     description: String, */
   },
   data() {
+    const newUrl = ref("");
     const newTitle = ref("");
-    const newImageUrl = ref("");
+    const newImageUrlSet = ref([]);
     const newDescription = ref("");
 
     /* function sendData(input) {
@@ -73,26 +97,32 @@ export default {
     } */
 
     return {
+      newUrl,
       newTitle,
-      newImageUrl,
+      newImageUrlSet,
       newDescription,
     };
   },
   methods: {
+    //build image array
+    addImage(input) {
+      this.newImageUrlSet.push(input);
+      this.newUrl = '';
+      console.log("newImageUrlSet: ", this.newImageUrlSet);
+    },
+
     async addNewLandmark() {
       let data = {
         title: this.newTitle,
-        imageUrl: this.newImageUrl,
+        imageUrlSet: this.newImageUrlSet,
         description: this.newDescription,
       };
-
-      console.log(data);
-
+      console.log("Data from modal: ", data);
       await axios
         .post("/api/add-landmark", data)
         .then((res) => {
           console.log(res);
-          this.closeModal();
+          /* this.$emit.getLandmarks(); */
         })
         .catch(function (error) {
           console.log(error);
@@ -147,5 +177,11 @@ button {
   height: 38px;
   border: 0px;
   background: linear-gradient(to right, #16c0b0, #84cf6a);
+}
+
+.tiny-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }
 </style>
