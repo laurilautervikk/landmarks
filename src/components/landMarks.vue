@@ -1,4 +1,5 @@
 <template>
+<div>
   <header>
     <div
       class="row d-flex justify-content-between align-items-center"
@@ -49,7 +50,7 @@
 
   <!-- add landmarks form start-->
   
-  <div class="container">
+  <!-- <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
         <label for="title">Title</label>
@@ -87,7 +88,7 @@
       </div>
     </div>
     <br />
-  </div>
+  </div> -->
 
   <!-- add landmarks form end-->
 
@@ -106,6 +107,7 @@
     </div>
   </div>
 
+</div>
 </template>
 
 <script>
@@ -140,46 +142,9 @@ export default {
     getLandmarks();
 
     // add new landmark
-    async function addNewLandmark() {
-      /* const headers = {
-        "Content-Type": "application/json",
-      }; */
-
-      /* UNCOMMMENT THIS TO WORK WITHOUT MODAL */
-      let data = {
-        title: newTitle.value,
-        imageUrl: newImageUrl.value,
-        description: newDescription.value,
-      };
-
-      /* THI IS NOT WORKING )) */
-      /* let data = {};
-      console.log(this.data); */
-
-      /*    newTitle.value = "";
-      newImageUrl.value = "";
-      newDescription.value = ""; */
-
-      console.log("data from FE ", data);
-      await axios
-        .post(
-          "/api/add-landmark",
-          data /* , {
-          headers: headers,
-        } */
-        )
-        .then(function (res) {
-          console.log(res);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      console.log("newLandmark sent from the front: ", data);
-      getLandmarks();
-    }
+    
     return {
       showModal: false,
-      addNewLandmark,
       landmarksFromServer,
       newTitle,
       newImageUrl,

@@ -18,7 +18,7 @@ router.get("/get-landmark/:id", async function (request, response) {
   response.send(result);
 });
 
-//Add a new todo
+//Add a new landmark
 router.post("/add-landmark", async function (request, response) {
   if (request.body) {
     await Landmarks.create(request.body);
@@ -27,8 +27,7 @@ router.post("/add-landmark", async function (request, response) {
   response.send("BE Add landmark done");
 });
 
-//Change one todo state
-router.patch("/patch-landmark/:id", async function (request, response) {
+router.patch("landmarkdmark/:id", async function (request, response) {
   //console.log("BE started");
   let state = await Landmarks.findOne({ _id: request.params.id });
   //console.log("BE state: ", state.status);

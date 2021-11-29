@@ -52,7 +52,7 @@
           <div class="row">
             <div class="col-12 col-sm-12">
               <br />
-              <button @click="sendData()" type="submit" class="w-100 mt-1">
+              <button @click="addNewLandmark" type="submit" class="w-100 mt-1">
                 Add new Landmark
               </button>
             </div>
@@ -65,6 +65,7 @@
 </template>
 <script>
 import { ref } from "vue";
+import axios from "axios";
 export default {
   name: "AddLandmark",
   props: {
@@ -77,25 +78,52 @@ export default {
     const newTitle = ref("");
     const newImageUrl = ref("");
     const newDescription = ref("");
-    let data = ref({});
+
+    
+
+  
+    /* function sendData(input) {
+      this.$emit("insertClicked", input);
+    } */
+
 
     return {
-      data,
+
       newTitle,
       newImageUrl,
       newDescription,
     };
   },
   methods: {
+      async addNewLandmark() {
+
+      let data = {
+        title: this.newTitle,
+        imageUrl: this.newImageUrl,
+        description: this.newDescription,
+      };
+
+      console.log(data);
+
+
+      await axios
+        .post(
+          "/api/add-landmark",data)
+        .then((res) => {
+          console.log(res);
+          this.closeModal();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
+    },
     closeModal() {
       this.$emit("clicked");
     },
-    sendData(input) {
-      console.log("Local modal data: ", input);
-      this.$emit("insertClicked", input);
-    },
   },
 };
+
 </script>
 <style>
 .modal {
