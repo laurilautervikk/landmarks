@@ -1,18 +1,19 @@
 <template>
-  <button v-on:click="() => TogglePopups('buttonTrigger')">Add Landmark</button>
-  <Popup v-if="popupTriggers.buttonTrigger">
+  <!-- <button v-on:click="() => TogglePopups('buttonTrigger')">Add Landmark</button>
+   <Popup v-if="popupTriggers.buttonTrigger">
     <landmark-form />
     <button @click="() => TogglePopups('buttonTrigger')">Close</button>
-  </Popup>
+  </Popup> -->
 
   <router-view />
 </template>
 
 <script>
-import { ref } from "vue";
+/*import { ref } from "vue";
 import Popup from "./components/landmarkForm.vue";
-import landmarkForm from "./components/landmarkForm.vue";
-export default {
+import landmarkForm from "./components/landmarkForm.vue"; */
+
+/* export default {
   components: { landmarkForm },
   setup() {
     const popupTriggers = ref({
@@ -27,13 +28,10 @@ export default {
       TogglePopups,
     };
   },
-};
+}; */
 </script>
 
-
-
-/* <style>
-
+<style>
 button {
   margin-top: 20px;
     background: linear-gradient(to right, #16c0b0, #84cf6a);
@@ -62,8 +60,4 @@ button {
   color: #42b983;
 }
 
-/* div {
-  border: 1px solid red;
-} */
-
-</style> */
+</style>

@@ -9,7 +9,9 @@ app.use(
     extended: true,
   })
 );
+
 const routes = require("./router");
+const db = require("./dbConnection");
 
 //BASIC SOLUTION
 //for API routes
