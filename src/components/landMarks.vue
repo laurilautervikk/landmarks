@@ -4,8 +4,6 @@
       class="p-5 text-center bg-image"
       style="
         background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');
-        height: 150px;
-        width: 110%;
       "
     >
       <h1 class="mb-3">World landmarks</h1>
@@ -110,6 +108,11 @@ export default {
   color: peachpuff;
   text-shadow: 2px 2px 5px black;
   text-align: center;
+}
+
+header {
+  height: 150px;
+  width: 100%;
 }
 
 .box {

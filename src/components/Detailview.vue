@@ -1,14 +1,14 @@
 <template>
-  <div class="row">
+  <div class="row justify-content-center">
     <h1>{{ landmarkInfo.title }}</h1>
 
-    <div class="container-fluid">
+    <div class="container-md">
       <div class="card">
         <img :src="landmarkInfo.imageUrl" alt="landmark image" />
       </div>
     </div>
 
-    <div class="container-fluid2">
+    <div class="container-sm">
       <div class="cardtext">
         <h4>{{ landmarkInfo.description }}</h4>
       </div>
@@ -58,8 +58,10 @@ export default {
 .row {
   background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg");
   height: 100%;
-  background-position: center;
+  background-position: center center;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h1 {
@@ -68,9 +70,8 @@ h1 {
   color: azure;
 }
 
-.container-fluid {
+.container-md {
   margin: 1em 0;
-  margin-left: 290px;
   border-radius: 0.5em;
   width: fit-content;
   padding: 0px;
@@ -92,7 +93,7 @@ h1 {
   border-right: none;
 }
 
-.container-fluid2 {
+.container-sm {
   margin: 1em 0;
   border: 1px solid rgb(192, 192, 192);
   border-radius: 0.5em;
@@ -107,7 +108,8 @@ h4 {
   width: 500px;
   color: #ffffff;
   text-align: center;
-  margin-top: 160px;
+  margin-top: 140px;
+  margin-bottom: 90px;
   padding-right: 15px;
   padding-left: 15px;
   border-left: none;
