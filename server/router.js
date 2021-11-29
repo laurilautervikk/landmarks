@@ -14,7 +14,7 @@ router.get("/get-landmarks", async function (request, response) {
 //GET a single landmark by id
 router.get("/get-landmark/:id", async function (request, response) {
   let result = await Landmarks.findOne({ _id: request.params.id });
-  console.log(result);
+  console.log('Info from DB', result);
   response.send(result);
 });
 

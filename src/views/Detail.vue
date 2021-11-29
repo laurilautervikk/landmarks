@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <Detailview msg="Message from Detail.vue" />
-    <Footer msg="Message from Footer.vue" />
+    <Detailview />
+    <Footer />
   </div>
 </template>
 

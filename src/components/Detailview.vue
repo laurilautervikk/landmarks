@@ -1,4 +1,47 @@
 <template>
+
+
+<!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+
+
+  <div v-for="image in landmarkInfo.imageUrl" :key="image">
+
+  
+  <div class="carousel-inner" >
+    <div class="carousel-item active">
+
+      <img class="d-block w-100" :src="image" alt="First slide">
+
+
+    </div>
+
+
+</div>
+
+  </div>
+
+
+
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> -->
+
+
+
+<!-- old image -->
   <div class="row">
     <h1>{{ landmarkInfo.title }}</h1>
 
@@ -18,12 +61,14 @@
       <button @click="$router.go(-1)">Main Menu</button>
     </div>
   </div>
+<!-- old image -->
+
+
 </template>
 
 <script>
 import { ref } from "vue";
 import axios from "axios";
-
 export default {
   name: "Detailview",
   props: {
@@ -36,17 +81,18 @@ export default {
   data() {
     //const newLandmark = ref("");
     let landmarkInfo = ref([]);
-
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`);
-      landmarkInfo.value = result.data.landmark;
+      console.log("landmarkInfo is called");
+
+      landmarkInfo.value = result.data;
+
       console.log("landmarkInfo ", landmarkInfo.value);
       console.log(landmarkInfo.value.title);
     }
     // call the above function
     getLandmark(this.$route.params.id);
-
     return {
       landmarkInfo,
     };
@@ -61,13 +107,11 @@ export default {
   background-position: center;
   background-size: cover;
 }
-
 h1 {
   margin-top: 30px;
   margin-bottom: 60px;
   color: azure;
 }
-
 .container-fluid {
   margin: 1em 0;
   margin-left: 290px;
@@ -77,12 +121,10 @@ h1 {
   box-shadow: -6px 9px 9px rgb(0, 0, 0);
   border-right: none;
 }
-
 .card {
   border-radius: 0.5em;
   border: none !important;
 }
-
 .card img {
   object-fit: cover;
   height: 500px;
@@ -91,7 +133,6 @@ h1 {
   border: 1px solid rgb(192, 192, 192);
   border-right: none;
 }
-
 .container-fluid2 {
   margin: 1em 0;
   border: 1px solid rgb(192, 192, 192);
@@ -101,7 +142,6 @@ h1 {
   box-shadow: 6px 9px 9px rgb(0, 0, 0);
   border-left: none;
 }
-
 h4 {
   height: 125px;
   width: 500px;
@@ -112,7 +152,6 @@ h4 {
   padding-left: 15px;
   border-left: none;
 }
-
 button {
   float: right;
   margin-right: 20px;
