@@ -4,8 +4,12 @@
   {
     id: 1,
     title: "Chinese wall",
-    imageUrl:
+    imageUrl:{
       "http://www.wermac.org/civil_eng/civil_eng_pics/great_wall_china.jpg",
+      "http://www.wermac.org/civil_eng/civil_eng_pics/great_wall_china.jpg",
+      "http://www.wermac.org/civil_eng/civil_eng_pics/great_wall_china.jpg",
+      }
+      
     description:
       "The Great Wall of China is a series of fortifications that were built across the historical northern borders of ancient Chinese states.",
   },
