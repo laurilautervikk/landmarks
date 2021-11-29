@@ -29,7 +29,7 @@
           "
         >
           <!-- MODAL START -->
-          <button class="btn btn-info" @click="openModal" v-if="!showModal">
+          <button class="align-middle btn btn-info" @click="openModal" v-if="!showModal">
             Add Landmark
           </button>
           <AddLandmark
