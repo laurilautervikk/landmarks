@@ -52,7 +52,7 @@
           <div class="row">
             <div class="col-12 col-sm-12">
               <br />
-              <button @click="sendData('dummy')" type="submit" class="w-100 mt-1">
+              <button @click="sendData()" type="submit" class="w-100 mt-1">
                 Add new Landmark
               </button>
             </div>

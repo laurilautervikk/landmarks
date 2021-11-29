@@ -49,7 +49,7 @@
 
   <!-- add landmarks form start-->
   
-  <!-- <div class="container">
+  <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
         <label for="title">Title</label>
@@ -87,25 +87,17 @@
       </div>
     </div>
     <br />
-  </div> -->
+  </div>
 
   <!-- add landmarks form end-->
 
   <div class="container-fluid">
     <div class="row text-center">
-      <div
-        class="col-12 col-md-4 col-lg-3"
-        v-for="landmark in landmarksFromServer"
-        :key="landmark"
-      >
+      <div class="col-12 col-md-4 col-lg-3" v-for="landmark in landmarksFromServer" :key="landmark">
         <div class="box mx-auto d-block">
           <router-link :to="`/landmark/${landmark._id}`" class="col">
             <div class="img-frame">
-              <img
-                class="mx-auto d-block"
-                :src="landmark.imageUrl"
-                alt="landmark image"
-              />
+              <img class="mx-auto d-block" :src="landmark.imageUrl" alt="landmark image"/>
             </div>
             <p class="title" id="title">{{ landmark.title }}</p>
           </router-link>
@@ -113,6 +105,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -153,15 +146,15 @@ export default {
       }; */
 
       /* UNCOMMMENT THIS TO WORK WITHOUT MODAL */
-      /* let data = {
+      let data = {
         title: newTitle.value,
         imageUrl: newImageUrl.value,
         description: newDescription.value,
-      }; */
+      };
 
       /* THI IS NOT WORKING )) */
-      let data = {};
-      console.log(this.data);
+      /* let data = {};
+      console.log(this.data); */
 
       /*    newTitle.value = "";
       newImageUrl.value = "";
@@ -268,7 +261,7 @@ button {
   font-weight: 600;
 }
 
-div {
+/* div {
   border: solid 1px red;
-}
+} */
 </style>
