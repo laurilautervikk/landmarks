@@ -1,32 +1,28 @@
 <template>
-<div class="row">
-    <h1>{{ landmarkInfo.title }}</h1>
-    
-  <div class="container-fluid">
-    <div class="card">
-      <img :src="landmarkInfo.imageUrl" alt="landmark image" />
-      
-    </div>
-    
-  </div>
   
-  <div class="container-fluid2"> 
-    <div class="cardtext">
-        <h4>{{ landmarkInfo.description }}</h4>
-        
+    <div class="row">
+      <h1>{{ landmarkInfo.title }}</h1>
+
+      <div class="container-fluid">
+        <div class="card">
+          <img :src="landmarkInfo.imageUrl" alt="landmark image" />
+        </div>
+      </div>
+
+      <div class="container-fluid2">
+        <div class="cardtext">
+          <h4>{{ landmarkInfo.description }}</h4>
+        </div>
+      </div>
+
+      <div class="container mb-3">
+        <button @click="$router.go(-1)">Main Menu</button>
+      </div>
     </div>
-    
-  </div>
-  <div class="container mb-3">
-      <button @click="$router.go(-1)">Main Menu</button>
-    </div>
-</div>
- 
   
 </template>
 
 <script>
-
 import { ref } from "vue";
 import axios from "axios";
 
@@ -55,21 +51,18 @@ export default {
 
     return {
       landmarkInfo,
-      
     };
   },
 };
-
 </script>
 
 <style scoped>
-
-.row{
-  background-image: url('https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg');
+.row {
+  background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg");
   height: 100%;
   background-position: center;
   background-size: cover;
- }
+}
 
 h1 {
   margin-top: 30px;
@@ -78,7 +71,6 @@ h1 {
 }
 
 .container-fluid {
- 
   margin: 1em 0;
   margin-left: 150px;
   border: 1px solid rgb(255, 255, 255);
@@ -90,14 +82,13 @@ h1 {
 }
 
 .card img {
-  
   object-fit: cover;
   height: 500px;
   width: 700px;
   border-radius: 10px 10px 10px 10px;
-  }
-  
-.container-fluid2{
+}
+
+.container-fluid2 {
   margin: 1em 0;
   margin-left: 230px;
   border: 1px solid rgb(255, 255, 255);
@@ -105,30 +96,28 @@ h1 {
   width: fit-content;
   padding: 0px;
   box-shadow: 6px 9px 9px rgb(0, 0, 0);
-  
 }
 
-h4{
+h4 {
   height: 125px;
   width: 500px;
   border-radius: 10px 10px 10px 10px;
   color: #ffffff;
   text-align: center;
   margin-top: 160px;
-  padding-right: 16px;
-  padding-left: 16px;
-  
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 button {
   float: right;
   margin-right: 20px;
   height: 52px;
+  width: 200px;
   padding: 0 40px;
   background: linear-gradient(to right, #16c0b0, #84cf6a);
   border: none;
   border-radius: 6px;
   font-weight: 600;
 }
-
 </style>

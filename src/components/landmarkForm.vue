@@ -29,9 +29,7 @@
           <button type="submit">Submit Landmark</button>
         </form>
       </slot>
-      <!-- <p>landmark Name: {{ landmarkName }}</p>
-    <p>Url: {{ url }}</p>
-    <p>Description: {{ description }}</p> -->
+
     </div>
   </div>
 </template>

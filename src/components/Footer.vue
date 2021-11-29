@@ -43,5 +43,3 @@ span {
   color: black;
 }
 </style>
-
-
