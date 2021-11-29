@@ -42,4 +42,9 @@ footer {
 span {
   color: black;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+
+>>>>>>> c980048b3fc277dc0d9f5dc0e7237ad1dfc92972

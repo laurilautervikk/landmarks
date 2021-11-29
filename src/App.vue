@@ -30,9 +30,16 @@ export default {
 };
 </script>
 
+<<<<<<< HEAD
 <style>
 
 <style>
+=======
+
+
+/* <style>
+
+>>>>>>> c980048b3fc277dc0d9f5dc0e7237ad1dfc92972
 button {
   margin-top: 20px;
     background: linear-gradient(to right, #16c0b0, #84cf6a);

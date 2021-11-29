@@ -2,31 +2,19 @@
   <div class="Popup">
     <div class="Popup-inner">
       <slot>
-        <form @submit="postLandmark" method="posts">
+
+        <form>
           <label>Landmark name:</label>
-          <input
-            type="text"
-            name="landmarkName"
-            required
-            v-model="posts.landmarkName"
-          />
+          <input type="landmarkName" required v-model="landmarkName" />
 
           <label>Picture url:</label>
-          <input
-            type="text"
-            name="pictureUrl"
-            required
-            v-model="posts.pictureUrl"
-          />
+          <input type="url" required v-model="url" />
 
           <label>Description:</label>
-          <input
-            type="text"
-            name="description"
-            required
-            v-model="posts.description"
-          />
-          <button type="submit">Submit Landmark</button>
+          <input type="description" required v-model="description" />
+          <!-- <button @click="isHidden = true">Submit Landmark</button> -->
+          <button @click="passEvent()">Submit Landmark</button>
+
         </form>
       </slot>
 
@@ -38,30 +26,29 @@
 
 
 export default {
-  name: "landmarkForm",
-  data() {
-    
-      return {
-        posts: {
-        landmarkName: "",
-        url: "",
-        description: "",
-      }
-    }
-  },
 
+  name: "Form",
   methods: {
-    postLandmark(e) {
-      this.axios.post("http://localhost:3000/api/post-landmark/", this.posts)
-      .then((result) =>{
-        console.warn(result)
-      })
-      e.preventDefault();
+    passEvent() {
+      this.$emit(FormData);
+      console.log('FormData ', FormData)
     },
+  },
+  Data() {
+    return {
+      landmarkName: "",
+      url: "",
+      description: "",
+      FormData,
+    };
+
   },
 
 };
 </script>
+
+
+
 
 <style scoped>
 .popup {
@@ -111,9 +98,11 @@ input {
   color: #555;
 }
 button {
+
   background: linear-gradient(to right, #16c0b0, #84cf6a);
   border: none;
   border-radius: 6px;
   font-weight: 600;
+
 }
 </style>
