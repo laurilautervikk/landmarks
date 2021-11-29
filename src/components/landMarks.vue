@@ -48,49 +48,6 @@
     </div>
   </header>
 
-  <!-- add landmarks form start-->
-  
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <label for="title">Title</label>
-        <input
-          v-model="newTitle"
-          type="text"
-          name="title"
-          class="form-control"
-        />
-        <label for="imageUrl">Image URL</label>
-        <input
-          v-model="newImageUrl"
-          type="text"
-          name="imageUrl"
-          class="form-control"
-        />
-        <label for="description">Description</label>
-        <input
-          v-model="newDescription"
-          type="text"
-          name="description"
-          class="form-control"
-        />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <button
-          @click="addNewLandmark"
-          type="submit"
-          class="btn btn-primary w-100 mt-1"
-        >
-          Add new Landmark
-        </button>
-      </div>
-    </div>
-    <br />
-  </div> -->
-
-  <!-- add landmarks form end-->
 
   <div class="container-fluid">
     <div class="row text-center">
@@ -198,6 +155,7 @@ export default {
   font-size: 1.4em;
   text-decoration: none;
   color: #454545;
+
 }
 
 a {
