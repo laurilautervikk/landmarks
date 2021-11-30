@@ -4,6 +4,7 @@
       <h1>{{ landmarkInfo.title }}</h1>
     </div>
 
+
     <div class="row mx-3 image-text-box">
       <div class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix">
         <div class="card-image">
@@ -55,6 +56,7 @@
 
           <!-- SLIDER END -->
         </div>
+
       </div>
 
       <div class="col-12 col-lg-5 col-md-12 col-sm-12 d-flex align-items-center">
@@ -64,6 +66,7 @@
       </div>
     </div>
     <!-- changed from go to push, otherwise it acted like 'back' on browser controls -->
+
     <div class="row m-3 justify-content-end">
       <button @click="$router.push('/')">Main Menu</button>
     </div>
@@ -71,7 +74,7 @@
 
   <!-- old image -->
 
-  <!-- old image -->
+
 </template>
 
 <script>
@@ -99,7 +102,9 @@ export default {
     }
     // call the above function
     getLandmark(this.$route.params.id);
+
     console.log(this.$route.params.id);
+
     return {
       landmarkInfo,
     };
