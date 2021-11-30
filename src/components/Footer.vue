@@ -1,13 +1,13 @@
 <template>
   <footer id="footer" role="contentinfo">
-    <div class="container my-3">
+    <div class="container my-3 text-center">
       <span>Mikk Ereline</span>&nbsp;&nbsp;
       <span>Ekaterina Chigasova</span>&nbsp;&nbsp;
       <span>Edgar Kollamaa</span>&nbsp;&nbsp;
       <span>Lauri Lauter</span>&nbsp;&nbsp;
       <span>Taavet Lehiste</span>&nbsp;&nbsp;
     </div>
-    <div class="row">
+    <div class="row text-center">
       <a
         class="social-icon"
         href="https://github.com/laurilautervikk/landmarks"
@@ -41,6 +41,10 @@ footer {
 }
 span {
   color: black;
+}
+
+div {
+  border: 1px solid greenyellow;
 }
 </style>
 

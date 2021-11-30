@@ -1,13 +1,8 @@
 <template>
   <div>
-    <header>
+    <header class="container-fluid banner">
       <div
-        class="row d-flex justify-content-between align-items-center"
-        style="
-          background-image: url('https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg');
-          min-height: 15%;
-          width: 100%;
-        "
+        class="row d-flex justify-content-between align-items-center header-row"
       >
         <div
           class="d-none d-md-block col-sm-12 col col-md-12 col-lg-3 float-left"
@@ -21,15 +16,13 @@
         >
           <h1 class="mb-3">World landmarks</h1>
         </div>
-        <div
-          class="
-            justify-content-center
-            col-lg-3 col-md-12 col-sm-12
-            float-right
-          "
-        >
+        <div class="text-center col-lg-3 col-md-12 col-sm-12 float-right">
           <!-- MODAL START -->
-          <button class="align-middle btn btn-info" @click="openModal" v-if="!showModal">
+          <button
+            class="align-middle btn btn-info m-1"
+            @click="openModal"
+            v-if="!showModal"
+          >
             Add Landmark
           </button>
           <AddLandmark
@@ -42,13 +35,12 @@
               <h3 class="modal-title">Add a Landmark</h3>
             </slot>
           </AddLandmark>
-          <!-- <AddLandmark @insertClicked="receiveData" /> -->
           <!-- MODAL END -->
         </div>
       </div>
     </header>
 
-    <div class="container-fluid">
+    <div class="container-fluid body-section">
       <div class="row justify-content-center">
         <div
           class="col-auto"
@@ -166,17 +158,20 @@ export default {
 a {
   text-decoration: none;
 }
-.container-fluid {
-  padding-top: 20px;
-  background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg");
-
-  /* background: rgb(255, 255, 255);
+.banner {
+  background-image: url("https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg");
+  min-height: 15%;
+  width: auto;
+}
+.body-section {
+  background: rgb(30, 177, 235);
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgb(49, 124, 158) 50%,
+    rgb(58, 161, 192) 0%,
+    rgb(25, 95, 128) 50%,
     rgba(20, 71, 129, 1) 100%
-  ); */
+  );
+  min-height: 70vh;
 }
 
 button {
@@ -189,7 +184,7 @@ button {
   font-weight: 600;
 }
 
-/* div {
+div {
   border: solid 1px red;
-} */
+}
 </style>

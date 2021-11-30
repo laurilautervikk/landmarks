@@ -124,6 +124,7 @@ export default {
 
     deleteThumbnail(input) {
       console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
+      //get a list of children
       let list = document.getElementById("thumb-row");
       if (this.newImageUrlSet) {
         list.removeChild(list.childNodes[input]);
