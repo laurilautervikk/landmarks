@@ -184,7 +184,7 @@ button {
   font-weight: 600;
 }
 
-div {
+/* div {
   border: solid 1px red;
-}
+} */
 </style>
