@@ -23,17 +23,18 @@
           <div class="input-group">
             <input
               v-model="newUrl"
-              type="text"
+              type="url"
               class="form-control"
               placeholder="Image URL"
+              required
             />
-            <div
+            <button
               @click="addImage(newUrl)"
               class="plus-box btn btn-outline-secondary btn-height"
-              type="button"
+              type="button" :disabled="newUrl.length == 0"
             >
               <i class="plus fs-2 bi bi-plus text-dark"></i>
-            </div>
+            </button>
           </div>
 
           <div class="container">
@@ -63,6 +64,7 @@
             name="description"
             placeholder="Description goes here"
             style="height: 10em"
+            required
           ></textarea>
 
           <button
@@ -110,17 +112,27 @@ export default {
   methods: {
     //build image array
     addImage(input) {
-      this.newImageUrlSet.push(input);
-      this.newUrl = "";
-      console.log("newImageUrlSet: ", this.newImageUrlSet);
+      console.log('trying to insert: ', input)
+      if (input) {
+        this.newImageUrlSet.push(input);
+        this.newUrl = "";
+        console.log("newImageUrlSet: ", this.newImageUrlSet);
+      } else {
+        console.log("Image URL not inserted");
+      }
     },
 
     deleteThumbnail(input) {
       console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
       let list = document.getElementById("thumb-row");
-      list.removeChild(list.childNodes[input]);
-      this.newImageUrlSet.splice(input, 1);
-      console.log("trying to delte: ", input);
+      if (this.newImageUrlSet) {
+        list.removeChild(list.childNodes[input]);
+        this.newImageUrlSet.splice(input, 1);
+        console.log("trying to delte: ", input);
+      } else {
+        console.log("No thumbnails left to delete");
+      }
+
       console.log("this.newImageUrlSet after delete: ", this.newImageUrlSet);
     },
 
