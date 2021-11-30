@@ -23,31 +23,36 @@
           <div class="input-group">
             <input
               v-model="newUrl"
-              type="text"
+              type="url"
               class="form-control"
               placeholder="Image URL"
+              required
             />
-            <div
+            <button
               @click="addImage(newUrl)"
-              class="btn btn-outline-secondary btn-height"
-              type="button"
+              class="plus-box btn btn-outline-secondary btn-height"
+              type="button" :disabled="newUrl.length == 0"
             >
-              <i class="mt-auto bi bi-plus-square text-dark"></i>
-            </div>
+              <i class="plus fs-2 bi bi-plus text-dark"></i>
+            </button>
           </div>
 
           <div class="container">
-            <div class="row">
+            <div id="thumb-row" class="row d-flex flex-wrap">
               <div
-                class="col-auto"
-                v-for="image in newImageUrlSet"
+                class="image-box col-3"
+                v-for="(image, id) in newImageUrlSet"
                 :key="image"
+                :id="id"
               >
                 <img
                   class="tiny-image img-thumbnail"
                   :src="image"
-                  alt="missin landmark image"
+                  alt="missing image"
                 />
+                <div @click="deleteThumbnail(id)" class="delete" type="button">
+                  <i class="fs-2 bi bi-trash"></i>
+                </div>
               </div>
             </div>
           </div>
@@ -59,6 +64,7 @@
             name="description"
             placeholder="Description goes here"
             style="height: 10em"
+            required
           ></textarea>
 
           <button
@@ -106,9 +112,29 @@ export default {
   methods: {
     //build image array
     addImage(input) {
-      this.newImageUrlSet.push(input);
-      this.newUrl = '';
-      console.log("newImageUrlSet: ", this.newImageUrlSet);
+      console.log('trying to insert: ', input)
+      if (input) {
+        this.newImageUrlSet.push(input);
+        this.newUrl = "";
+        console.log("newImageUrlSet: ", this.newImageUrlSet);
+      } else {
+        console.log("Image URL not inserted");
+      }
+    },
+
+    deleteThumbnail(input) {
+      console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
+      //get a list of children
+      let list = document.getElementById("thumb-row");
+      if (this.newImageUrlSet) {
+        list.removeChild(list.childNodes[input]);
+        this.newImageUrlSet.splice(input, 1);
+        console.log("trying to delte: ", input);
+      } else {
+        console.log("No thumbnails left to delete");
+      }
+
+      console.log("this.newImageUrlSet after delete: ", this.newImageUrlSet);
     },
 
     async addNewLandmark() {
@@ -183,5 +209,39 @@ button {
   width: 100px;
   height: 100px;
   object-fit: cover;
+  margin: 10px 5px;
+}
+
+.plus-box {
+  position: relative;
+  width: 2.5em;
+}
+
+.plus {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.image-box {
+  position: relative;
+}
+
+div.image-box:hover img {
+  opacity: 0.3;
+}
+div.image-box:hover div {
+  position: absolute;
+  display: block;
+}
+div.image-box div {
+  display: none;
+}
+div.image-box div.delete {
+  top: 15px;
+  right: 20px;
 }
 </style>
