@@ -8,8 +8,7 @@ mongoose.connect(
 const Schema = mongoose.Schema;
 
 const LandmarkSchema = new Schema({
-  id: { type: Number },
-  title: { type: String },
+  title: { type: String, required: true },
   imageUrlSet: [{ type: String }],
   description: { type: String },
 });

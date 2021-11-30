@@ -36,7 +36,6 @@
             v-if="showModal"
             :showModal="showModal"
             @clicked="onChildClick"
-            @relaod="getLandmarks"
             @insertClicked="receiveData"
           >
             <slot>
