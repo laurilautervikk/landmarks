@@ -12,44 +12,45 @@
     <h1>{{ landmarkInfo.title }}</h1>
 
     <div class="container-fluid">
-      <div class="card">
-        <img :src="landmarkInfo.imageUrl" alt="landmark image" />
+      <div class="card" v-for="i in landmarkInfo.imageUrlSet" :key="i">
+
+        <img :src="i" alt="landmark image" />
 
 
 
 
 
 
-      <!-- SLIDER START -->
+                <!-- SLIDER START -->
 
-<!--       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <!--       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
 
-  <div class="carousel-inner" v-for="i in landmarkInfo.imageUrl" :key="i">
-    <div class="carousel-item active">
-      <img class="d-block w-100" :src="i.url" alt="First slide">
+            <div class="carousel-inner" v-for="i in landmarkInfo.imageUrl" :key="i">
+              <div class="carousel-item active">
+                <img class="d-block w-100" :src="i.url" alt="First slide">
 
-</div>
+          </div>
 
-  </div>
+            </div>
 
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div> -->
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div> -->
 
 
-<!-- SLIDER END -->
+          <!-- SLIDER END -->
 
 
 
@@ -103,6 +104,7 @@ export default {
     }
     // call the above function
     getLandmark(this.$route.params.id);
+    console.log(this.$route.params.id)
     return {
       landmarkInfo,
     };
