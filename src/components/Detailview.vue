@@ -12,49 +12,37 @@
     <h1>{{ landmarkInfo.title }}</h1>
 
     <div class="container-fluid">
-      <div class="card" v-for="i in landmarkInfo.imageUrlSet" :key="i">
+      <div class="card">
 
-        <img :src="i" alt="landmark image" />
+      <!-- <div class="card" v-for="i in landmarkInfo.imageUrlSet" :key="i">
+
+        <img :src="i" alt="landmark image" /> -->
+
+       <!-- </div> -->
 
 
+          <!-- SLIDER START -->
 
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
 
+                  <div class="carousel-item active" v-for="i in landmarkInfo.imageUrlSet" :key="i">
+                    <img class="d-block w-100" :src="i" alt="First slide">
+                  </div>
 
-
-                <!-- SLIDER START -->
-
-          <!--       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-
-            <div class="carousel-inner" v-for="i in landmarkInfo.imageUrl" :key="i">
-              <div class="carousel-item active">
-                <img class="d-block w-100" :src="i.url" alt="First slide">
-
-          </div>
-
-            </div>
-
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div> -->
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
 
 
           <!-- SLIDER END -->
-
-
-
-
 
       </div>
     </div>
@@ -64,13 +52,13 @@
         <h4>{{ landmarkInfo.description }}</h4>
       </div>
     </div>
-
+    <!-- changed from go to push, otherwise it acted like 'back' on browser controls -->
     <div class="container mb-3">
-      <button @click="$router.go(-1)">Main Menu</button>
+      <button @click="$router.push('/')">Main Menu</button>
     </div>
-  </div>
+  
 
-
+</div>
 
 <!-- old image -->
 
