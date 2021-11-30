@@ -29,13 +29,14 @@
           "
         >
           <!-- MODAL START -->
-          <button class="btn btn-info" @click="openModal" v-if="!showModal">
+          <button class="align-middle btn btn-info" @click="openModal" v-if="!showModal">
             Add Landmark
           </button>
           <AddLandmark
             v-if="showModal"
             :showModal="showModal"
             @clicked="onChildClick"
+            @relaod="getLandmarks"
             @insertClicked="receiveData"
           >
             <slot>
@@ -60,7 +61,7 @@
               <div class="img-frame">
                 <img
                   class="mx-auto d-block"
-                  :src="landmark.imageUrl"
+                  :src="landmark.imageUrlSet[0]"
                   alt="landmark image"
                 />
               </div>
@@ -189,7 +190,7 @@ button {
   font-weight: 600;
 }
 
-div {
+/* div {
   border: solid 1px red;
-}
+} */
 </style>

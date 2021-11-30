@@ -47,13 +47,13 @@ import landmarkForm from "./components/landmarkForm.vue"; */
 >>>>>>> 3100398f7edd0fc68e038117491c17bcace78105
 button {
   margin-top: 20px;
-    background: linear-gradient(to right, #16c0b0, #84cf6a);
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
   border: none;
   border-radius: 6px;
   font-weight: 600;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
