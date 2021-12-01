@@ -11,17 +11,17 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    /* meta: {
+    meta: {
       auth: true,
-    }, */
+    },
   },
   {
     path: "/landmark",
     name: "Detail",
     component: Detail,
-    /* meta: {
+    meta: {
       auth: true,
-    }, */
+    },
     children: [
       {
         path: "/landmark/:id",
@@ -55,18 +55,31 @@ const router = createRouter({
   routes,
 });
 
+
+// GOOD - infinite loop
+/* router.beforeEach((to, from, next) => {
+  if (to.meta.auth !== 'Login' && !localStorage.getItem("token")) next({ name: 'Login' })
+  else next()
+  console.log("Token still fresh");
+}); */
+
+
+//this gives a warning of double next() in some cases
 router.beforeEach((to, from, next) => {
   if (to.meta.auth) {
     if (localStorage.getItem("token")) {
       next();
     } else {
+      console.log('Login needed')
       next({ name: "Login" });
     }
   } else {
     next();
   }
-  console.log("dsdsds");
-  next();
+  console.log("Token still fresh");
 });
+
+
+
 
 export default router;

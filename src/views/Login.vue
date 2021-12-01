@@ -5,7 +5,7 @@
       style="height: 100vh"
     >
       <div class="col-4">
-        <div class="card">
+        <div class="card p-3">
           <h3>Login</h3>
           <div class="card-body">
             <div class="form-group">
@@ -17,6 +17,7 @@
                 placeholder="exmaple@test.ee"
               />
             </div>
+            <br />
             <div class="form-group">
               <input
                 type="password"
@@ -26,9 +27,18 @@
                 placeholder="Password"
               />
             </div>
-            <button type="button" @click="login" class="btn btn-primary">
-              Login
-            </button>
+            <br />
+            <div class="d-flex justify-content-between">
+              <button type="button" @click="login" class="btn btn-primary">
+                Login
+              </button>
+              <button
+                class="btn btn-secondary"
+                @click="$router.push('/register')"
+              >
+                Register
+              </button>
+            </div>
           </div>
         </div>
       </div>

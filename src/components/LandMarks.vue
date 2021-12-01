@@ -6,7 +6,13 @@
       >
         <div
           class="d-none d-md-block col-sm-12 col col-md-12 col-lg-3 float-left"
-        ></div>
+        >
+        <div class="row m-3 justify-content-end">
+      <button @click="$router.push('/login')">Login</button>
+      <button @click="$router.push('/register')">Register</button>
+      <button @click="logout">Logout</button>
+    </div>
+        </div>
         <div
           class="
             col col-xs-12 col-sm-12 col-md-12 col-lg-6
@@ -68,7 +74,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import AddLandmark from "@/components/AddLandmark.vue";
-export default {
+export default { 
   name: "Landmarks",
   components: {
     AddLandmark,
@@ -108,8 +114,13 @@ export default {
       await getLandmarks();
     }
     // add new landmark
+    function logout() {
+      localStorage.removeItem('token');
+      this.$router.go('/login'); //NOT WORKING
+    }
 
     return {
+      logout,
       openModal,
       onChildClick,
       showModal,
@@ -178,7 +189,7 @@ a {
 button {
   height: 50px;
   width: fit-content;
-  margin-top: auto;
+  margin: 0.5em;
   background: linear-gradient(to right, #16c0b0, #84cf6a);
   border: none;
   border-radius: 0.5em;
