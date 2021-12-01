@@ -94,7 +94,11 @@ export default {
     let landmarkInfo = ref([]);
     //GET request for a single landmark
     async function getLandmark(id) {
-      const result = await axios.get(`/api/get-landmark/${id}`);
+      const result = await axios.get(`/api/get-landmark/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       console.log("landmarkInfo is called");
       landmarkInfo.value = result.data;
       console.log("landmarkInfo ", landmarkInfo.value);

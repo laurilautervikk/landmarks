@@ -29,7 +29,6 @@
             v-if="showModal"
             :showModal="showModal"
             @clicked="onChildClick"
-            @insertClicked="receiveData"
           >
             <slot>
               <h3 class="modal-title">Add a Landmark</h3>
@@ -80,43 +79,45 @@ export default {
     description: String,
   },
 
-  data() {
+  setup() {
     //const newLandmark = ref("");
     let landmarksFromServer = ref([]);
     const newTitle = ref("");
     const newImageUrl = ref("");
     const newDescription = ref("");
+    let showModal = ref(false);
 
     //GET request for a list of landmarks
     async function getLandmarks() {
-      const result = await axios.get("/api/get-landmarks");
+      const result = await axios.get("/api/get-landmarks", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       landmarksFromServer.value = result.data;
       console.log("landmarksFromServer ", landmarksFromServer.value);
     }
     // call the above function
     getLandmarks();
 
+    function openModal() {
+      showModal.value = true;
+    }
+    async function onChildClick() {
+      showModal.value = false;
+      await getLandmarks();
+    }
     // add new landmark
 
     return {
-      showModal: false,
+      openModal,
+      onChildClick,
+      showModal,
       landmarksFromServer,
       newTitle,
       newImageUrl,
       newDescription,
     };
-  },
-  methods: {
-    openModal() {
-      this.showModal = true;
-    },
-    onChildClick() {
-      this.showModal = false;
-    },
-    receiveData(value) {
-      this.data = value;
-      console.log("data from child event: ", value);
-    },
   },
 };
 </script>

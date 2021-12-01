@@ -31,7 +31,8 @@
             <button
               @click="addImage(newUrl)"
               class="plus-box btn btn-outline-secondary btn-height"
-              type="button" :disabled="newUrl.length == 0"
+              type="button"
+              :disabled="newUrl.length == 0"
             >
               <i class="plus fs-2 bi bi-plus text-dark"></i>
             </button>
@@ -41,16 +42,19 @@
             <div id="thumb-row" class="row d-flex flex-wrap">
               <div
                 class="image-box col-3"
-                v-for="(image, id) in newImageUrlSet"
+                v-for="(image, index) in newImageUrlSet"
                 :key="image"
-                :id="id"
               >
                 <img
                   class="tiny-image img-thumbnail"
                   :src="image"
                   alt="missing image"
                 />
-                <div @click="deleteThumbnail(id)" class="delete" type="button">
+                <div
+                  @click="deleteThumbnail(index)"
+                  class="delete"
+                  type="button"
+                >
                   <i class="fs-2 bi bi-trash"></i>
                 </div>
               </div>
@@ -92,6 +96,8 @@ export default {
     imageUrl: String,
     description: String, */
   },
+  emits: ["submitted", "clicked"],
+
   data() {
     const newUrl = ref("");
     const newTitle = ref("");
@@ -112,7 +118,7 @@ export default {
   methods: {
     //build image array
     addImage(input) {
-      console.log('trying to insert: ', input)
+      console.log("trying to insert: ", input);
       if (input) {
         this.newImageUrlSet.push(input);
         this.newUrl = "";
@@ -124,17 +130,11 @@ export default {
 
     deleteThumbnail(input) {
       console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
-      //get a list of children
-      let list = document.getElementById("thumb-row");
-      if (this.newImageUrlSet) {
-        list.removeChild(list.childNodes[input]);
-        this.newImageUrlSet.splice(input, 1);
-        console.log("trying to delte: ", input);
-      } else {
-        console.log("No thumbnails left to delete");
-      }
-
-      console.log("this.newImageUrlSet after delete: ", this.newImageUrlSet);
+      this.newImageUrlSet = this.newImageUrlSet.filter((image, index) => {
+        if (index !== input) {
+          return image;
+        }
+      });
     },
 
     async addNewLandmark() {
@@ -145,10 +145,14 @@ export default {
       };
       console.log("Data from modal: ", data);
       await axios
-        .post("/api/add-landmark", data)
+        .post("/api/add-landmark", data, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
         .then((res) => {
           console.log(res);
-          /* this.$emit.getLandmarks(); */
+          this.$emit("submitted");
         })
         .catch(function (error) {
           console.log(error);

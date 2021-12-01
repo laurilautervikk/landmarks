@@ -13,6 +13,15 @@ app.use(
 const routes = require("./router");
 const db = require("./dbConnection");
 
+const expressJwt = require("express-jwt");
+const { SECRET } = require("./config");
+
+app.use(
+  expressJwt({ secret: SECRET, algorithms: ["HS256"] }).unless({
+    path: ["/api/auth/register", "/api/auth/login"], //add whitelisted routes as necessary
+  })
+);
+
 //BASIC SOLUTION
 //for API routes
 app.use("/api", routes);

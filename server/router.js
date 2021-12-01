@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { Landmarks } = require("./dbConnection");
-//const request = require("request");
-//const app = express();
+const authRoutes = require("./authRoutes");
+router.use("/auth", authRoutes);
 
 
 //GET landmarks list
