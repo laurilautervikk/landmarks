@@ -1,19 +1,19 @@
 <template>
-  <!-- <button v-on:click="() => TogglePopups('buttonTrigger')">Add Landmark</button>
+  <button v-on:click="() => TogglePopups('buttonTrigger')">Add Landmark</button>
    <Popup v-if="popupTriggers.buttonTrigger">
     <landmark-form />
     <button @click="() => TogglePopups('buttonTrigger')">Close</button>
-  </Popup> -->
+  </Popup>
 
   <router-view />
 </template>
 
 <script>
-/*import { ref } from "vue";
-import Popup from "./components/landmarkForm.vue";
-import landmarkForm from "./components/landmarkForm.vue"; */
+import { ref } from "vue";
+import Popup from "./components/LandmarkForm.vue";
+import landmarkForm from "./components/LandmarkForm.vue";
 
-/* export default {
+export default {
   components: { landmarkForm },
   setup() {
     const popupTriggers = ref({
@@ -28,23 +28,11 @@ import landmarkForm from "./components/landmarkForm.vue"; */
       TogglePopups,
     };
   },
-}; */
+}; 
 </script>
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 <style>
 
-<style>
-=======
 
-
-/* <style>
-
->>>>>>> c980048b3fc277dc0d9f5dc0e7237ad1dfc92972
-=======
-<style>
->>>>>>> 3100398f7edd0fc68e038117491c17bcace78105
 button {
   margin-top: 20px;
   background: linear-gradient(to right, #16c0b0, #84cf6a);
@@ -73,12 +61,4 @@ button {
   color: #42b983;
 }
 
-<<<<<<< HEAD
- div {
-  border: 1px solid red;
-} 
-
-</style> 
-=======
 </style>
->>>>>>> 3100398f7edd0fc68e038117491c17bcace78105
