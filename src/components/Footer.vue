@@ -38,6 +38,7 @@ footer {
   padding-top: 20px;
   font-size: 15px;
   background: lightgrey;
+  min-height: 10em;
 }
 span {
   color: black;

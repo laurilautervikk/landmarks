@@ -7,18 +7,14 @@
         <div
           class="d-none d-md-block col-sm-12 col col-md-12 col-lg-3 float-left"
         >
-        <div class="row m-3 justify-content-end">
-      <button @click="$router.push('/login')">Login</button>
-      <button @click="$router.push('/register')">Register</button>
-      <button @click="logout">Logout</button>
-    </div>
+          <div class="row m-3 justify-content-end">
+            <button @click="$router.push('/login')">Login</button>
+            <button @click="$router.push('/register')">Register</button>
+            <button @click="logout">Logout</button>
+          </div>
         </div>
         <div
-          class="
-            col col-xs-12 col-sm-12 col-md-12 col-lg-6
-            p-5
-            justify-content-center
-          "
+          class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 p-5 justify-content-center"
         >
           <h1 class="mb-3">World landmarks</h1>
         </div>
@@ -48,7 +44,7 @@
     <div class="container-fluid body-section">
       <div class="row justify-content-center">
         <div
-          class="col-auto"
+          class="col-auto p-3"
           v-for="landmark in landmarksFromServer"
           :key="landmark"
         >
@@ -74,7 +70,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import AddLandmark from "@/components/AddLandmark.vue";
-export default { 
+export default {
   name: "Landmarks",
   components: {
     AddLandmark,
@@ -115,8 +111,8 @@ export default {
     }
     // add new landmark
     function logout() {
-      localStorage.removeItem('token');
-      this.$router.go('/login'); //NOT WORKING
+      localStorage.removeItem("token");
+      this.$router.go("/login"); //NOT WORKING
     }
 
     return {
@@ -183,7 +179,7 @@ a {
     rgb(25, 95, 128) 50%,
     rgba(20, 71, 129, 1) 100%
   );
-  min-height: 70vh;
+  /* min-height: 70vh; */
 }
 
 button {
@@ -196,7 +192,7 @@ button {
   font-weight: 600;
 }
 
-/* div {
-  border: solid 1px red;
-} */
+div {
+  border: solid 1px green;
+}
 </style>

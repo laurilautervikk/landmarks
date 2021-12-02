@@ -27,4 +27,11 @@ export default {
 </script>
 
 <style>
+.home {
+  min-height: 100vh
+}
+
+div {
+  border: 1px solid red;
+}
 </style>
