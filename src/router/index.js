@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/views/Home.vue";
+import LandMarks from "@/components/LandMarks.vue";
 import Detail from "@/views/Detail.vue";
 import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
@@ -9,8 +9,8 @@ import PageNotFound from "@/views/PageNotFound.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "LandMarks",
+    component: LandMarks,
     meta: {
       auth: false,
     },
@@ -28,7 +28,7 @@ const routes = [
         name: "Detailview",
         component: Detailview,
         meta: {
-          auth: true,
+          auth: false,
         },
       },
     ],

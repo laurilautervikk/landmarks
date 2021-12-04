@@ -7,6 +7,27 @@
 
     <div class="row d-flex justify-content-center">
 
+      <div class="row btn-row m-3 justify-content-end">
+      <!-- MODAL START -->
+          <button
+            class="align-middle btn btn-info m-1"
+            @click="openModal"
+            v-if="!showModal && token"
+          >
+            Edit Landmark
+          </button>
+          <EditLandmark
+            v-if="showModal"
+            :showModal="showModal"
+            @clicked="onChildClick"
+          >
+            <slot>
+              <h3 class="modal-title">Edit this Landmark</h3>
+            </slot>
+          </EditLandmark>
+          <!-- MODAL END -->
+    </div>
+
     
       <div class="row mx-3 image-text-box">
         <div class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix">
@@ -85,10 +106,12 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import EditLandmark from "@/components/EditLandmark.vue";
 import Footer from "@/components/Footer.vue";
 export default {
   name: "Detailview",
   components: {
+    EditLandmark,
     Footer,
   },
   props: {
@@ -99,8 +122,11 @@ export default {
     description: String,
   },
   data() {
-    //const newLandmark = ref("");
     let landmarkInfo = ref([]);
+    let token = ref(localStorage.getItem("token"));
+    console.log("token: ", token);
+    let showModal = ref(false);
+
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`, {
@@ -116,10 +142,24 @@ export default {
     // call the above function
     getLandmark(this.$route.params.id);
 
-    console.log(this.$route.params.id);
+    //console.log(this.$route.params.id);
+
+    //open modal
+    function openModal() {
+      showModal.value = true;
+    }
+    //close modal, reload landmarks
+    async function onChildClick() {
+      showModal.value = false;
+      await getLandmark(this.$route.params.id);
+    }
 
     return {
       landmarkInfo,
+      token,
+      openModal,
+      onChildClick,
+      showModal,
     };
   },
 };
