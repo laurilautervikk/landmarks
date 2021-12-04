@@ -12,7 +12,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      auth: true,
+      auth: false,
     },
   },
   {
@@ -20,7 +20,7 @@ const routes = [
     name: "Detail",
     component: Detail,
     meta: {
-      auth: true,
+      auth: false,
     },
     children: [
       {
@@ -56,16 +56,16 @@ const router = createRouter({
 });
 
 
-// GOOD - infinite loop
-/* router.beforeEach((to, from, next) => {
-  if (to.meta.auth !== 'Login' && !localStorage.getItem("token")) next({ name: 'Login' })
+// GOOD
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth === true && !localStorage.getItem("token")) next({ route: '/' }) //Might be set to '/login' as well
   else next()
-  console.log("Token still fresh");
-}); */
+  console.log("Login logic passed");
+});
 
 
 //this gives a warning of double next() in some cases
-router.beforeEach((to, from, next) => {
+/* router.beforeEach((to, from, next) => {
   if (to.meta.auth) {
     if (localStorage.getItem("token")) {
       next();
@@ -76,8 +76,8 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-  console.log("Token still fresh");
-});
+  console.log("Token check block");
+}); */
 
 
 

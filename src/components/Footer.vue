@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer" role="contentinfo">
+  <footer id="footer" class="container-fluid">
     <div class="container my-3 text-center">
       <span>Mikk Ereline</span>&nbsp;&nbsp;
       <span>Ekaterina Chigasova</span>&nbsp;&nbsp;
@@ -34,18 +34,18 @@
 </template>
 
 <style scoped>
+
 footer {
   padding-top: 20px;
   font-size: 15px;
   background: lightgrey;
   min-height: 10em;
 }
+
+
 span {
   color: black;
 }
 
-/* div {
-  border: 1px solid greenyellow;
-} */
 </style>
 

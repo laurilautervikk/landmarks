@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container layout">
     <div
       class="row justify-content-center align-items-center"
       style="height: 100vh"
@@ -7,6 +7,11 @@
       <div class="col-4">
         <div class="card p-3">
           <h3>Login</h3>
+          <!-- HINT -->
+          <br>
+          <p>example@test.ee</p>
+          <p>example</p>
+          <!-- HINT -->
           <div class="card-body">
             <div class="form-group">
               <input

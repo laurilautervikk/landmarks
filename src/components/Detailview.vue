@@ -1,6 +1,7 @@
 <template>
+<div class="layout">
   <div class="container-fluid body-section py-3">
-    <div class="row text-center my-3">
+    <div class="row text-center mt-5 my-3">
       <h1>{{ landmarkInfo.title }}</h1>
     </div>
 
@@ -75,17 +76,21 @@
 
     
   </div>
-
+  <Footer />
   <!-- old image -->
 
-
+</div>
 </template>
 
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "Detailview",
+  components: {
+    Footer,
+  },
   props: {
     msg: String,
     id: Number,
@@ -122,20 +127,6 @@ export default {
 
 <style scoped>
 
-
-.body-section {
-  background: rgb(30, 177, 235);
-  background: radial-gradient(
-    circle,
-    rgb(58, 161, 192) 0%,
-    rgb(25, 95, 128) 50%,
-    rgba(20, 71, 129, 1) 100%
-  );
-  /* min-height: 85vh; */
-  /* margin-top: -30px; */
-}
-
-
 .image-text-box {
   border: 1px solid rgb(192, 192, 192);
   border-radius: 0.5em;
@@ -155,18 +146,11 @@ export default {
   padding-right: 0 !important;
 }
 
-.card-image {
-  border-radius: 0.5em;
-  height: auto;
-  width: fit-content;
-}
-
 
 .card-image img {
   object-fit: cover;
   height: 500px;
   width: 700px;
-  /* border-radius: 0.5em; */
 }
 
 
@@ -175,8 +159,6 @@ h1 {
 }
 
 h4 {
-  height: 100%;
-  width: 100%;
   color: #ffffff;
   text-align: center;
   padding-right: 15px;
@@ -208,7 +190,13 @@ button {
   }
 }
 
-/* div {
-  border: 1px solid white;
-} */
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
 </style>

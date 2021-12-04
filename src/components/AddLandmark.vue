@@ -92,9 +92,6 @@ export default {
   name: "AddLandmark",
   props: {
     showModal: Boolean,
-    /* title: String,
-    imageUrl: String,
-    description: String, */
   },
   emits: ["submitted", "clicked"],
 
@@ -164,6 +161,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .modal {
   position: fixed;
