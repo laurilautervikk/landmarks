@@ -101,10 +101,6 @@ export default {
     const newImageUrlSet = ref([]);
     const newDescription = ref("");
 
-    /* function sendData(input) {
-      this.$emit("insertClicked", input);
-    } */
-
     return {
       newUrl,
       newTitle,

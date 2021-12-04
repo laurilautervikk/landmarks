@@ -1,14 +1,13 @@
 <template>
-<div class="layout">
-  <div class="container-fluid body-section py-3">
-    <div class="row text-center mt-5 my-3">
-      <h1>{{ landmarkInfo.title }}</h1>
-    </div>
+  <div class="layout">
+    <div class="container-fluid body-section py-3">
+      <div class="row text-center mt-5 my-3">
+        <h1>{{ landmarkInfo.title }}</h1>
+      </div>
 
-    <div class="row d-flex justify-content-center">
-
-      <div class="row btn-row m-3 justify-content-end">
-      <!-- MODAL START -->
+      <div class="row d-flex justify-content-center">
+        <div class="row btn-row m-3 justify-content-end">
+          <!-- MODAL START -->
           <button
             class="align-middle btn btn-info m-1"
             @click="openModal"
@@ -26,81 +25,78 @@
             </slot>
           </EditLandmark>
           <!-- MODAL END -->
-    </div>
-
-    
-      <div class="row mx-3 image-text-box">
-        <div class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix">
-          <div class="card-image">
-          <!-- <div class="card" v-for="i in landmarkInfo.imageUrlSet" :key="i">
-          <img :src="i" alt="landmark image" /> -->
-          <!-- </div> -->
-
-          <!-- SLIDER START -->
-
-            <div
-              id="carouselExampleControls"
-              class="carousel slide"
-              data-ride="carousel"
-            >
-              <div class="carousel-inner">
-                <div
-                  class="carousel-item active"
-                  v-for="i in landmarkInfo.imageUrlSet"
-                  :key="i"
-                >
-                  <img class="d-block w-100" :src="i" alt="First slide" />
-                </div>
-              </div>
-              <a
-                class="carousel-control-prev"
-                href="#carouselExampleControls"
-                role="button"
-                data-slide="prev"
-              >
-                <span
-                  class="carousel-control-prev-icon"
-                  aria-hidden="true"
-                ></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a
-                class="carousel-control-next"
-                href="#carouselExampleControls"
-                role="button"
-                data-slide="next"
-              >
-                <span
-                  class="carousel-control-next-icon"
-                  aria-hidden="true"
-                ></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-
-            <!-- SLIDER END -->
-          </div>
-
         </div>
 
-        <div class="col-12 col-lg-5 col-md-12 col-sm-12 d-flex align-items-center">
-          <div class="cardtext m-2">
-            <h4>{{ landmarkInfo.description }}</h4>
+        <div class="row mx-3 image-text-box">
+          <div class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix">
+            <div class="card-image">
+              <!-- <div class="card" v-for="i in landmarkInfo.imageUrlSet" :key="i">
+          <img :src="i" alt="landmark image" /> -->
+              <!-- </div> -->
+
+              <!-- SLIDER START -->
+
+              <div
+                id="carouselExampleControls"
+                class="carousel slide"
+                data-ride="carousel"
+              >
+                <div class="carousel-inner">
+                  <div
+                    class="carousel-item active"
+                    v-for="i in landmarkInfo.imageUrlSet"
+                    :key="i"
+                  >
+                    <img class="d-block w-100" :src="i" alt="First slide" />
+                  </div>
+                </div>
+                <a
+                  class="carousel-control-prev"
+                  href="#carouselExampleControls"
+                  role="button"
+                  data-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a
+                  class="carousel-control-next"
+                  href="#carouselExampleControls"
+                  role="button"
+                  data-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+
+              <!-- SLIDER END -->
+            </div>
           </div>
+
+          <div
+            class="col-12 col-lg-5 col-md-12 col-sm-12 d-flex align-items-center"
+          >
+            <div class="cardtext m-2">
+              <h4>{{ landmarkInfo.description }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row btn-row m-3 justify-content-end">
+          <button @click="$router.push('/')">Main Menu</button>
         </div>
       </div>
-      <div class="row btn-row m-3 justify-content-end">
-      <button @click="$router.push('/')">Main Menu</button>
+      <!-- changed from go to push, otherwise it acted like 'back' on browser controls -->
     </div>
-    </div>
-    <!-- changed from go to push, otherwise it acted like 'back' on browser controls -->
-
-    
+    <Footer />
+    <!-- old image -->
   </div>
-  <Footer />
-  <!-- old image -->
-
-</div>
 </template>
 
 <script>
@@ -126,6 +122,7 @@ export default {
     let token = ref(localStorage.getItem("token"));
     console.log("token: ", token);
     let showModal = ref(false);
+    let id = this.$route.params.id;
 
     //GET request for a single landmark
     async function getLandmark(id) {
@@ -151,7 +148,7 @@ export default {
     //close modal, reload landmarks
     async function onChildClick() {
       showModal.value = false;
-      await getLandmark(this.$route.params.id);
+      await getLandmark(id);
     }
 
     return {
@@ -166,7 +163,6 @@ export default {
 </script>
 
 <style scoped>
-
 .image-text-box {
   border: 1px solid rgb(192, 192, 192);
   border-radius: 0.5em;
@@ -180,19 +176,16 @@ export default {
   max-width: 80vw;
 }
 
-
 .margin-fix {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-
 
 .card-image img {
   object-fit: cover;
   height: 500px;
   width: 700px;
 }
-
 
 h1 {
   color: azure;
@@ -219,14 +212,14 @@ button {
 
 /* big screen */
 @media only screen and (min-width: 992px) {
-    .card-image img {
-      border-radius: 0.5em 0em 0em 0.5em;
+  .card-image img {
+    border-radius: 0.5em 0em 0em 0.5em;
   }
 }
 /* small screen */
 @media only screen and (max-width: 992px) {
-    .card-image img {
-      border-radius: 0.5em 0.5em 0em 0em;
+  .card-image img {
+    border-radius: 0.5em 0.5em 0em 0em;
   }
 }
 
@@ -236,7 +229,4 @@ button {
   justify-content: space-between;
   align-items: center;
 }
-
-
-
 </style>

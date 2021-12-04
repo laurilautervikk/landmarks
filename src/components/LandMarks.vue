@@ -85,7 +85,7 @@ export default {
     description: String,
   },
 
-  setup() {
+  data() {
     let landmarksFromServer = ref([]);
     const newTitle = ref("");
     const newImageUrl = ref("");
@@ -93,7 +93,7 @@ export default {
     let showModal = ref(false);
     let token = ref(localStorage.getItem("token"));
     console.log("token: ", token);
-    let self = this; //NOT WORKING'
+
 
     //GET request for a list of landmarks
     async function getLandmarks() {
@@ -131,11 +131,9 @@ export default {
       getLandmarks();
       location.reload();
       //this.$router.push('../views/login'); //NOT WORKING
-      //self.$router.push('/'); //NOT WORKING
     };
 
     return {
-      self,
       token,
       logout,
       openModal,
