@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const { Landmarks } = require("./dbConnection");
-//const request = require("request");
-//const app = express();
+const authRoutes = require("./authRoutes");
+router.use("/auth", authRoutes);
 
 
 //GET landmarks list
 router.get("/get-landmarks", async function (request, response) {
   const result = await Landmarks.find();
-  response.status(200).send(result);
+  response.status(200).send(result)
 });
+
 
 //GET a single landmark by id
 router.get("/get-landmark/:id", async function (request, response) {
@@ -53,5 +54,6 @@ router.post("/delete-landmark/:id", async function (request, response) {
   console.log(result);
   response.send(result);
 });
+
 
 module.exports = router;

@@ -1,18 +1,20 @@
 <template>
-  <div>
+  <div class="layout">
     <header class="container-fluid banner">
       <div
         class="row d-flex justify-content-between align-items-center header-row"
       >
+        <div class="col-sm-12 col col-md-12 col-lg-3 float-left">
+          <div class="row m-3 justify-content-end">
+            <button @click="$router.push('/login')" v-if="!token">Login</button>
+            <button @click="$router.push('/register')" v-if="!token">
+              Register
+            </button>
+            <button @click="logout" v-if="token">Logout (reaload)</button>
+          </div>
+        </div>
         <div
-          class="d-none d-md-block col-sm-12 col col-md-12 col-lg-3 float-left"
-        ></div>
-        <div
-          class="
-            col col-xs-12 col-sm-12 col-md-12 col-lg-6
-            p-5
-            justify-content-center
-          "
+          class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 p-5 justify-content-center"
         >
           <h1 class="mb-3">World landmarks</h1>
         </div>
@@ -21,7 +23,7 @@
           <button
             class="align-middle btn btn-info m-1"
             @click="openModal"
-            v-if="!showModal"
+            v-if="!showModal && token"
           >
             Add Landmark
           </button>
@@ -29,7 +31,6 @@
             v-if="showModal"
             :showModal="showModal"
             @clicked="onChildClick"
-            @insertClicked="receiveData"
           >
             <slot>
               <h3 class="modal-title">Add a Landmark</h3>
@@ -43,7 +44,7 @@
     <div class="container-fluid body-section">
       <div class="row justify-content-center">
         <div
-          class="col-auto"
+          class="col-auto p-3"
           v-for="landmark in landmarksFromServer"
           :key="landmark"
         >
@@ -62,6 +63,7 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -69,10 +71,13 @@
 import { ref } from "vue";
 import axios from "axios";
 import AddLandmark from "@/components/AddLandmark.vue";
+import Footer from "@/components/Footer.vue";
+
 export default {
   name: "Landmarks",
   components: {
     AddLandmark,
+    Footer,
   },
   props: {
     title: String,
@@ -80,43 +85,65 @@ export default {
     description: String,
   },
 
-  data() {
-    //const newLandmark = ref("");
+  setup() {
     let landmarksFromServer = ref([]);
     const newTitle = ref("");
     const newImageUrl = ref("");
     const newDescription = ref("");
+    let showModal = ref(false);
+    let token = ref(localStorage.getItem("token"));
+    console.log("token: ", token);
+    let self = this; //NOT WORKING'
 
     //GET request for a list of landmarks
     async function getLandmarks() {
-      const result = await axios.get("/api/get-landmarks");
+      const result = await axios
+        .get("/api/get-landmarks", {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+        .catch(function (error) {
+          if (error.response.status === 401) {
+            this.$router.push("/login");
+          }
+        });
       landmarksFromServer.value = result.data;
       console.log("landmarksFromServer ", landmarksFromServer.value);
     }
     // call the above function
     getLandmarks();
 
-    // add new landmark
+    //open modal
+    function openModal() {
+      showModal.value = true;
+    }
+    //close modal, reload landmarks
+    async function onChildClick() {
+      showModal.value = false;
+      await getLandmarks();
+    }
+
+    const logout = () => {
+      localStorage.removeItem("token"); //WORKS
+      console.log('token removed');
+      getLandmarks();
+      //this.$router.push('/'); //NOT WORKING
+      //self.$router.push('/'); //NOT WORKING
+    };
 
     return {
-      showModal: false,
+      self,
+      token,
+      logout,
+      openModal,
+      onChildClick,
+      showModal,
       landmarksFromServer,
       newTitle,
       newImageUrl,
       newDescription,
     };
-  },
-  methods: {
-    openModal() {
-      this.showModal = true;
-    },
-    onChildClick() {
-      this.showModal = false;
-    },
-    receiveData(value) {
-      this.data = value;
-      console.log("data from child event: ", value);
-    },
   },
 };
 </script>
@@ -160,31 +187,24 @@ a {
 }
 .banner {
   background-image: url("https://i.pinimg.com/originals/61/70/db/6170db50b79ace81d424d37b66c6a9a7.jpg");
-  min-height: 15%;
-  width: auto;
-}
-.body-section {
-  background: rgb(30, 177, 235);
-  background: radial-gradient(
-    circle,
-    rgb(58, 161, 192) 0%,
-    rgb(25, 95, 128) 50%,
-    rgba(20, 71, 129, 1) 100%
-  );
-  min-height: 70vh;
+  min-height: fit-content;
+  width: 100vw;
 }
 
 button {
   height: 50px;
   width: fit-content;
-  margin-top: auto;
+  margin: 0.5em;
   background: linear-gradient(to right, #16c0b0, #84cf6a);
   border: none;
   border-radius: 0.5em;
   font-weight: 600;
 }
 
-/* div {
-  border: solid 1px red;
-} */
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 </style>

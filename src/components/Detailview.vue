@@ -1,87 +1,96 @@
 <template>
+<div class="layout">
   <div class="container-fluid body-section py-3">
-    <div class="row text-center my-3">
+    <div class="row text-center mt-5 my-3">
       <h1>{{ landmarkInfo.title }}</h1>
     </div>
 
+    <div class="row d-flex justify-content-center">
 
-    <div class="row mx-3 image-text-box">
-      <div class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix">
-        <div class="card-image">
+    
+      <div class="row mx-3 image-text-box">
+        <div class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix">
+          <div class="card-image">
           <!-- <div class="card" v-for="i in landmarkInfo.imageUrlSet" :key="i">
           <img :src="i" alt="landmark image" /> -->
           <!-- </div> -->
 
           <!-- SLIDER START -->
 
-          <div
-            id="carouselExampleControls"
-            class="carousel slide"
-            data-ride="carousel"
-          >
-            <div class="carousel-inner">
-              <div
-                class="carousel-item active"
-                v-for="i in landmarkInfo.imageUrlSet"
-                :key="i"
-              >
-                <img class="d-block w-100" :src="i" alt="First slide" />
+            <div
+              id="carouselExampleControls"
+              class="carousel slide"
+              data-ride="carousel"
+            >
+              <div class="carousel-inner">
+                <div
+                  class="carousel-item active"
+                  v-for="i in landmarkInfo.imageUrlSet"
+                  :key="i"
+                >
+                  <img class="d-block w-100" :src="i" alt="First slide" />
+                </div>
               </div>
+              <a
+                class="carousel-control-prev"
+                href="#carouselExampleControls"
+                role="button"
+                data-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a
+                class="carousel-control-next"
+                href="#carouselExampleControls"
+                role="button"
+                data-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="sr-only">Next</span>
+              </a>
             </div>
-            <a
-              class="carousel-control-prev"
-              href="#carouselExampleControls"
-              role="button"
-              data-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a
-              class="carousel-control-next"
-              href="#carouselExampleControls"
-              role="button"
-              data-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="sr-only">Next</span>
-            </a>
+
+            <!-- SLIDER END -->
           </div>
 
-          <!-- SLIDER END -->
         </div>
 
-      </div>
-
-      <div class="col-12 col-lg-5 col-md-12 col-sm-12 d-flex align-items-center">
-        <div class="cardtext m-2">
-          <h4>{{ landmarkInfo.description }}</h4>
+        <div class="col-12 col-lg-5 col-md-12 col-sm-12 d-flex align-items-center">
+          <div class="cardtext m-2">
+            <h4>{{ landmarkInfo.description }}</h4>
+          </div>
         </div>
       </div>
+      <div class="row btn-row m-3 justify-content-end">
+      <button @click="$router.push('/')">Main Menu</button>
+    </div>
     </div>
     <!-- changed from go to push, otherwise it acted like 'back' on browser controls -->
 
-    <div class="row m-3 justify-content-end">
-      <button @click="$router.push('/')">Main Menu</button>
-    </div>
+    
   </div>
-
+  <Footer />
   <!-- old image -->
 
-
+</div>
 </template>
 
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "Detailview",
+  components: {
+    Footer,
+  },
   props: {
     msg: String,
     id: Number,
@@ -94,7 +103,11 @@ export default {
     let landmarkInfo = ref([]);
     //GET request for a single landmark
     async function getLandmark(id) {
-      const result = await axios.get(`/api/get-landmark/${id}`);
+      const result = await axios.get(`/api/get-landmark/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       console.log("landmarkInfo is called");
       landmarkInfo.value = result.data;
       console.log("landmarkInfo ", landmarkInfo.value);
@@ -114,26 +127,17 @@ export default {
 
 <style scoped>
 
-
-.body-section {
-  background: rgb(30, 177, 235);
-  background: radial-gradient(
-    circle,
-    rgb(58, 161, 192) 0%,
-    rgb(25, 95, 128) 50%,
-    rgba(20, 71, 129, 1) 100%
-  );
-  min-height: 80vh;
-  /* margin-top: -30px; */
-}
-
-
 .image-text-box {
   border: 1px solid rgb(192, 192, 192);
   border-radius: 0.5em;
   width: fit-content;
+  max-width: 80vw;
   padding: 0px;
   box-shadow: 3px 5px 5px rgb(26, 46, 65);
+}
+
+.btn-row {
+  max-width: 80vw;
 }
 
 
@@ -142,18 +146,11 @@ export default {
   padding-right: 0 !important;
 }
 
-.card-image {
-  border-radius: 0.5em;
-  height: auto;
-  width: fit-content;
-}
-
 
 .card-image img {
   object-fit: cover;
   height: 500px;
   width: 700px;
-  /* border-radius: 0.5em; */
 }
 
 
@@ -162,8 +159,6 @@ h1 {
 }
 
 h4 {
-  height: 100%;
-  width: 100%;
   color: #ffffff;
   text-align: center;
   padding-right: 15px;
@@ -195,7 +190,13 @@ button {
   }
 }
 
-/* div {
-  border: 1px solid white;
-} */
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
 </style>
