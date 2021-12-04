@@ -18,9 +18,16 @@ const { SECRET } = require("./config");
 
 app.use(
   expressJwt({ secret: SECRET, algorithms: ["HS256"] }).unless({
-    path: ["/api/auth/register", "/api/auth/login", "/api/get-landmarks"],
+    path: [
+      "/api/auth/register",
+      "/api/auth/login",
+      "/api/get-landmarks",
+      { url: /^\/api\/get-landmark\/.*/, methods: ['GET'] }, // removed PUT
+    ],
   })
 );
+
+
 
 //BASIC SOLUTION
 //for API routes

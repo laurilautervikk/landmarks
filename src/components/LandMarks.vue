@@ -128,7 +128,7 @@ export default {
       localStorage.removeItem("token"); //WORKS
       console.log('token removed');
       getLandmarks();
-      //this.$router.push('/'); //NOT WORKING
+      this.$router.push('../views/login'); //NOT WORKING
       //self.$router.push('/'); //NOT WORKING
     };
 
