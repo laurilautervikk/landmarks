@@ -10,7 +10,7 @@
             <button @click="$router.push('/register')" v-if="!token">
               Register
             </button>
-            <button @click="logout" v-if="token">Logout (reaload)</button>
+            <button @click="logout" v-if="token">Logout</button>
           </div>
         </div>
         <div
@@ -125,10 +125,12 @@ export default {
     }
 
     const logout = () => {
-      localStorage.removeItem("token"); //WORKS
+      localStorage.clear(); //WORKS
+      //localStorage.removeItem("token");
       console.log('token removed');
       getLandmarks();
-      this.$router.push('../views/login'); //NOT WORKING
+      location.reload();
+      //this.$router.push('../views/login'); //NOT WORKING
       //self.$router.push('/'); //NOT WORKING
     };
 
