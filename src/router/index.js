@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandMarks from "@/components/LandMarks.vue";
+import AddLandmark from "@/components/AddLandmark.vue";
 import Detail from "@/views/Detail.vue";
 import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
 import Detailview from "@/components/Detailview.vue";
+import EditLandmark from "@/components/EditLandmark.vue";
 import PageNotFound from "@/views/PageNotFound.vue";
 
 const routes = [
@@ -14,6 +16,16 @@ const routes = [
     meta: {
       auth: false,
     },
+    children: [
+      {
+        path: "/add-landmark/:id",
+        name: "AddLandmark",
+        component: AddLandmark,
+        meta: {
+          auth: true,
+        },
+      },
+    ],
   },
   {
     path: "/landmark",
@@ -29,6 +41,15 @@ const routes = [
         component: Detailview,
         meta: {
           auth: false,
+        },
+      },
+
+      {
+        path: "/edit-landmark/:id",
+        name: "EditLandmark",
+        component: EditLandmark,
+        meta: {
+          auth: true,
         },
       },
     ],
@@ -55,14 +76,14 @@ const router = createRouter({
   routes,
 });
 
-
 // GOOD
 router.beforeEach((to, from, next) => {
-  if (to.meta.auth === true && !localStorage.getItem("token")) next({ route: '/' }) //Might be set to '/login' as well
-  else next()
+  if (to.meta.auth === true && !localStorage.getItem("token"))
+    next({ route: "/" });
+  //Might be set to '/login' as well
+  else next();
   console.log("Login logic passed");
 });
-
 
 //this gives a warning of double next() in some cases
 /* router.beforeEach((to, from, next) => {
@@ -78,8 +99,5 @@ router.beforeEach((to, from, next) => {
   }
   console.log("Token check block");
 }); */
-
-
-
 
 export default router;

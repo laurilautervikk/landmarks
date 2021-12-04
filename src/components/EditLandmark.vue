@@ -15,7 +15,6 @@
             v-model="newTitle"
             type="text"
             name="title"
-            :placeholder="title"
             class="form-control"
             required
           />
@@ -66,17 +65,16 @@
             class="form-control"
             id="description"
             name="description"
-            placeholder="Description goes here"
             style="height: 10em"
             required
           ></textarea>
 
           <button
-            @click="addNewLandmark"
+            @click="editLandmark"
             type="submit"
             class="homemade-button w-100 mt-1"
           >
-            Add It
+            Save It
           </button>
         </div>
 
@@ -97,19 +95,12 @@ export default {
 
   data() {
     let landmarkInfo = ref([]);
-    const oldUrl = ref("");
-    const oldTitle = ref("");
-    const oldImageUrlSet = ref([]);
-    const oldDescription = ref("");
-
     const newUrl = ref("");
     const newTitle = ref("");
     const newImageUrlSet = ref([]);
     const newDescription = ref("");
+    let self = this;
 
-    /* function sendData(input) {
-      this.$emit("insertClicked", input);
-    } */
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`, {
@@ -121,48 +112,21 @@ export default {
       landmarkInfo.value = result.data;
       console.log("landmarkInfo received: ", landmarkInfo.value);
       console.log(landmarkInfo.value.title);
-
+      self.newTitle = landmarkInfo.value.title;
+      self.newImageUrlSet = landmarkInfo.value.imageUrlSet;
+      self.newDescription = landmarkInfo.value.description;
     }
     // call the above function
     getLandmark(this.$route.params.id);
 
 
-   /*  async addNewLandmark() {
-      let data = {
-        title: this.newTitle,
-        imageUrlSet: this.newImageUrlSet,
-        description: this.newDescription,
-      };
-      console.log("Data from modal: ", data);
-      await axios
-        .post("/api/add-landmark", data, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          this.$emit("submitted");
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
-      closeModal() {
-        this.$emit("clicked");
-    }, */
-
-
     return {
+      self,
       landmarkInfo,
       newUrl,
       newTitle,
       newImageUrlSet,
       newDescription,
-      oldUrl,
-      oldTitle,
-      oldImageUrlSet,
-      oldDescription,
     };
   },
   methods: {
@@ -177,17 +141,20 @@ export default {
         console.log("Image URL not inserted");
       }
     },
-
+    //delete a thimbnail from the image array
     deleteThumbnail(input) {
       console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
+      console.log("input: ", input)
       this.newImageUrlSet = this.newImageUrlSet.filter((image, index) => {
+        console.log("this.newImageUrlSet after filter: ", this.newImageUrlSet);
         if (index !== input) {
           return image;
         }
       });
     },
-
-    async addNewLandmark() {
+    //edit a landmark
+    async editLandmark() {
+      let id = this.$route.params.id;
       let data = {
         title: this.newTitle,
         imageUrlSet: this.newImageUrlSet,
@@ -195,7 +162,7 @@ export default {
       };
       console.log("Data from modal: ", data);
       await axios
-        .post("/api/add-landmark", data, {
+        .patch(`/api/edit-landmark/${id}`, data, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -208,7 +175,7 @@ export default {
           console.log(error);
         });
     },
-
+    //emit close modal to parent
     closeModal() {
       this.$emit("clicked");
     },
@@ -217,6 +184,7 @@ export default {
 </script>
 
 <style scoped>
+
 .modal {
   position: fixed;
   top: 50%;

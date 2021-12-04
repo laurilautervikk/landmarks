@@ -4,18 +4,16 @@ const { Landmarks } = require("./dbConnection");
 const authRoutes = require("./authRoutes");
 router.use("/auth", authRoutes);
 
-
 //GET landmarks list
 router.get("/get-landmarks", async function (request, response) {
   const result = await Landmarks.find();
-  response.status(200).send(result)
+  response.status(200).send(result);
 });
-
 
 //GET a single landmark by id
 router.get("/get-landmark/:id", async function (request, response) {
   let result = await Landmarks.findOne({ _id: request.params.id });
-  console.log('Info from DB', result);
+  console.log("Info from DB", result);
   response.send(result);
 });
 
@@ -28,24 +26,19 @@ router.post("/add-landmark", async function (request, response) {
   response.send("BE Add landmark done");
 });
 
-router.patch("landmarkdmark/:id", async function (request, response) {
-  //console.log("BE started");
-  let state = await Landmarks.findOne({ _id: request.params.id });
-  //console.log("BE state: ", state.status);
-  //set value for update query, based on current state from db
-  let flipflop = "";
-  if (state.status === "ACTIVE") {
-    flipflop = "DONE";
-  } else {
-    flipflop = "ACTIVE";
-  }
-  //display state value
-  const result = await Landmarks.updateOne(
+router.patch("/edit-landmark/:id", async function (request, response) {
+  console.log("BE edit started ", request.body);
+  await Landmarks.updateOne(
     { _id: request.params.id },
-    { $set: { status: flipflop } }
+    {
+      $set: {
+        title: request.body.title,
+        imageUrlSet: request.body.imageUrlSet,
+        description: request.body.description,
+      },
+    }
   );
-  console.log("state Flipped to: ", flipflop);
-  response.send(result);
+  response.send(response);
 });
 
 //Delete landmark
@@ -54,6 +47,5 @@ router.post("/delete-landmark/:id", async function (request, response) {
   console.log(result);
   response.send(result);
 });
-
 
 module.exports = router;
