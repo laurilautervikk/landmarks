@@ -4,7 +4,7 @@
       class="row justify-content-center align-items-center"
       style="height: 100vh"
     >
-      <div class="col-4">
+      <div class="col-12 col-md-6 col-lg-4">
         <div class="card p-3">
           <h3>Login</h3>
           <!-- HINT -->
