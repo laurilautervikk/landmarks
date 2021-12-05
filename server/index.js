@@ -13,21 +13,29 @@ app.use(
 const routes = require("./router");
 const db = require("./dbConnection");
 
+const expressJwt = require("express-jwt");
+const { SECRET } = require("./config");
+
+app.use(
+  expressJwt({ secret: SECRET, algorithms: ["HS256"] }).unless({
+    path: [
+      "/api/auth/register",
+      "/api/auth/login",
+      "/api/get-landmarks",
+      { url: /^\/api\/get-landmark\/.*/, methods: ['GET'] }, // removed PUT
+    ],
+  })
+);
+
+
+
 //BASIC SOLUTION
 //for API routes
 app.use("/api", routes);
 
 //Respond if GET request is made to root URL
 app.get("/", (req, res) => {
-  res.send(
-    "Hello from Landmarks backend!" +
-      "<br>" +
-      "GET REQUEST > http://localhost:3000/api/get-landmarks" +
-      "<br>" +
-      "GET REQUEST (ID)> http://localhost:3000/api/get-landmark/1" +
-      "<br>" +
-      "POST REQUEST > http://localhost:3000/api/post-landmark"
-  );
+  res.send("Hello from Landmarks backend!");
 });
 
 // enable env port
