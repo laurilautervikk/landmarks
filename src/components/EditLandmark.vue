@@ -119,7 +119,6 @@ export default {
     // call the above function
     getLandmark(this.$route.params.id);
 
-
     return {
       self,
       landmarkInfo,
@@ -144,7 +143,7 @@ export default {
     //delete a thimbnail from the image array
     deleteThumbnail(input) {
       console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
-      console.log("input: ", input)
+      console.log("input: ", input);
       this.newImageUrlSet = this.newImageUrlSet.filter((image, index) => {
         console.log("this.newImageUrlSet after filter: ", this.newImageUrlSet);
         if (index !== input) {
@@ -167,9 +166,9 @@ export default {
             Authorization: localStorage.getItem("token"),
           },
         })
-        .then((res) => {
-          console.log(res);
-          this.$emit("submitted");
+        .then((response) => {
+          console.log(response);
+          this.$emit("clicked");
         })
         .catch(function (error) {
           console.log(error);
@@ -184,7 +183,6 @@ export default {
 </script>
 
 <style scoped>
-
 .modal {
   position: fixed;
   top: 50%;

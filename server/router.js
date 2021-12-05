@@ -21,13 +21,14 @@ router.get("/get-landmark/:id", async function (request, response) {
 router.post("/add-landmark", async function (request, response) {
   if (request.body) {
     await Landmarks.create(request.body);
-    console.log("BE Add landmark initiated");
+    console.log("BE Add landmark started");
   }
-  response.send("BE Add landmark done");
+  console.log("BE Add landmark ended");
+  response.send("Addition sucessful");
 });
 
 router.patch("/edit-landmark/:id", async function (request, response) {
-  console.log("BE edit started ", request.body);
+  console.log("BE edit started");
   await Landmarks.updateOne(
     { _id: request.params.id },
     {
@@ -38,7 +39,8 @@ router.patch("/edit-landmark/:id", async function (request, response) {
       },
     }
   );
-  response.send(response);
+  console.log("BE edit ended");
+  response.send('Edit sucessful');
 });
 
 //Delete landmark

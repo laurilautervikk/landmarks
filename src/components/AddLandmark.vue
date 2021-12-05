@@ -145,7 +145,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.$emit("submitted");
+          this.$emit("clicked");
         })
         .catch(function (error) {
           console.log(error);
