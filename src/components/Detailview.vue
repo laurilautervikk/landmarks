@@ -123,7 +123,6 @@ export default {
     console.log("token: ", token);
     let showModal = ref(false);
     let id = this.$route.params.id;
-
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`, {
@@ -138,9 +137,7 @@ export default {
     }
     // call the above function
     getLandmark(this.$route.params.id);
-
     //console.log(this.$route.params.id);
-
     //open modal
     function openModal() {
       showModal.value = true;
@@ -150,7 +147,6 @@ export default {
       showModal.value = false;
       await getLandmark(id);
     }
-
     return {
       landmarkInfo,
       token,
@@ -171,33 +167,27 @@ export default {
   padding: 0px;
   box-shadow: 3px 5px 5px rgb(26, 46, 65);
 }
-
 .btn-row {
   max-width: 80vw;
 }
-
 .margin-fix {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-
 .card-image img {
   object-fit: cover;
   height: 500px;
   width: 700px;
 }
-
 h1 {
   color: azure;
 }
-
 h4 {
   color: #ffffff;
   text-align: center;
   padding-right: 15px;
   padding-left: 15px;
 }
-
 button {
   float: right;
   margin-right: 20px;
@@ -209,7 +199,6 @@ button {
   border-radius: 6px;
   font-weight: 600;
 }
-
 /* big screen */
 @media only screen and (min-width: 992px) {
   .card-image img {
@@ -222,7 +211,6 @@ button {
     border-radius: 0.5em 0.5em 0em 0em;
   }
 }
-
 .layout {
   display: flex;
   flex-direction: column;
