@@ -40,7 +40,7 @@ router.patch("/edit-landmark/:id", async function (request, response) {
     }
   );
   console.log("BE edit ended");
-  response.send('Edit sucessful');
+  response.send('Edit successful');
 });
 
 //Delete landmark
