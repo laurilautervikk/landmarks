@@ -99,7 +99,7 @@ export default {
     const newTitle = ref("");
     const newImageUrlSet = ref([]);
     const newDescription = ref("");
-    let self = this;
+    const self = this;
 
     //GET request for a single landmark
     async function getLandmark(id) {

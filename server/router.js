@@ -40,14 +40,14 @@ router.patch("/edit-landmark/:id", async function (request, response) {
     }
   );
   console.log("BE edit ended");
-  response.send('Edit sucessful');
+  response.send("Edit successful");
 });
 
 //Delete landmark
-router.post("/delete-landmark/:id", async function (request, response) {
-  const result = await Landmarks.deleteOne({ _id: request.params.id });
-  console.log(result);
-  response.send(result);
+router.delete("/delete-landmark/:id", async function(request, response) {
+    await Landmarks.deleteOne({ _id: request.params.id });
+    console.log("Landmark Deleted BE");
+    response.send({}); // "Landmark Deleted BE" ??
 });
 
 module.exports = router;

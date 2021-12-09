@@ -7,13 +7,20 @@
 
       <div class="row d-flex justify-content-center">
         <div class="row btn-row m-3 justify-content-end">
+          <button
+            class="align-middle btn btn-info m-1"
+            @click="deleteLandmark"
+            v-if="!showModal && token"
+          >
+            Delete
+          </button>
           <!-- MODAL START -->
           <button
             class="align-middle btn btn-info m-1"
             @click="openModal"
             v-if="!showModal && token"
           >
-            Edit Landmark
+            Edit
           </button>
           <EditLandmark
             v-if="showModal"
@@ -30,51 +37,15 @@
         <div class="row mx-3 image-text-box">
           <div class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix">
             <div class="card-image">
-              <!-- <div class="card" v-for="i in landmarkInfo.imageUrlSet" :key="i">
-          <img :src="i" alt="landmark image" /> -->
-              <!-- </div> -->
+              <!-- <div
+                class="card"
+                v-for="(image, index) in landmarkInfo.imageUrlSet"
+                :key="image"
+              > -->
+              <img @click="nextImage" :src="landmarkInfo.imageUrlSet[0]" alt="landmark image" />
+              <!--  </div> -->
 
               <!-- SLIDER START -->
-
-              <div
-                id="carouselExampleControls"
-                class="carousel slide"
-                data-ride="carousel"
-              >
-                <div class="carousel-inner">
-                  <div
-                    class="carousel-item active"
-                    v-for="i in landmarkInfo.imageUrlSet"
-                    :key="i"
-                  >
-                    <img class="d-block w-100" :src="i" alt="First slide" />
-                  </div>
-                </div>
-                <a
-                  class="carousel-control-prev"
-                  href="#carouselExampleControls"
-                  role="button"
-                  data-slide="prev"
-                >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a
-                  class="carousel-control-next"
-                  href="#carouselExampleControls"
-                  role="button"
-                  data-slide="next"
-                >
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
 
               <!-- SLIDER END -->
             </div>
@@ -123,6 +94,8 @@ export default {
     console.log("token: ", token);
     let showModal = ref(false);
     let id = this.$route.params.id;
+    let whatImage = ref("");
+    const self = this;
 
     //GET request for a single landmark
     async function getLandmark(id) {
@@ -131,15 +104,47 @@ export default {
           Authorization: localStorage.getItem("token"),
         },
       });
-      console.log("landmarkInfo is called");
+      console.log("FE getLandmark is called");
       landmarkInfo.value = result.data;
       console.log("landmarkInfo ", landmarkInfo.value);
-      console.log(landmarkInfo.value.title);
+      //console.log('this.whatImage', this.whatImage)
+      //this.whatImage = landmarkInfo.value;
     }
     // call the above function
     getLandmark(this.$route.params.id);
 
-    //console.log(this.$route.params.id);
+    //Delete landmark
+    function deleteLandmark() {
+      //let id = this.$route.params.id;
+      /* let data = {
+        title: this.newTitle,
+        imageUrlSet: this.newImageUrlSet,
+        description: this.newDescription,
+      }; */
+      
+      //Delete landmark
+      axios.delete(`/api/delete-landmark/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          console.log('Landmarke Delete returned BE -> FE', response);
+          /* this.$emit("clicked"); */
+          self.$router.push('/')
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+
+    //update image
+    function nextImage() {
+      let que = 0;
+      que++;
+      this.whatImage = this.landmarkInfo.imageUrlSet[que];
+    }
 
     //open modal
     function openModal() {
@@ -150,15 +155,21 @@ export default {
       showModal.value = false;
       await getLandmark(id);
     }
-
     return {
+      deleteLandmark,
+      que: 0,
+      whatImage,
       landmarkInfo,
       token,
       openModal,
       onChildClick,
       showModal,
+      nextImage,
     };
   },
+  methods: {
+
+  }
 };
 </script>
 
@@ -171,33 +182,27 @@ export default {
   padding: 0px;
   box-shadow: 3px 5px 5px rgb(26, 46, 65);
 }
-
 .btn-row {
   max-width: 80vw;
 }
-
 .margin-fix {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-
 .card-image img {
   object-fit: cover;
   height: 500px;
   width: 700px;
 }
-
 h1 {
   color: azure;
 }
-
 h4 {
   color: #ffffff;
   text-align: center;
   padding-right: 15px;
   padding-left: 15px;
 }
-
 button {
   float: right;
   margin-right: 20px;
@@ -209,7 +214,6 @@ button {
   border-radius: 6px;
   font-weight: 600;
 }
-
 /* big screen */
 @media only screen and (min-width: 992px) {
   .card-image img {
@@ -222,7 +226,6 @@ button {
     border-radius: 0.5em 0.5em 0em 0em;
   }
 }
-
 .layout {
   display: flex;
   flex-direction: column;
