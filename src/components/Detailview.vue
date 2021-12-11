@@ -288,8 +288,5 @@ button {
   align-items: center;
 }
 
-/* div {
-  border: 1px solid red;
-} */
 
 </style>
