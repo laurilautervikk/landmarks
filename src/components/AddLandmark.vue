@@ -41,14 +41,14 @@
           <div class="container">
             <div id="thumb-row" class="row d-flex flex-wrap">
               <div
-                class="image-box col-3"
+                class="image-box col-6 col-md-4 col-lg-3 justify-content-center"
                 v-for="(image, index) in newImageUrlSet"
                 :key="image"
               >
                 <img
-                  class="tiny-image img-thumbnail"
+                  class="tiny-image img-thumbnail" width="100" height="100"
                   :src="image"
-                  alt="missing image"
+                  alt="this image is missing"
                 />
                 <div
                   @click="deleteThumbnail(index)"
@@ -219,7 +219,7 @@ button {
 .plus {
   margin: 0;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -240,7 +240,7 @@ div.image-box div {
   display: none;
 }
 div.image-box div.delete {
-  top: 15px;
-  right: 20px;
+  top: 35px;
+  right: 35px;
 }
 </style>
