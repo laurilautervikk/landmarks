@@ -32,23 +32,6 @@
         <div
           class="row btn-row m-3 justify-content-center justify-content-lg-end"
         >
-          <!-- <button
-            class="align-middle btn btn-info m-1"
-            @click="deleteLandmark"
-            v-if="!showModal && token"
-          >
-            Delete
-          </button>
-          
-          <button
-            class="align-middle btn btn-info m-1"
-            @click="openModal"
-            v-if="!showModal && token"
-          >
-            Edit
-          </button> -->
-
-
           <!-- MODAL START -->
           <EditLandmark
             v-if="showModal"
