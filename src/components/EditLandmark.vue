@@ -151,6 +151,8 @@ export default {
         }
       });
     },
+
+
     //edit a landmark
     async editLandmark() {
       let id = this.$route.params.id;
@@ -171,7 +173,10 @@ export default {
           this.$emit("clicked");
         })
         .catch(function (error) {
-          console.log(error);
+          if (error.response.status === 401) {
+            console.log('directing to login ')
+            this.$router.push("/login");
+          }
         });
     },
     //emit close modal to parent

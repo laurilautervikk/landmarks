@@ -5,7 +5,8 @@
         <div
           class="btn-back mt-1 mb-3 d-inline-flex align-items-center"
           @click="$router.push('/')"
-        ><i class="bi bi-arrow-left fs-2"></i>
+        >
+          <i class="bi bi-arrow-left fs-2"></i>
         </div>
         <div class="col-12 col-lg-6 d-flex justify-content-end">
           <button
@@ -83,6 +84,7 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
 import Footer from "@/components/Footer.vue";
+//import VueJwtDecode from "vue-jwt-decode";
 export default {
   name: "Detailview",
   components: {
@@ -102,9 +104,9 @@ export default {
     const currentNumber = ref(0);
     const images = ref([]);
     const imagesLenght = computed(() => images.value.length);
-    const token = ref(localStorage.getItem("token"));
     const showModal = ref(false);
     const id = route.params.id;
+    const token = ref(localStorage.getItem("token"));
 
     //GET request for a single landmark
     async function getLandmark(id) {
@@ -282,13 +284,10 @@ button {
   }
 }
 
-
 .layout {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
-
-
 </style>
