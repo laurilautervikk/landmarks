@@ -68,10 +68,12 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, /* computed */ } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import AddLandmark from "@/components/AddLandmark.vue";
 import Footer from "@/components/Footer.vue";
+//import VueJwtDecode from "vue-jwt-decode";
 
 export default {
   name: "Landmarks",
@@ -85,16 +87,19 @@ export default {
     description: String,
   },
 
-  data() {
+  setup() {
+    //const route = useRoute();
+    const router = useRouter();
     let landmarksFromServer = ref([]);
     const newTitle = ref("");
     const newImageUrl = ref("");
     const newDescription = ref("");
-    let showModal = ref(false);
-    let token = ref(localStorage.getItem("token"));
+    const showModal = ref(false);
+    const token = ref(localStorage.getItem("token"));
+    //const token = computed(() => localStorage.getItem("token"));
     console.log("token: ", token);
 
-
+  
     //GET request for a list of landmarks
     async function getLandmarks() {
       const result = await axios
@@ -103,9 +108,9 @@ export default {
             Authorization: localStorage.getItem("token"),
           },
         })
-        .catch(function (error) {
+        .catch(function (error) { //This route is not auth
           if (error.response.status === 401) {
-            this.$router.push("/login");
+            router.push("/login");
           }
         });
       landmarksFromServer.value = result.data;
@@ -125,12 +130,11 @@ export default {
     }
 
     const logout = () => {
-      localStorage.clear(); //WORKS
-      //localStorage.removeItem("token");
-      console.log('token removed');
+      localStorage.removeItem("token");
+      console.log("token removed");
       getLandmarks();
-      location.reload();
-      //this.$router.push('../views/login'); //NOT WORKING
+      location.reload(); //not a good solution
+      //router.push('/');
     };
 
     return {
