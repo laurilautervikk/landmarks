@@ -9,7 +9,7 @@
           </div>
         </div>
 
-        <!-- START -->
+        <!-- FORM START -->
         <div class="container py-4">
           <input
             v-model="newTitle"
@@ -46,7 +46,9 @@
                 :key="image"
               >
                 <img
-                  class="tiny-image img-thumbnail" width="100" height="100"
+                  class="tiny-image img-thumbnail"
+                  width="100"
+                  height="100"
                   :src="image"
                   alt="this image is missing"
                 />
@@ -80,7 +82,7 @@
           </button>
         </div>
 
-        <!-- END -->
+        <!-- FORM END -->
       </div>
     </div>
   </div>
@@ -93,24 +95,15 @@ export default {
   props: {
     showModal: Boolean,
   },
-  emits: ["submitted", "clicked"],
 
-  data() {
+  setup(props, context) {
     const newUrl = ref("");
     const newTitle = ref("");
     const newImageUrlSet = ref([]);
     const newDescription = ref("");
 
-    return {
-      newUrl,
-      newTitle,
-      newImageUrlSet,
-      newDescription,
-    };
-  },
-  methods: {
     //build image array
-    addImage(input) {
+    function addImage(input) {
       console.log("trying to insert: ", input);
       if (input) {
         this.newImageUrlSet.push(input);
@@ -119,18 +112,18 @@ export default {
       } else {
         console.log("Image URL not inserted");
       }
-    },
-
-    deleteThumbnail(input) {
+    }
+    //delete a thumbnail
+    function deleteThumbnail(input) {
       console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
       this.newImageUrlSet = this.newImageUrlSet.filter((image, index) => {
         if (index !== input) {
           return image;
         }
       });
-    },
-
-    async addNewLandmark() {
+    }
+    //add a landmark
+    async function addNewLandmark() {
       let data = {
         title: this.newTitle,
         imageUrlSet: this.newImageUrlSet,
@@ -145,19 +138,31 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.$emit("clicked");
+          //close the modal on submit
+          context.emit("clicked");
         })
         .catch(function (error) {
           console.log(error);
         });
-    },
-    closeModal() {
-      this.$emit("clicked");
-    },
+    }
+    //close the modal
+    const closeModal = () => {
+      context.emit("clicked");
+    };
+
+    return {
+      newUrl,
+      newTitle,
+      newImageUrlSet,
+      newDescription,
+      addImage,
+      deleteThumbnail,
+      addNewLandmark,
+      closeModal,
+    };
   },
 };
 </script>
-
 
 <style scoped>
 .modal {

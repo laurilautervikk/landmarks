@@ -264,6 +264,7 @@ button {
   background: linear-gradient(to right, #16c0b0, #84cf6a);
   border: none;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .btn-back i {
