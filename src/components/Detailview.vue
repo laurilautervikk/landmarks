@@ -51,16 +51,16 @@
             class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix card-image-box-outer"
           >
             <!-- SLIDER START -->
-            <div class="card-image-box">
-              <img :src="images[currentNumber]" alt="landmark image" />
+              <div class="card-image-box">
+                <img :src="images[currentNumber]" alt="landmark image" />
 
-              <div class="btnNext float-end me-1" @click="next">
-                <i class="bi bi-arrow-right-square fs-1"></i>
-              </div>
-              <div class="btnPrev float-start ms-1" @click="prev">
-                <i class="bi bi-arrow-left-square fs-1"></i>
-              </div>
-            </div>
+                <div class="btnNext float-end me-1" @click="next">
+                  <i class="bi bi-arrow-right fs-1"></i>
+                </div>
+                <div class="btnPrev float-start ms-1" @click="prev">
+                  <i class="bi bi-arrow-left fs-1"></i>
+                </div>
+                </div>
           </div>
           <!-- SLIDER END -->
           <div
@@ -186,6 +186,10 @@ export default {
 </script>
 
 <style scoped>
+.btnNext,
+.btnPrev{
+  color: #2ab1ce;
+}
 .card-image-box .btnPrev {
   position: absolute;
   top: 45%;
@@ -218,6 +222,12 @@ div.image-box div.delete {
 .margin-fix {
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
 .card-image-box-outer {
@@ -256,6 +266,7 @@ button {
   border: none;
   border-radius: 6px;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .btn-back {

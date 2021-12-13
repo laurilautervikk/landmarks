@@ -203,6 +203,7 @@ button {
   border: none;
   border-radius: 0.5em;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .layout {
