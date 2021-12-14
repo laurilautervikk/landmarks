@@ -4,7 +4,7 @@
       <div class="modal-body px-4">
         <div class="d-flex justify-content-between">
           <h3 class="px-5 pt-3 mb-0 align-bottom">Add a new landmark</h3>
-          <div @click="closeModal" class="align-top">
+          <div @click="closeModal" class="pointer align-top">
             <i class="align-top fs-2 bi bi-x-circle"></i>
           </div>
         </div>
@@ -180,6 +180,10 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 0.5em;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .homemade-button {
