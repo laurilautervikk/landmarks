@@ -7,7 +7,8 @@
 <script>
 
 </script>
-
+/* Make a reguest to backend to validate the token,
+onMounted may be a good idea */
 <style>
 
 body {

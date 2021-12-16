@@ -37,6 +37,14 @@
             </slot>
           </AddLandmark>
           <!-- MODAL END -->
+
+          <div class="input" style="">
+            <input type="text" placeholder="Search..." v-model="searchQuery" />
+            <i class="search icon"></i>
+          </div>
+
+
+          
         </div>
       </div>
     </header>
@@ -45,8 +53,8 @@
       <div class="row justify-content-center">
         <div
           class="col-auto p-3"
-          v-for="landmark in landmarksFromServer"
-          :key="landmark"
+          v-for="landmark in searchedLandmarks"
+          :key="landmark.id"
         >
           <div class="box mx-auto d-block">
             <router-link :to="`/landmark/${landmark._id}`" class="col">
@@ -68,7 +76,7 @@
 </template>
 
 <script>
-import { ref, /* computed */ } from "vue";
+import { ref, /* reactive */ onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import AddLandmark from "@/components/AddLandmark.vue";
@@ -99,7 +107,11 @@ export default {
     //const token = computed(() => localStorage.getItem("token"));
     console.log("token: ", token);
 
-  
+    //search stuff
+    const searchQuery = ref("");
+    console.log("token: ", token);
+    
+
     //GET request for a list of landmarks
     async function getLandmarks() {
       const result = await axios
@@ -108,7 +120,8 @@ export default {
             Authorization: localStorage.getItem("token"),
           },
         })
-        .catch(function (error) { //This route is not auth
+        .catch(function (error) {
+          //This route is not auth
           if (error.response.status === 401) {
             router.push("/login");
           }
@@ -117,7 +130,20 @@ export default {
       console.log("landmarksFromServer ", landmarksFromServer.value);
     }
     // call the above function
-    getLandmarks();
+    //getLandmarks();
+
+    //search expression
+    const searchedLandmarks = computed(() => {
+      return landmarksFromServer.value.filter((landmark) => {
+        console.log('searchedLandmarks: ', searchedLandmarks.value)
+        return (
+          landmark.title
+            .toLowerCase()
+            .indexOf(searchQuery.value.toLowerCase()) != -1
+            
+        );
+      });
+    });
 
     //open modal
     function openModal() {
@@ -133,11 +159,17 @@ export default {
       localStorage.removeItem("token");
       console.log("token removed");
       getLandmarks();
-      location.reload(); //not a good solution
-      //router.push('/');
+      location.reload(); //not the best solution
+      //router.push('/'); // will not update buttons
     };
 
+    onMounted(() => { //this is called when the component is added to DOM
+      getLandmarks();
+    });
+
     return {
+      searchedLandmarks,
+      searchQuery,
       token,
       logout,
       openModal,
