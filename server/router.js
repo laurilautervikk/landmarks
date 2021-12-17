@@ -6,8 +6,29 @@ router.use("/auth", authRoutes);
 
 //GET landmarks list
 router.get("/get-landmarks", async function (request, response) {
-  const result = await Landmarks.find();
-  response.status(200).send(result);
+    const options = {
+    page: 2,
+    limit: 4,
+};
+
+Landmarks.paginate({}, options, (err, result) => {
+    // result.docs
+    // result.totalDocs = 100
+    // result.limit = 10
+    // result.page = 1
+    // result.totalPages = 10    
+    // result.hasNextPage = true
+    // result.nextPage = 2
+    // result.hasPrevPage = false
+    // result.prevPage = null
+    // result.pagingCounter = 1
+    response.send(result);
+  });
+
+
+  //const result = await Landmarks.find(); // WITHOUT PAGINATION
+
+  //response.status(200).send(result);
 });
 
 //GET a single landmark by id

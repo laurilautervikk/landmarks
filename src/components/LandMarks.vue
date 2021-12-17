@@ -113,8 +113,9 @@ export default {
             router.push("/login");
           }
         });
-      landmarksFromServer.value = result.data;
-      console.log("landmarksFromServer ", landmarksFromServer.value);
+      landmarksFromServer.value = result.data.docs; // Landmarks are inside docs, extract also other data
+      console.log('result.data ', result.data)
+      console.log("landmarksFromServer FE ", landmarksFromServer.value);
     }
     // call the above function
     getLandmarks();
