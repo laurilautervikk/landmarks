@@ -4,7 +4,7 @@
       <div class="modal-body px-4">
         <div class="d-flex justify-content-between">
           <h3 class="px-5 pt-3 mb-0 align-bottom">Edit this landmark</h3>
-          <div @click="closeModal" class="align-top">
+          <div @click="closeModal" class="pointer align-top">
             <i class="align-top fs-2 bi bi-x-circle"></i>
           </div>
         </div>
@@ -86,20 +86,21 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import { useRoute, useRouter } from "vue-router";
 export default {
   name: "AddLandmark",
   props: {
     showModal: Boolean,
   },
-  emits: ["submitted", "clicked"],
 
-  data() {
+  setup(props, context) {
+    const route = useRoute();
+    const router = useRouter();
     let landmarkInfo = ref([]);
-    const newUrl = ref("");
-    const newTitle = ref("");
-    const newImageUrlSet = ref([]);
-    const newDescription = ref("");
-    const self = this;
+    let newUrl = ref("");
+    let newTitle = ref("");
+    let newImageUrlSet = ref([]);
+    let newDescription = ref("");
 
     //GET request for a single landmark
     async function getLandmark(id) {
@@ -112,25 +113,16 @@ export default {
       landmarkInfo.value = result.data;
       console.log("landmarkInfo received: ", landmarkInfo.value);
       console.log(landmarkInfo.value.title);
-      self.newTitle = landmarkInfo.value.title;
-      self.newImageUrlSet = landmarkInfo.value.imageUrlSet;
-      self.newDescription = landmarkInfo.value.description;
+      //prefill the inputs with DB info
+      newTitle.value = landmarkInfo.value.title;
+      newImageUrlSet.value = landmarkInfo.value.imageUrlSet;
+      newDescription.value = landmarkInfo.value.description;
     }
     // call the above function
-    getLandmark(this.$route.params.id);
+    getLandmark(route.params.id);
 
-    return {
-      self,
-      landmarkInfo,
-      newUrl,
-      newTitle,
-      newImageUrlSet,
-      newDescription,
-    };
-  },
-  methods: {
     //build image array
-    addImage(input) {
+    function addImage(input) {
       console.log("trying to insert: ", input);
       if (input) {
         this.newImageUrlSet.push(input);
@@ -139,9 +131,10 @@ export default {
       } else {
         console.log("Image URL not inserted");
       }
-    },
+    }
+
     //delete a thimbnail from the image array
-    deleteThumbnail(input) {
+    function deleteThumbnail(input) {
       console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
       console.log("input: ", input);
       this.newImageUrlSet = this.newImageUrlSet.filter((image, index) => {
@@ -150,10 +143,11 @@ export default {
           return image;
         }
       });
-    },
+    }
+
     //edit a landmark
-    async editLandmark() {
-      let id = this.$route.params.id;
+    async function editLandmark() {
+      let id = route.params.id;
       let data = {
         title: this.newTitle,
         imageUrlSet: this.newImageUrlSet,
@@ -168,17 +162,33 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.$emit("clicked");
+          context.emit("clicked");
         })
         .catch(function (error) {
-          console.log(error);
+          if (error.response.status === 401) {
+            //console.log("directing to login ");
+            router.push("/login");
+          }
         });
-    },
+    }
+
     //emit close modal to parent
-    closeModal() {
-      this.$emit("clicked");
-    },
-  }, //methods end
+    const closeModal = () => {
+      context.emit("clicked");
+    };
+
+    return {
+      landmarkInfo,
+      newUrl,
+      newTitle,
+      newImageUrlSet,
+      newDescription,
+      addImage,
+      deleteThumbnail,
+      editLandmark,
+      closeModal,
+    };
+  },
 };
 </script>
 
@@ -199,6 +209,11 @@ export default {
   flex-direction: column;
   border-radius: 0.5em;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
 .modal-content {
   border: none;
 }

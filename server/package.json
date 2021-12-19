@@ -24,6 +24,7 @@
     "express-jwt": "^6.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
+    "mongoose-paginate-v2": "^1.4.2",
     "nodemon": "^2.0.14"
   }
 }

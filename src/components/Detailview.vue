@@ -84,6 +84,7 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
 import Footer from "@/components/Footer.vue";
+//import VueJwtDecode from "vue-jwt-decode";
 export default {
   name: "Detailview",
   components: {
@@ -103,9 +104,9 @@ export default {
     const currentNumber = ref(0);
     const images = ref([]);
     const imagesLenght = computed(() => images.value.length);
-    const token = ref(localStorage.getItem("token"));
     const showModal = ref(false);
     const id = route.params.id;
+    const token = ref(localStorage.getItem("token"));
 
     //GET request for a single landmark
     async function getLandmark(id) {
