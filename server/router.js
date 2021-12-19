@@ -6,30 +6,38 @@ router.use("/auth", authRoutes);
 
 //GET landmarks list
 router.get("/get-landmarks", async function (request, response) {
+  //Pagination params from FE
   const options = {
     page: request.query.page,
     limit: request.query.limit,
   };
+  //Search params from FE
+  const searchString = new RegExp(request.query.searchFor ? request.query.searchFor.trim() : '', 'i')
   console.log("request ", request.query);
 
-  Landmarks.paginate({}, options, (err, result) => {
-    // result.docs
-    // result.totalDocs = 100
-    // result.limit = 10
-    // result.page = 1
-    // result.totalPages = 10
-    // result.hasNextPage = true
-    // result.nextPage = 2
-    // result.hasPrevPage = false
-    // result.prevPage = null
-    // result.pagingCounter = 1
+  const result = await Landmarks.paginate({
+    $or: [
+    { 'title': searchString },
+    ]
+  }, options, (err, result) => {
     response.send(result);
   });
-
   //const result = await Landmarks.find(); // WITHOUT PAGINATION
-
   //response.status(200).send(result);
 });
+
+
+/* router.get("/get-landmarks", async function (request, response) {
+  const searchString = new RegExp(stringFromFe ? stringFromFe.trim() : '', 'i')
+  const result = await Landmarks.find({
+      $or: [
+        { 'landmark.title': searchString },
+        ]
+    })
+    response.status(200).send(result);
+  });
+ */
+
 
 //GET a single landmark by id
 router.get("/get-landmark/:id", async function (request, response) {

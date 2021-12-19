@@ -42,6 +42,13 @@
     </header>
 
     <div class="container-fluid body-section">
+      <div class="row my-3 justify-content-center">
+        <div class="col-3">
+          <h5>
+            <input class="form-control search-box" placeholder="Type to search.." type="search" v-model="searchString" @input="searchChanged" name="search" />
+          </h5>
+        </div>
+      </div>
       <div class="row justify-content-center">
         <div
           class="col-auto p-3"
@@ -125,11 +132,15 @@ export default {
     const newPageNumber = ref(1);
     const newPageLimit = ref(8);
 
+    //Search variable
+    const searchString = ref('');
+
     //GET request for a list of landmarks
     async function getLandmarks() {
       const params = {
         page: newPageNumber.value,
         limit: newPageLimit.value,
+        searchFor: searchString.value
       };
       const result = await axios
         .get("/api/get-landmarks", { params })
@@ -175,8 +186,14 @@ export default {
         getLandmarks();
       }
     };
-
+    //records on page
     const recordsOnPageChanged = () => {
+      getLandmarks();
+    }
+    //Pagination logic END
+
+    //Search trigger
+    const searchChanged = () => {
       getLandmarks();
     }
 
@@ -193,6 +210,8 @@ export default {
     });
 
     return {
+      searchChanged,
+      searchString,
       recordsOnPageChanged,
       nextPage,
       prevPage,
@@ -269,8 +288,15 @@ button {
 
 .number-input {
   border-radius: 0.5em;
-  height: 100%;
+  height: 30px;
+  width: 50px;
   text-align: center;
+  border: 1px solid #454545;
+}
+
+.search-box {
+  border-radius: 0.5em;
+  height: 50px;
   border: 1px solid #454545;
 }
 
