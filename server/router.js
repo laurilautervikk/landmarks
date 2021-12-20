@@ -12,20 +12,24 @@ router.get("/get-landmarks", async function (request, response) {
     limit: request.query.limit,
   };
   //Search params from FE
-  const searchString = new RegExp(request.query.searchFor ? request.query.searchFor.trim() : '', 'i')
-  console.log("request ", request.query);
+  const searchString = new RegExp(
+    request.query.searchFor ? request.query.searchFor.trim() : "",
+    "i"
+  );
+  console.log("request ", request.query.searchFor);
 
-  const result = await Landmarks.paginate({
-    $or: [
-    { 'title': searchString },
-    ]
-  }, options, (err, result) => {
-    response.send(result);
-  });
+  await Landmarks.paginate(
+    {
+      $or: [{ title: searchString }, { description: searchString }],
+    },
+    options,
+    (err, result) => {
+      response.send(result);
+    }
+  );
   //const result = await Landmarks.find(); // WITHOUT PAGINATION
   //response.status(200).send(result);
 });
-
 
 /* router.get("/get-landmarks", async function (request, response) {
   const searchString = new RegExp(stringFromFe ? stringFromFe.trim() : '', 'i')
@@ -37,7 +41,6 @@ router.get("/get-landmarks", async function (request, response) {
     response.status(200).send(result);
   });
  */
-
 
 //GET a single landmark by id
 router.get("/get-landmark/:id", async function (request, response) {
