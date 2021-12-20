@@ -6,9 +6,38 @@ router.use("/auth", authRoutes);
 
 //GET landmarks list
 router.get("/get-landmarks", async function (request, response) {
-  const result = await Landmarks.find();
-  response.status(200).send(result);
+  //Pagination params from FE
+  const options = {
+    page: request.query.page,
+    limit: request.query.limit,
+  };
+  //Search params from FE
+  const searchString = new RegExp(request.query.searchFor ? request.query.searchFor.trim() : '', 'i')
+  console.log("request ", request.query);
+
+  const result = await Landmarks.paginate({
+    $or: [
+    { 'title': searchString },
+    ]
+  }, options, (err, result) => {
+    response.send(result);
+  });
+  //const result = await Landmarks.find(); // WITHOUT PAGINATION
+  //response.status(200).send(result);
 });
+
+
+/* router.get("/get-landmarks", async function (request, response) {
+  const searchString = new RegExp(stringFromFe ? stringFromFe.trim() : '', 'i')
+  const result = await Landmarks.find({
+      $or: [
+        { 'landmark.title': searchString },
+        ]
+    })
+    response.status(200).send(result);
+  });
+ */
+
 
 //GET a single landmark by id
 router.get("/get-landmark/:id", async function (request, response) {
@@ -21,13 +50,14 @@ router.get("/get-landmark/:id", async function (request, response) {
 router.post("/add-landmark", async function (request, response) {
   if (request.body) {
     await Landmarks.create(request.body);
-    console.log("BE Add landmark initiated");
+    console.log("BE Add landmark started");
   }
-  response.send("BE Add landmark done");
+  console.log("BE Add landmark ended");
+  response.send("Addition sucessful");
 });
 
 router.patch("/edit-landmark/:id", async function (request, response) {
-  console.log("BE edit started ", request.body);
+  console.log("BE edit started");
   await Landmarks.updateOne(
     { _id: request.params.id },
     {
@@ -38,14 +68,15 @@ router.patch("/edit-landmark/:id", async function (request, response) {
       },
     }
   );
-  response.send(response);
+  console.log("BE edit ended");
+  response.send("Edit successful");
 });
 
 //Delete landmark
-router.post("/delete-landmark/:id", async function (request, response) {
-  const result = await Landmarks.deleteOne({ _id: request.params.id });
-  console.log(result);
-  response.send(result);
+router.delete("/delete-landmark/:id", async function (request, response) {
+  await Landmarks.deleteOne({ _id: request.params.id });
+  console.log("Landmark Deleted BE");
+  response.send({}); // "Landmark Deleted BE" ??
 });
 
 module.exports = router;

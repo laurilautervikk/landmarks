@@ -4,12 +4,12 @@
       <div class="modal-body px-4">
         <div class="d-flex justify-content-between">
           <h3 class="px-5 pt-3 mb-0 align-bottom">Add a new landmark</h3>
-          <div @click="closeModal" class="align-top">
+          <div @click="closeModal" class="pointer align-top">
             <i class="align-top fs-2 bi bi-x-circle"></i>
           </div>
         </div>
 
-        <!-- START -->
+        <!-- FORM START -->
         <div class="container py-4">
           <input
             v-model="newTitle"
@@ -41,14 +41,16 @@
           <div class="container">
             <div id="thumb-row" class="row d-flex flex-wrap">
               <div
-                class="image-box col-3"
+                class="image-box col-6 col-md-4 col-lg-3 justify-content-center"
                 v-for="(image, index) in newImageUrlSet"
                 :key="image"
               >
                 <img
                   class="tiny-image img-thumbnail"
+                  width="100"
+                  height="100"
                   :src="image"
-                  alt="missing image"
+                  alt="this image is missing"
                 />
                 <div
                   @click="deleteThumbnail(index)"
@@ -80,7 +82,7 @@
           </button>
         </div>
 
-        <!-- END -->
+        <!-- FORM END -->
       </div>
     </div>
   </div>
@@ -93,24 +95,15 @@ export default {
   props: {
     showModal: Boolean,
   },
-  emits: ["submitted", "clicked"],
 
-  data() {
+  setup(props, context) {
     const newUrl = ref("");
     const newTitle = ref("");
     const newImageUrlSet = ref([]);
     const newDescription = ref("");
 
-    return {
-      newUrl,
-      newTitle,
-      newImageUrlSet,
-      newDescription,
-    };
-  },
-  methods: {
     //build image array
-    addImage(input) {
+    function addImage(input) {
       console.log("trying to insert: ", input);
       if (input) {
         this.newImageUrlSet.push(input);
@@ -119,18 +112,18 @@ export default {
       } else {
         console.log("Image URL not inserted");
       }
-    },
-
-    deleteThumbnail(input) {
+    }
+    //delete a thumbnail
+    function deleteThumbnail(input) {
       console.log("this.newImageUrlSet before delete: ", this.newImageUrlSet);
       this.newImageUrlSet = this.newImageUrlSet.filter((image, index) => {
         if (index !== input) {
           return image;
         }
       });
-    },
-
-    async addNewLandmark() {
+    }
+    //add a landmark
+    async function addNewLandmark() {
       let data = {
         title: this.newTitle,
         imageUrlSet: this.newImageUrlSet,
@@ -145,15 +138,28 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.$emit("submitted");
+          //close the modal on submit
+          context.emit("clicked");
         })
         .catch(function (error) {
           console.log(error);
         });
-    },
-    closeModal() {
-      this.$emit("clicked");
-    },
+    }
+    //close the modal
+    const closeModal = () => {
+      context.emit("clicked");
+    };
+
+    return {
+      newUrl,
+      newTitle,
+      newImageUrlSet,
+      newDescription,
+      addImage,
+      deleteThumbnail,
+      addNewLandmark,
+      closeModal,
+    };
   },
 };
 </script>
@@ -174,6 +180,10 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 0.5em;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .homemade-button {
@@ -218,7 +228,7 @@ button {
 .plus {
   margin: 0;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -239,7 +249,7 @@ div.image-box div {
   display: none;
 }
 div.image-box div.delete {
-  top: 15px;
-  right: 20px;
+  top: 35px;
+  right: 35px;
 }
 </style>

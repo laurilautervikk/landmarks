@@ -42,6 +42,13 @@
     </header>
 
     <div class="container-fluid body-section">
+      <div class="row my-3 justify-content-center">
+        <div class="col-3">
+          <h5>
+            <input class="form-control search-box" placeholder="Type to search.." type="search" v-model="searchString" @input="searchChanged" name="search" />
+          </h5>
+        </div>
+      </div>
       <div class="row justify-content-center">
         <div
           class="col-auto p-3"
@@ -62,16 +69,40 @@
           </div>
         </div>
       </div>
+      <div class="container justify-content-center">
+        <div class="row my-3 justify-content-center">
+          <div class="col-3 text-center">
+            <h5><span>Records on page </span>
+              <input class="number-input" v-model="newPageLimit" @change="recordsOnPageChanged" type="number" name="docsPerPage" min="1" :max="landmarksFromServerMeta.totalDocs" />
+            </h5>
+          </div>
+          <div class="pagebox col-1 text-center">
+            <h5 @click="prevPage">Prev</h5>
+          </div>
+          <div class="col-2 text-center">
+            <h5>
+              Page:<span>{{ landmarksFromServerMeta.page }}</span
+              >/<span>{{ landmarksFromServerMeta.totalPages }}</span>
+            </h5>
+          </div>
+          
+          <div class="pagebox col-1 text-center">
+            <h5 @click="nextPage">Next</h5>
+          </div>
+        </div>
+      </div>
     </div>
     <Footer />
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import AddLandmark from "@/components/AddLandmark.vue";
 import Footer from "@/components/Footer.vue";
+//import VueJwtDecode from "vue-jwt-decode";
 
 export default {
   name: "Landmarks",
@@ -85,34 +116,45 @@ export default {
     description: String,
   },
 
-  data() {
+  setup() {
+    //const route = useRoute();
+    const router = useRouter();
     let landmarksFromServer = ref([]);
+    let landmarksFromServerMeta = ref([]);
     const newTitle = ref("");
     const newImageUrl = ref("");
     const newDescription = ref("");
-    let showModal = ref(false);
-    let token = ref(localStorage.getItem("token"));
+    const showModal = ref(false);
+    const token = ref(localStorage.getItem("token"));
     console.log("token: ", token);
 
+    //pagination variables
+    const newPageNumber = ref(1);
+    const newPageLimit = ref(8);
+
+    //Search variable
+    const searchString = ref('');
 
     //GET request for a list of landmarks
     async function getLandmarks() {
+      const params = {
+        page: newPageNumber.value,
+        limit: newPageLimit.value,
+        searchFor: searchString.value
+      };
       const result = await axios
-        .get("/api/get-landmarks", {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
+        .get("/api/get-landmarks", { params })
         .catch(function (error) {
+          //This route is not auth
           if (error.response.status === 401) {
-            this.$router.push("/login");
+            router.push("/login");
           }
         });
-      landmarksFromServer.value = result.data;
-      console.log("landmarksFromServer ", landmarksFromServer.value);
+      landmarksFromServer.value = result.data.docs; // Landmarks are inside docs, due to pagination
+      landmarksFromServerMeta.value = result.data;
+      console.log("Data from BE: ", result.data);
     }
     // call the above function
-    getLandmarks();
 
     //open modal
     function openModal() {
@@ -124,22 +166,64 @@ export default {
       await getLandmarks();
     }
 
-    const logout = () => {
-      localStorage.clear(); //WORKS
-      //localStorage.removeItem("token");
-      console.log('token removed');
-      getLandmarks();
-      location.reload();
-      //this.$router.push('../views/login'); //NOT WORKING
+    //Pagination logic
+    const nextPage = () => {
+      if (newPageNumber.value >= landmarksFromServerMeta.value.totalPages) {
+        console.log("Not enough pages");
+      } else {
+        newPageNumber.value++;
+        console.log("next", newPageNumber.value);
+        getLandmarks();
+      }
     };
 
+    const prevPage = () => {
+      if (newPageNumber.value <= 1) {
+        console.log("Can't go lower with pages");
+      } else {
+        newPageNumber.value--;
+        console.log("prev", newPageNumber.value);
+        getLandmarks();
+      }
+    };
+    //records on page
+    const recordsOnPageChanged = () => {
+      getLandmarks();
+    }
+    //Pagination logic END
+
+    //Search trigger
+    const searchChanged = () => {
+      getLandmarks();
+    }
+
+    //log out the user
+    const logout = async () => {
+      localStorage.removeItem("token");
+      console.log("token removed");
+      await getLandmarks();
+      location.reload(); //not a good solution
+      //router.push('/');
+    };
+    onMounted(() => {
+      getLandmarks();
+    });
+
     return {
+      searchChanged,
+      searchString,
+      recordsOnPageChanged,
+      nextPage,
+      prevPage,
+      newPageNumber,
+      newPageLimit,
       token,
       logout,
       openModal,
       onChildClick,
       showModal,
       landmarksFromServer,
+      landmarksFromServerMeta,
       newTitle,
       newImageUrl,
       newDescription,
@@ -199,6 +283,21 @@ button {
   border: none;
   border-radius: 0.5em;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.number-input {
+  border-radius: 0.5em;
+  height: 30px;
+  width: 50px;
+  text-align: center;
+  border: 1px solid #454545;
+}
+
+.search-box {
+  border-radius: 0.5em;
+  height: 50px;
+  border: 1px solid #454545;
 }
 
 .layout {
@@ -206,5 +305,17 @@ button {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+/* div {
+  border: 1px solid red;
+} */
+
+.pagebox {
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
+  color: black;
+  border-radius: 0.5em;
+  cursor: pointer;
+  height: 30px;
 }
 </style>

@@ -6,6 +6,7 @@ import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
 import Detailview from "@/components/Detailview.vue";
 import EditLandmark from "@/components/EditLandmark.vue";
+import DeleteLandmark from "@/components/EditLandmark.vue";
 import PageNotFound from "@/views/PageNotFound.vue";
 
 const routes = [
@@ -48,6 +49,14 @@ const routes = [
         path: "/edit-landmark/:id",
         name: "EditLandmark",
         component: EditLandmark,
+        meta: {
+          auth: true,
+        },
+      },
+      {
+        path: "/delete-landmark/:id",
+        name: "DeleteLandmark",
+        component: DeleteLandmark,
         meta: {
           auth: true,
         },
