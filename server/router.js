@@ -16,6 +16,11 @@ router.get("/get-landmarks", async function (request, response) {
     request.query.searchFor ? request.query.searchFor.trim() : "",
     "i"
   );
+  console.log("request ", request.query);
+
+  const result = await Landmarks.paginate(
+    {
+      $or: [{ title: searchString }],
   console.log("request ", request.query.searchFor);
 
   await Landmarks.paginate(
@@ -80,6 +85,27 @@ router.delete("/delete-landmark/:id", async function (request, response) {
   await Landmarks.deleteOne({ _id: request.params.id });
   console.log("Landmark Deleted BE");
   response.send({}); // "Landmark Deleted BE" ??
+});
+
+//Add Comment
+router.post("/add-comment/:id", async function (request, response) {
+  await Landmarks.findOneAndUpdate(
+    { _id: request.params.id },
+    {
+      $addToSet: {
+        comments: [
+          {
+            userId: request.params.userId,
+            userName: request.params.userName,
+            commentId: request.params.commentId,
+            commentBody: request.params.commentBody,
+          },
+        ],
+      },
+    }
+  );
+  console.log(request.body);
+  response.send("Comment Added");
 });
 
 module.exports = router;

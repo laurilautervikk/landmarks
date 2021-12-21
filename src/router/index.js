@@ -61,6 +61,14 @@ const routes = [
           auth: true,
         },
       },
+      {
+        path: "/add-comment/:id",
+        name: "addcomment",
+        //component: AddComment
+        meta: {
+          auth: true,
+        },
+      },
     ],
   },
   {

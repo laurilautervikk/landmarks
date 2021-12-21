@@ -13,6 +13,8 @@
     "express": "^4.17.1",
     "lodash.debounce": "^4.0.8",
     "mdbvue": "^6.7.3",
+    "mongoose-paginate-v2": "^1.4.2",
+    "nodemon": "^2.0.15",
     "vue": "^3.0.0",
     "vue-debounce": "^3.0.1",
     "vue-jwt-decode": "^0.1.0",
