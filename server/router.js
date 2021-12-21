@@ -83,7 +83,22 @@ router.delete("/delete-landmark/:id", async function (request, response) {
 });
 
 //Add Comment
-router.post("/add-comment/", async function (request, response) {
+router.post("/add-comment/:id", async function (request, response) {
+  await Landmarks.findOneAndUpdate(
+    { _id: request.params.id },
+    {
+      $addToSet: {
+        comments: [
+          {
+            userId: request.params.userId,
+            userName: request.params.userName,
+            commentId: request.params.commentId,
+            commentBody: request.params.commentBody,
+          },
+        ],
+      },
+    }
+  );
   console.log(request.body);
   response.send("Comment Added");
 });
