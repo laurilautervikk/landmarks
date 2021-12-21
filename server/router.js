@@ -21,6 +21,11 @@ router.get("/get-landmarks", async function (request, response) {
   const result = await Landmarks.paginate(
     {
       $or: [{ title: searchString }],
+  console.log("request ", request.query.searchFor);
+
+  await Landmarks.paginate(
+    {
+      $or: [{ title: searchString }, { description: searchString }],
     },
     options,
     (err, result) => {

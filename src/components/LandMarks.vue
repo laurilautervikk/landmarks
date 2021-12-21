@@ -14,7 +14,11 @@
           </div>
         </div>
         <div
-          class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 p-5 justify-content-center"
+          class="
+            col col-xs-12 col-sm-12 col-md-12 col-lg-6
+            p-5
+            justify-content-center
+          "
         >
           <h1 class="mb-3">World landmarks</h1>
         </div>
@@ -45,7 +49,14 @@
       <div class="row my-3 justify-content-center">
         <div class="col-3">
           <h5>
-            <input class="form-control search-box" placeholder="Type to search.." type="search" v-model="searchString" @input="searchChanged" name="search" />
+            <input
+              class="form-control search-box"
+              placeholder="Type to search.."
+              type="search"
+              v-model="searchString"
+              @input="debouncedSearchChanged"
+              name="search"
+            />
           </h5>
         </div>
       </div>
@@ -72,8 +83,17 @@
       <div class="container justify-content-center">
         <div class="row my-3 justify-content-center">
           <div class="col-3 text-center">
-            <h5><span>Records on page </span>
-              <input class="number-input" v-model="newPageLimit" @change="recordsOnPageChanged" type="number" name="docsPerPage" min="1" :max="landmarksFromServerMeta.totalDocs" />
+            <h5>
+              <span>Records on page </span>
+              <input
+                class="number-input"
+                v-model="newPageLimit"
+                @change="recordsOnPageChanged"
+                type="number"
+                name="docsPerPage"
+                min="1"
+                :max="landmarksFromServerMeta.totalDocs"
+              />
             </h5>
           </div>
           <div class="pagebox col-1 text-center">
@@ -85,7 +105,7 @@
               >/<span>{{ landmarksFromServerMeta.totalPages }}</span>
             </h5>
           </div>
-          
+
           <div class="pagebox col-1 text-center">
             <h5 @click="nextPage">Next</h5>
           </div>
@@ -102,7 +122,8 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 import AddLandmark from "@/components/AddLandmark.vue";
 import Footer from "@/components/Footer.vue";
-//import VueJwtDecode from "vue-jwt-decode";
+import debounce from 'lodash.debounce';
+
 
 export default {
   name: "Landmarks",
@@ -117,7 +138,6 @@ export default {
   },
 
   setup() {
-    //const route = useRoute();
     const router = useRouter();
     let landmarksFromServer = ref([]);
     let landmarksFromServerMeta = ref([]);
@@ -133,14 +153,14 @@ export default {
     const newPageLimit = ref(8);
 
     //Search variable
-    const searchString = ref('');
+    const searchString = ref("");
 
     //GET request for a list of landmarks
     async function getLandmarks() {
       const params = {
         page: newPageNumber.value,
         limit: newPageLimit.value,
-        searchFor: searchString.value
+        searchFor: searchString.value,
       };
       const result = await axios
         .get("/api/get-landmarks", { params })
@@ -189,13 +209,16 @@ export default {
     //records on page
     const recordsOnPageChanged = () => {
       getLandmarks();
-    }
+    };
     //Pagination logic END
 
-    //Search trigger
-    const searchChanged = () => {
+    //OLD search trigger
+    let searchChanged = () => {
       getLandmarks();
-    }
+    };
+
+    const debouncedSearchChanged = debounce(searchChanged, 500);
+    //Search DEBOUNCE END
 
     //log out the user
     const logout = async () => {
@@ -210,6 +233,7 @@ export default {
     });
 
     return {
+      debouncedSearchChanged,
       searchChanged,
       searchString,
       recordsOnPageChanged,
