@@ -16,11 +16,6 @@ router.get("/get-landmarks", async function (request, response) {
     request.query.searchFor ? request.query.searchFor.trim() : "",
     "i"
   );
-  console.log("request ", request.query);
-
-  const result = await Landmarks.paginate(
-    {
-      $or: [{ title: searchString }],
   console.log("request ", request.query.searchFor);
 
   await Landmarks.paginate(
@@ -36,16 +31,6 @@ router.get("/get-landmarks", async function (request, response) {
   //response.status(200).send(result);
 });
 
-/* router.get("/get-landmarks", async function (request, response) {
-  const searchString = new RegExp(stringFromFe ? stringFromFe.trim() : '', 'i')
-  const result = await Landmarks.find({
-      $or: [
-        { 'landmark.title': searchString },
-        ]
-    })
-    response.status(200).send(result);
-  });
- */
 
 //GET a single landmark by id
 router.get("/get-landmark/:id", async function (request, response) {
