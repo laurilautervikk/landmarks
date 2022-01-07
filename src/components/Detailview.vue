@@ -73,6 +73,7 @@
         </div>
       </div>
     </div>
+    <add-comments></add-comments>
     <Footer />
     <!-- old image -->
   </div>
@@ -83,13 +84,18 @@ import { ref, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
+import AddComments from '@/components/AddComments.vue';
 import Footer from "@/components/Footer.vue";
+
+
 //import VueJwtDecode from "vue-jwt-decode";
 export default {
   name: "Detailview",
   components: {
     EditLandmark,
     Footer,
+    AddComments,
+    
   },
   props: {
     id: Number,

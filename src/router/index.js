@@ -8,98 +8,95 @@ import Detailview from "@/components/Detailview.vue";
 import EditLandmark from "@/components/EditLandmark.vue";
 import DeleteLandmark from "@/components/EditLandmark.vue";
 import PageNotFound from "@/views/PageNotFound.vue";
+import AddComments from "@/components/AddComments.vue";
 
-const routes = [
-  {
-    path: "/",
-    name: "LandMarks",
-    component: LandMarks,
-    meta: {
-      auth: false,
-    },
-    children: [
-      {
-        path: "/add-landmark/:id",
-        name: "AddLandmark",
-        component: AddLandmark,
+const routes = [{
+        path: "/",
+        name: "LandMarks",
+        component: LandMarks,
         meta: {
-          auth: true,
+            auth: false,
         },
-      },
-    ],
-  },
-  {
-    path: "/landmark",
-    name: "Detail",
-    component: Detail,
-    meta: {
-      auth: false,
+        children: [{
+            path: "/add-landmark/:id",
+            name: "AddLandmark",
+            component: AddLandmark,
+            meta: {
+                auth: true,
+            },
+        }, ],
     },
-    children: [
-      {
-        path: "/landmark/:id",
-        name: "Detailview",
-        component: Detailview,
+    {
+        path: "/landmark",
+        name: "Detail",
+        component: Detail,
         meta: {
-          auth: false,
+            auth: false,
         },
-      },
+        children: [{
+                path: "/landmark/:id",
+                name: "Detailview",
+                component: Detailview,
+                meta: {
+                    auth: false,
+                },
+            },
 
-      {
-        path: "/edit-landmark/:id",
-        name: "EditLandmark",
-        component: EditLandmark,
-        meta: {
-          auth: true,
-        },
-      },
-      {
-        path: "/delete-landmark/:id",
-        name: "DeleteLandmark",
-        component: DeleteLandmark,
-        meta: {
-          auth: true,
-        },
-      },
-      {
-        path: "/add-comment/:id",
-        name: "addcomment",
-        //component: AddComment
-        meta: {
-          auth: true,
-        },
-      },
-    ],
-  },
-  {
-    path: "/register",
-    name: "Register",
-    component: Register,
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: Login,
-  },
-  {
-    path: "/:catchAll(.*)*",
-    name: "PageNotFound",
-    component: PageNotFound,
-  },
+            {
+                path: "/edit-landmark/:id",
+                name: "EditLandmark",
+                component: EditLandmark,
+                meta: {
+                    auth: true,
+                },
+            },
+            {
+                path: "/delete-landmark/:id",
+                name: "DeleteLandmark",
+                component: DeleteLandmark,
+                meta: {
+                    auth: true,
+                },
+            },
+            {
+                path: "/add-comment/:id",
+                name: "addcomment",
+                component: AddComments,
+                meta: {
+                    auth: false,
+                },
+            },
+        ],
+    },
+    {
+        path: "/register",
+        name: "Register",
+        component: Register,
+    },
+    {
+        path: "/login",
+        name: "Login",
+        component: Login,
+    },
+    {
+        path: "/:catchAll(.*)*",
+        name: "PageNotFound",
+        component: PageNotFound,
+    },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
 });
 
 // GOOD
 router.beforeEach((to, from, next) => {
-  if (to.meta.auth === true && !localStorage.getItem("token"))
-    next({ route: "/" });
-  //Might be set to '/login' as well
-  else next();
-  console.log("Login logic passed");
+    if (to.meta.auth === true && !localStorage.getItem("token"))
+        next({ route: "/" });
+    //Might be set to '/login' as well
+    else next();
+    console.log("Login logic passed");
 });
 
 //this gives a warning of double next() in some cases
