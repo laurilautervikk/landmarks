@@ -7,7 +7,7 @@ const LandmarksSchema = new mongoose.Schema({
         title: { type: String, required: true },
         imageUrlSet: [{ type: String }],
         description: { type: String },
-        comments: [{ userId: Number, userName: String, commentId: Number, commentBody: String },
+        comments: [{ userId: Number, userName: String, userEmail: String, commentBody: String },
             { timestamps: true }
         ], //comments inside this array
     }, { timestamps: true } //add timestamp for the whole landmark entry

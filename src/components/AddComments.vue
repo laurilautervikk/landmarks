@@ -4,40 +4,27 @@
       <div class="row">
         <div class="col-sm-5 col-md-6 col-12 pb-4">
           <h1>Comments</h1>
+
+          <!-- <p>{{ userComments }}</p> -->
+
           <div class="comment mt-4 text-justify float-left">
-            <h4>{{ commentData.userName }}</h4>
-            <br />
-            <span>E-mail: {{ commentData.email }}</span> <br />
-            <p>
-              {{ commentData.comment }}
-            </p>
-          </div>
-          <div class="text-justify darker mt-4 float-right">
-            <h4>Rob Simpson</h4>
-            <span>- 20 October, 2018</span> <br />
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Accusamus numquam assumenda hic aliquam vero sequi velit molestias
-              doloremque molestiae dicta?
-            </p>
-          </div>
-          <div class="comment mt-4 text-justify">
-            <h4>Jhon Doe</h4>
-            <span>- 20 October, 2018</span> <br />
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Accusamus numquam assumenda hic aliquam vero sequi velit molestias
-              doloremque molestiae dicta?
-            </p>
-          </div>
-          <div class="darker mt-4 text-justify">
-            <h4>Rob Simpson</h4>
-            <span>- 20 October, 2018</span> <br />
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Accusamus numquam assumenda hic aliquam vero sequi velit molestias
-              doloremque molestiae dicta?
-            </p>
+            <ul class="comment-list">
+              <li
+                v-for="comment in userComments.slice().reverse()"
+                :key="comment._id"
+              >
+                <div class="text-justify darker mt-4 float-right">
+                  <h4>{{ comment.userName }}</h4>
+                  <span>- 22 January, 2022</span>
+                  <br />
+                  <span>E-mail: {{ comment.userEmail }}</span>
+                  <br />
+                  <!-- <p>
+                    {{ comment.commentBody }}
+                  </p> -->
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -54,13 +41,13 @@
                 cols="30"
                 rows="5"
                 class="form-control"
-                v-model="commentData.comment"
+                v-model="commentData.comment.commentBody"
               ></textarea>
             </div>
             <div class="form-group">
               <label for="name">Name</label>
               <input
-                v-model="commentData.userName"
+                v-model="commentData.comment.userName"
                 type="text"
                 name="name"
                 id="fullname"
@@ -70,7 +57,7 @@
             <div class="form-group">
               <label for="email">Email</label>
               <input
-                v-model="commentData.email"
+                v-model="commentData.comment.userEmail"
                 type="text"
                 name="email"
                 id="email"
@@ -91,37 +78,41 @@
 
 <script>
 //import Vue from "Vue"
-//import { ref } from "vue";
 //import { useRoute } from "vue-router";
 import axios from "axios";
 //import { request } from 'express';
 export default {
   name: "commentData",
+  props: ["userComments"],
   data() {
     return {
-      commentData:
-        {
-          comment: "",
+      commentData: {
+        comment: {
+          userId: 1,
           userName: "",
-          email: "",
+          userEmail: "",
+          commentBody: "",
         },
+      },
     };
   },
   methods: {
     addComment() {
       const commentData = this.commentData;
       //const commentbody = commentData.value;
-      console.log(this.commentData)
+      console.log("commentData", this.commentData);
       const id = this.$route.params.id;
+
       //const commentData = this.$route.params.commentData;
       axios
-        .post(`/api/edit-landmark/${id}`, commentData, {
+        .post(`/api/add-comment/${id}`, commentData, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
         })
         .then(function (request) {
           console.log(request);
+          location.reload();
         })
         .catch(function (error) {
           console.log(error);

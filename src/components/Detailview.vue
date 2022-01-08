@@ -51,16 +51,16 @@
             class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix card-image-box-outer"
           >
             <!-- SLIDER START -->
-              <div class="card-image-box">
-                <img :src="images[currentNumber]" alt="landmark image" />
+            <div class="card-image-box">
+              <img :src="images[currentNumber]" alt="landmark image" />
 
-                <div class="btnNext float-end me-1" @click="next">
-                  <i class="bi bi-arrow-right fs-1"></i>
-                </div>
-                <div class="btnPrev float-start ms-1" @click="prev">
-                  <i class="bi bi-arrow-left fs-1"></i>
-                </div>
-                </div>
+              <div class="btnNext float-end me-1" @click="next">
+                <i class="bi bi-arrow-right fs-1"></i>
+              </div>
+              <div class="btnPrev float-start ms-1" @click="prev">
+                <i class="bi bi-arrow-left fs-1"></i>
+              </div>
+            </div>
           </div>
           <!-- SLIDER END -->
           <div
@@ -72,8 +72,12 @@
           </div>
         </div>
       </div>
+
+      <!-- <div>
+        {{landmarkInfo.comments}}
+      </div> -->
     </div>
-    <add-comments></add-comments>
+    <add-comments :userComments="userComments"></add-comments>
     <Footer />
     <!-- old image -->
   </div>
@@ -84,9 +88,8 @@ import { ref, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
-import AddComments from '@/components/AddComments.vue';
+import AddComments from "@/components/AddComments.vue";
 import Footer from "@/components/Footer.vue";
-
 
 //import VueJwtDecode from "vue-jwt-decode";
 export default {
@@ -95,14 +98,10 @@ export default {
     EditLandmark,
     Footer,
     AddComments,
-    
   },
-  props: {
-    id: Number,
-    title: String,
-    imageUrl: String,
-    description: String,
-  },
+  /* props: {
+    userComments,
+  }, */
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -113,6 +112,8 @@ export default {
     const showModal = ref(false);
     const id = route.params.id;
     const token = ref(localStorage.getItem("token"));
+    //comment on their own
+    let userComments = ref([]);
 
     //GET request for a single landmark
     async function getLandmark(id) {
@@ -124,6 +125,9 @@ export default {
       console.log("FE getLandmark is called");
       landmarkInfo.value = result.data;
       images.value = landmarkInfo.value.imageUrlSet;
+      console.log("landmarkInfo.value ", landmarkInfo.value);
+      userComments.value = landmarkInfo.value.comments;
+      console.log("userComments.value from Detailview", userComments.value);
     }
     // call the above function
     getLandmark(route.params.id);
@@ -171,10 +175,12 @@ export default {
       showModal.value = false;
       await getLandmark(id);
     }
+
     onMounted(() => {
       console.log("token: ", token);
     });
     return {
+      userComments,
       deleteLandmark,
       landmarkInfo,
       token,
@@ -193,7 +199,7 @@ export default {
 
 <style scoped>
 .btnNext,
-.btnPrev{
+.btnPrev {
   color: #2ab1ce;
 }
 .card-image-box .btnPrev {
