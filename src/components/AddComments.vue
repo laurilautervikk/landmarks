@@ -17,6 +17,7 @@
                 :key="comment._id"
               >
                 <div class="text-justify darker mt-4 float-right">
+<<<<<<< HEAD
                   <h4>Name: {{ comment.userName }}</h4>
                   <span>- {{  }}</span>
                   <br />
@@ -25,6 +26,16 @@
                   <p>
                     {{ comment.commentBody }}
                   </p>
+=======
+                  <h4>{{ comment.userName }}</h4>
+                  <span>- 22 January, 2022</span>
+                  <br />
+                  <span>E-mail: {{ comment.userEmail }}</span>
+                  <br />
+                  <!-- <p>
+                    {{ comment.commentBody }}
+                  </p> -->
+>>>>>>> 4da1c905c25b5c7e542b822035032963f0c8eba1
                 </div>
               </li>
             </ul>
@@ -112,6 +123,7 @@ export default {
       //const commentbody = commentData.value;
       console.log("commentData", this.commentData);
       const id = this.$route.params.id;
+
       //const commentData = this.$route.params.commentData;
       axios
         .post(`/api/add-comment/${id}`, commentData, {

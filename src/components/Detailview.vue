@@ -90,6 +90,10 @@ import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
 import AddComments from "@/components/AddComments.vue";
 import Footer from "@/components/Footer.vue";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4da1c905c25b5c7e542b822035032963f0c8eba1
 //import VueJwtDecode from "vue-jwt-decode";
 export default {
   name: "Detailview",
@@ -113,6 +117,10 @@ export default {
     const token = ref(localStorage.getItem("token"));
     //comment on their own
     let userComments = ref([]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4da1c905c25b5c7e542b822035032963f0c8eba1
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`, {
@@ -170,6 +178,7 @@ export default {
       showModal.value = false;
       await getLandmark(id);
     }
+
     onMounted(() => {
       console.log("token: ", token);
     });

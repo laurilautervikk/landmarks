@@ -70,11 +70,22 @@ router.delete("/delete-landmark/:id", async function(request, response) {
 
 //Add Comment
 router.post("/add-comment/:id", async function(request, response) {
+<<<<<<< HEAD
     await Landmarks.updateOne({ _id: request.params.id }, {
         $push: {
             comments: request.body.comment,
         },
     }, );
+=======
+    await Landmarks.updateOne(
+        { _id: request.params.id },
+        {
+        $push: {
+            comments: request.body.comment,
+            },
+        },
+    );
+>>>>>>> 4da1c905c25b5c7e542b822035032963f0c8eba1
     console.log(request.body);
     response.send("Comment Added");
 });
