@@ -90,7 +90,10 @@ import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
 import AddComments from "@/components/AddComments.vue";
 import Footer from "@/components/Footer.vue";
+<<<<<<< HEAD
+=======
 
+>>>>>>> 4da1c905c25b5c7e542b822035032963f0c8eba1
 //import VueJwtDecode from "vue-jwt-decode";
 export default {
   name: "Detailview",
@@ -114,7 +117,10 @@ export default {
     const token = ref(localStorage.getItem("token"));
     //comment on their own
     let userComments = ref([]);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 4da1c905c25b5c7e542b822035032963f0c8eba1
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`, {
@@ -131,7 +137,6 @@ export default {
     }
     // call the above function
     getLandmark(route.params.id);
-
     //Delete landmark
     function deleteLandmark() {
       axios
@@ -149,7 +154,6 @@ export default {
           console.log(error);
         });
     }
-
     //Slider next, previous logic
     function next() {
       if (currentNumber.value == imagesLenght.value - 1) {
@@ -165,7 +169,6 @@ export default {
         currentNumber.value -= 1;
       }
     }
-
     //open modal
     function openModal() {
       showModal.value = true;
@@ -208,14 +211,12 @@ export default {
   left: 0%;
   cursor: pointer;
 }
-
 .card-image-box .btnNext {
   position: absolute;
   top: 45%;
   right: 0%;
   cursor: pointer;
 }
-
 div.image-box div.delete {
   top: 35px;
   right: 35px;
@@ -241,11 +242,9 @@ div.image-box div.delete {
   display: inline-block;
   padding: 3px;
 }
-
 .card-image-box-outer {
   height: 60vh;
 }
-
 .card-image-box {
   width: 100%;
   height: 100%;
@@ -253,17 +252,14 @@ div.image-box div.delete {
   object-fit: cover;
   position: relative;
 }
-
 .card-image-box img {
   width: inherit;
   height: inherit;
   object-fit: cover;
 }
-
 h1 {
   color: azure;
 }
-
 h4 {
   color: #ffffff;
   text-align: center;
@@ -280,7 +276,6 @@ button {
   font-weight: 600;
   cursor: pointer;
 }
-
 .btn-back {
   height: 50px;
   width: 50px;
@@ -289,12 +284,10 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
-
 .btn-back i {
   -ms-transform: translate(-0%, -0%);
   transform: translate(-10%, -10%);
 }
-
 /* big screen */
 @media only screen and (min-width: 992px) {
   .card-image-box img {
@@ -307,7 +300,6 @@ button {
     border-radius: 0.5em 0.5em 0em 0em;
   }
 }
-
 .layout {
   display: flex;
   flex-direction: column;
