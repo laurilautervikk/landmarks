@@ -51,16 +51,16 @@
             class="col-12 col-lg-7 col-md-12 col-sm-12 margin-fix card-image-box-outer"
           >
             <!-- SLIDER START -->
-              <div class="card-image-box">
-                <img :src="images[currentNumber]" alt="landmark image" />
+            <div class="card-image-box">
+              <img :src="images[currentNumber]" alt="landmark image" />
 
-                <div class="btnNext float-end me-1" @click="next">
-                  <i class="bi bi-arrow-right fs-1"></i>
-                </div>
-                <div class="btnPrev float-start ms-1" @click="prev">
-                  <i class="bi bi-arrow-left fs-1"></i>
-                </div>
-                </div>
+              <div class="btnNext float-end me-1" @click="next">
+                <i class="bi bi-arrow-right fs-1"></i>
+              </div>
+              <div class="btnPrev float-start ms-1" @click="prev">
+                <i class="bi bi-arrow-left fs-1"></i>
+              </div>
+            </div>
           </div>
           <!-- SLIDER END -->
           <div
@@ -72,8 +72,12 @@
           </div>
         </div>
       </div>
+
+      <!-- <div>
+        {{landmarkInfo.comments}}
+      </div> -->
     </div>
-    <add-comments></add-comments>
+    <add-comments :userComments="userComments"></add-comments>
     <Footer />
     <!-- old image -->
   </div>
@@ -84,10 +88,8 @@ import { ref, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
-import AddComments from '@/components/AddComments.vue';
+import AddComments from "@/components/AddComments.vue";
 import Footer from "@/components/Footer.vue";
-
-
 //import VueJwtDecode from "vue-jwt-decode";
 export default {
   name: "Detailview",
@@ -95,14 +97,10 @@ export default {
     EditLandmark,
     Footer,
     AddComments,
-    
   },
-  props: {
-    id: Number,
-    title: String,
-    imageUrl: String,
-    description: String,
-  },
+  /* props: {
+    userComments,
+  }, */
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -113,7 +111,8 @@ export default {
     const showModal = ref(false);
     const id = route.params.id;
     const token = ref(localStorage.getItem("token"));
-
+    //comment on their own
+    let userComments = ref([]);
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`, {
@@ -124,10 +123,12 @@ export default {
       console.log("FE getLandmark is called");
       landmarkInfo.value = result.data;
       images.value = landmarkInfo.value.imageUrlSet;
+      console.log("landmarkInfo.value ", landmarkInfo.value);
+      userComments.value = landmarkInfo.value.comments;
+      console.log("userComments.value from Detailview", userComments.value);
     }
     // call the above function
     getLandmark(route.params.id);
-
     //Delete landmark
     function deleteLandmark() {
       axios
@@ -145,7 +146,6 @@ export default {
           console.log(error);
         });
     }
-
     //Slider next, previous logic
     function next() {
       if (currentNumber.value == imagesLenght.value - 1) {
@@ -161,7 +161,6 @@ export default {
         currentNumber.value -= 1;
       }
     }
-
     //open modal
     function openModal() {
       showModal.value = true;
@@ -175,6 +174,7 @@ export default {
       console.log("token: ", token);
     });
     return {
+      userComments,
       deleteLandmark,
       landmarkInfo,
       token,
@@ -193,7 +193,7 @@ export default {
 
 <style scoped>
 .btnNext,
-.btnPrev{
+.btnPrev {
   color: #2ab1ce;
 }
 .card-image-box .btnPrev {
@@ -202,14 +202,12 @@ export default {
   left: 0%;
   cursor: pointer;
 }
-
 .card-image-box .btnNext {
   position: absolute;
   top: 45%;
   right: 0%;
   cursor: pointer;
 }
-
 div.image-box div.delete {
   top: 35px;
   right: 35px;
@@ -235,11 +233,9 @@ div.image-box div.delete {
   display: inline-block;
   padding: 3px;
 }
-
 .card-image-box-outer {
   height: 60vh;
 }
-
 .card-image-box {
   width: 100%;
   height: 100%;
@@ -247,17 +243,14 @@ div.image-box div.delete {
   object-fit: cover;
   position: relative;
 }
-
 .card-image-box img {
   width: inherit;
   height: inherit;
   object-fit: cover;
 }
-
 h1 {
   color: azure;
 }
-
 h4 {
   color: #ffffff;
   text-align: center;
@@ -274,7 +267,6 @@ button {
   font-weight: 600;
   cursor: pointer;
 }
-
 .btn-back {
   height: 50px;
   width: 50px;
@@ -283,12 +275,10 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
-
 .btn-back i {
   -ms-transform: translate(-0%, -0%);
   transform: translate(-10%, -10%);
 }
-
 /* big screen */
 @media only screen and (min-width: 992px) {
   .card-image-box img {
@@ -301,7 +291,6 @@ button {
     border-radius: 0.5em 0.5em 0em 0em;
   }
 }
-
 .layout {
   display: flex;
   flex-direction: column;
