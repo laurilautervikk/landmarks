@@ -77,7 +77,10 @@
         {{landmarkInfo.comments}}
       </div> -->
     </div>
-    <add-comments :userComments="userComments"></add-comments>
+    <AddComments
+      :userComments="userComments"
+      :landmarkInfo="landmakInfo"
+    ></AddComments>
     <Footer />
     <!-- old image -->
   </div>
@@ -90,10 +93,6 @@ import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
 import AddComments from "@/components/AddComments.vue";
 import Footer from "@/components/Footer.vue";
-<<<<<<< HEAD
-=======
-
->>>>>>> 4da1c905c25b5c7e542b822035032963f0c8eba1
 //import VueJwtDecode from "vue-jwt-decode";
 export default {
   name: "Detailview",
@@ -102,9 +101,6 @@ export default {
     Footer,
     AddComments,
   },
-  /* props: {
-    userComments,
-  }, */
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -115,12 +111,9 @@ export default {
     const showModal = ref(false);
     const id = route.params.id;
     const token = ref(localStorage.getItem("token"));
-    //comment on their own
+    //comments on their own
     let userComments = ref([]);
-<<<<<<< HEAD
-=======
 
->>>>>>> 4da1c905c25b5c7e542b822035032963f0c8eba1
     //GET request for a single landmark
     async function getLandmark(id) {
       const result = await axios.get(`/api/get-landmark/${id}`, {
@@ -131,9 +124,9 @@ export default {
       console.log("FE getLandmark is called");
       landmarkInfo.value = result.data;
       images.value = landmarkInfo.value.imageUrlSet;
-      console.log("landmarkInfo.value ", landmarkInfo.value);
+      //console.log("landmarkInfo.value ", landmarkInfo.value);
       userComments.value = landmarkInfo.value.comments;
-      console.log("userComments.value from Detailview", userComments.value);
+      //console.log("userComments.value from Detailview", userComments.value);
     }
     // call the above function
     getLandmark(route.params.id);
@@ -178,7 +171,6 @@ export default {
       showModal.value = false;
       await getLandmark(id);
     }
-
     onMounted(() => {
       console.log("token: ", token);
     });
