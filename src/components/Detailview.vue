@@ -72,17 +72,13 @@
           </div>
         </div>
       </div>
-
-      <!-- <div>
-        {{landmarkInfo.comments}}
-      </div> -->
+      <AddComments
+        :key="updateKey"
+        :userComments="userComments"
+        @commented="onUpdated"
+      ></AddComments>
     </div>
-    <AddComments
-      :userComments="userComments"
-      :landmarkInfo="landmakInfo"
-    ></AddComments>
     <Footer />
-    <!-- old image -->
   </div>
 </template>
 
@@ -113,6 +109,7 @@ export default {
     const token = ref(localStorage.getItem("token"));
     //comments on their own
     let userComments = ref([]);
+    const updateKey = ref(0);
 
     //GET request for a single landmark
     async function getLandmark(id) {
@@ -124,9 +121,7 @@ export default {
       console.log("FE getLandmark is called");
       landmarkInfo.value = result.data;
       images.value = landmarkInfo.value.imageUrlSet;
-      //console.log("landmarkInfo.value ", landmarkInfo.value);
       userComments.value = landmarkInfo.value.comments;
-      //console.log("userComments.value from Detailview", userComments.value);
     }
     // call the above function
     getLandmark(route.params.id);
@@ -171,10 +166,17 @@ export default {
       showModal.value = false;
       await getLandmark(id);
     }
+    async function onUpdated() {
+      await getLandmark(id);
+      updateKey.value += 1;
+    }
+
     onMounted(() => {
       console.log("token: ", token);
     });
     return {
+      updateKey,
+      onUpdated,
       userComments,
       deleteLandmark,
       landmarkInfo,

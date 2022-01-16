@@ -1,26 +1,24 @@
 <template>
   <div>
-    <div class="container">
-      <div class="row">
+    <div class="container mt-3 mb-5">
+      <div class="row justify-content-between">
         <div
           v-show="userComments.length !== 0"
-          class="col-sm-6 col-md-6 col-12 pb-4"
+          class="col-lg-6 col-sm-12 col-md-12 col-12"
         >
           <h1>Comments</h1>
 
-          <!-- <p>{{ userComments }}</p> -->
-
-          <div class="comment mt-4 text-justify float-left">
-            <ul class="comment-list">
+          <div class="comments justify-content-center pb-3">
+            <ul class="comment-list p-3 my-1">
               <li
+                class=""
                 v-for="comment in userComments.slice().reverse()"
                 :key="comment._id"
               >
-                <div class="text-justify darker mt-4 float-right">
+                <div class="comment-item darker my-2">
                   <h4>Name: {{ comment.userName }}</h4>
                   <br />
                   <span>{{ formatDate(comment.createdAt) }}</span>
-                  <!-- <span v-bind="formatDate(comment.createdAt)"></span> -->
                   <br />
                   <span>E-mail: {{ comment.userEmail }}</span>
                   <br />
@@ -34,15 +32,15 @@
         </div>
         <div
           v-show="userComments.length === 0"
-          class="col-sm-6 col-md-6 col-12 pb-4"
+          class="col-lg-6 col-sm-12 col-md-12 col-12 pb-4"
         >
           <h1>No comments</h1>
         </div>
 
         <div
-          class="col-lg-5 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4"
+          class="comment-form col-lg-6 col-sm-12 col-md-12 col-12 justify-content-center"
         >
-          <form @submit="addComment()" id="algin-form">
+          <form ref="commentForm" @submit="addComment()" id="algin-form">
             <div class="form-group">
               <h4>Leave a comment</h4>
               <label for="message">Comment</label>
@@ -88,10 +86,8 @@
 </template>
 
 <script>
-//import Vue from "Vue"
-//import { useRoute } from "vue-router";
+//import { refs } from "vue";
 import axios from "axios";
-//import { request } from 'express';
 import moment from "moment";
 
 export default {
@@ -110,14 +106,15 @@ export default {
     };
   },
   methods: {
-    addComment() {
-      const commentData = this.commentData;
-      //const commentbody = commentData.value;
-      console.log("commentData", this.commentData);
+    async addComment() {
+      let commentData = this.commentData;
+      console.log("commentData ", this.commentData);
+      this.$refs.commentForm.reset();
       const id = this.$route.params.id;
+      const self = this;
 
-      //const commentData = this.$route.params.commentData;
-      axios
+      //add a comment
+      await axios
         .post(`/api/add-comment/${id}`, commentData, {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -125,7 +122,9 @@ export default {
         })
         .then(function (request) {
           console.log(request);
-          location.reload();
+          console.log("emit update comments to parent");
+          //self.$refs.commentForm.reset();
+          self.$emit("commented");
         })
         .catch(function (error) {
           console.log(error);
@@ -178,10 +177,7 @@ body {
   color: rgb(224, 219, 219);
   background-color: black;
 }
-.comments {
-  margin-top: 5%;
-  margin-left: 20px;
-}
+
 .darker {
   border: 1px solid #ecb21f;
   background-color: black;
@@ -191,14 +187,26 @@ body {
   padding-right: 30px;
   padding-top: 10px;
 }
-.comment {
+.comments {
   border: 1px solid rgba(16, 46, 46, 1);
   background-color: rgba(16, 46, 46, 0.973);
-  float: left;
+  /* float: left; */
   border-radius: 5px;
-  padding-left: 40px;
-  padding-right: 30px;
-  padding-top: 10px;
+  min-width: 100%;
+  display: inline-block;
+}
+
+.comment-list {
+  list-style: none;
+}
+
+.comment-item {
+  min-width: 100%;
+}
+
+.comment-form {
+  margin-top: 3.5em;
+  max-height: 26em;
 }
 .comment h4,
 .comment span,
@@ -222,7 +230,7 @@ label {
   color: rgb(212, 208, 208);
 }
 #align-form {
-  margin-top: 20px;
+  min-width: 100%;
 }
 .form-group p a {
   color: white;

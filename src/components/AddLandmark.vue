@@ -133,7 +133,7 @@ export default {
       await axios
         .post("/api/add-landmark", data, {
           headers: {
-            Authorization: localStorage.getItem("token",)
+            Authorization: localStorage.getItem("token"),
           },
         })
         .then((res) => {
