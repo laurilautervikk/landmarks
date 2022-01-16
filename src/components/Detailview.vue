@@ -72,14 +72,13 @@
           </div>
         </div>
       </div>
-
-      <!-- <div>
-        {{landmarkInfo.comments}}
-      </div> -->
+      <AddComments
+        :key="updateKey"
+        :userComments="userComments"
+        @commented="onUpdated"
+      ></AddComments>
     </div>
-    <add-comments :userComments="userComments"></add-comments>
     <Footer />
-    <!-- old image -->
   </div>
 </template>
 
@@ -90,7 +89,6 @@ import axios from "axios";
 import EditLandmark from "@/components/EditLandmark.vue";
 import AddComments from "@/components/AddComments.vue";
 import Footer from "@/components/Footer.vue";
-
 //import VueJwtDecode from "vue-jwt-decode";
 export default {
   name: "Detailview",
@@ -99,9 +97,6 @@ export default {
     Footer,
     AddComments,
   },
-  /* props: {
-    userComments,
-  }, */
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -112,8 +107,11 @@ export default {
     const showModal = ref(false);
     const id = route.params.id;
     const token = ref(localStorage.getItem("token"));
-    //comment on their own
+    //comments on their own
     let userComments = ref([]);
+    const updateKey = ref(0);
+
+
 
     //GET request for a single landmark
     async function getLandmark(id) {
@@ -125,9 +123,7 @@ export default {
       console.log("FE getLandmark is called");
       landmarkInfo.value = result.data;
       images.value = landmarkInfo.value.imageUrlSet;
-      console.log("landmarkInfo.value ", landmarkInfo.value);
       userComments.value = landmarkInfo.value.comments;
-      console.log("userComments.value from Detailview", userComments.value);
     }
     // call the above function
     getLandmark(route.params.id);
@@ -175,11 +171,17 @@ export default {
       showModal.value = false;
       await getLandmark(id);
     }
+    async function onUpdated() {
+      await getLandmark(id);
+      updateKey.value += 1;
+    }
 
     onMounted(() => {
       console.log("token: ", token);
     });
     return {
+      updateKey,
+      onUpdated,
       userComments,
       deleteLandmark,
       landmarkInfo,
@@ -313,5 +315,6 @@ button {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  max-width: 100%;
 }
 </style>
