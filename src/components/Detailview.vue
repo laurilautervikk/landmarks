@@ -299,5 +299,6 @@ button {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  max-width: 100%;
 }
 </style>
