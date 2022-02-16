@@ -14,11 +14,7 @@
           </div>
         </div>
         <div
-          class="
-            col col-xs-12 col-sm-12 col-md-12 col-lg-6
-            p-5
-            justify-content-center
-          "
+          class="col col-xs-12 col-sm-12 col-md-12 col-lg-6 p-5 justify-content-center"
         >
           <h1 class="mb-3">World landmarks</h1>
         </div>
@@ -122,8 +118,7 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 import AddLandmark from "@/components/AddLandmark.vue";
 import Footer from "@/components/Footer.vue";
-import debounce from 'lodash.debounce';
-
+import debounce from "lodash.debounce";
 
 export default {
   name: "Landmarks",

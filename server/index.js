@@ -2,13 +2,20 @@
 // --------------------------
 const express = require("express");
 const app = express();
+const router = express.Router();
 //const bodyParser = require("body-parser"); //Not needed when using below 4 lines
 app.use(express.json());
 app.use(
-    express.urlencoded({
-        extended: true,
-    })
+  express.urlencoded({
+    extended: true,
+  })
 );
+
+const swaggerUi = require("swagger-ui-express"),
+  swaggerDocument = require("./swagger.json");
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/v1", router);
 
 const routes = require("./router");
 const db = require("./dbConnection");
@@ -17,17 +24,15 @@ const expressJwt = require("express-jwt");
 const { SECRET } = require("./config");
 
 app.use(
-    expressJwt({ secret: SECRET, algorithms: ["HS256"] }).unless({
-        path: [
-            "/api/auth/register",
-            "/api/auth/login",
-            "/api/get-landmarks",
-            { url: /^\/api\/get-landmark\/.*/, methods: ['GET'] }, // removed PUT
-        ],
-    })
+  expressJwt({ secret: SECRET, algorithms: ["HS256"] }).unless({
+    path: [
+      "/api/auth/register",
+      "/api/auth/login",
+      "/api/get-landmarks",
+      { url: /^\/api\/get-landmark\/.*/, methods: ["GET"] }, // removed PUT
+    ],
+  })
 );
-
-
 
 //BASIC SOLUTION
 //for API routes
@@ -35,11 +40,14 @@ app.use("/api", routes);
 
 //Respond if GET request is made to root URL
 app.get("/", (req, res) => {
-    res.send("Hello from Landmarks backend!");
+  res.send("Hello from Landmarks API v.1.0.0");
 });
+
+//swagger code
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // enable env port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
-    console.log(`Landmarks backend listening on port: ${PORT}`)
+  console.log(`Landmarks backend listening on port: ${PORT}`)
 );

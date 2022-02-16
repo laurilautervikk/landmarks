@@ -1,0 +1,35 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Landmarks",
+    "description": "Our Landmarks API documentation",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/api",
+  "schemes": ["http"],
+
+  "paths": {
+    "/get-landmarks": {
+      "get": {
+        "tags": ["CRUD for Landmarks"],
+        "summary": "Get first page of landmarks from database",
+        "produces": "application/json",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Landmarks"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Landmarks": {
+      "type": "object",
+      "$ref": "#/definitions/Landmarks"
+    }
+  }
+}
