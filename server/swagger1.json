@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Landmarks",
-    "description": "Our Landmarks API documentation",
+    "description": "Landmarks API documentation",
     "version": "1.0.0"
   },
   "host": "localhost:8080",
@@ -29,7 +29,22 @@
   "definitions": {
     "Landmarks": {
       "type": "object",
-      "$ref": "#/definitions/Landmarks"
+      "$ref": "#/definitions/Landmarks",
+      "required": ["page", "limit", "searchFor"],
+      "properties": {
+        "params": {
+          "type": "object",
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "searchFor": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }

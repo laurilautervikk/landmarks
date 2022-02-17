@@ -10,12 +10,48 @@ app.use(
     extended: true,
   })
 );
+//swagger imports
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+// swaggerDocument = require("./swagger1.json");
 
-const swaggerUi = require("swagger-ui-express"),
-  swaggerDocument = require("./swagger.json");
+//https://swagger.io/specification/
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "Landmarks API",
+      description: "Landmarks API documentation",
+      contact: {
+        name: "MEELT",
+      },
+      servers: ["http://localhost:8080"],
+    },
+  },
+  apis: ["router.js" /*,  "./authRoutes.js" */],
+};
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use("/api/v1", router);
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+//app.use("/api", router);
+
+//swagger
+/**
+ * @swagger
+ * /get-landmarks:
+ * get:
+ *   description: Get first page of Landmarks
+ *   responses:
+ *     '200':
+ *        description: A sucessful response
+ *
+ *
+ *
+ *
+ *
+ */
+
+//swagger end
 
 const routes = require("./router");
 const db = require("./dbConnection");
@@ -44,7 +80,7 @@ app.get("/", (req, res) => {
 });
 
 //swagger code
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+//app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // enable env port
 const PORT = process.env.PORT || 3000;
