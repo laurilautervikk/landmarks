@@ -4,17 +4,6 @@ const { Landmarks } = require("./dbConnection");
 const authRoutes = require("./authRoutes");
 router.use("/auth", authRoutes);
 
-//Routes
-/**
- * @swagger
- * /api/get-landmarks:
- *  get:
- *    description: Get first page of Landmarks
- *    responses:
- *      '200':
- *        description: A successful response
- */
-
 //GET landmarks list
 router.get("/get-landmarks", async function (request, response) {
   //Pagination params from FE

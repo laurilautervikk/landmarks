@@ -157,6 +157,7 @@ export default {
         limit: newPageLimit.value,
         searchFor: searchString.value,
       };
+      console.log("params", params);
       const result = await axios
         .get("/api/get-landmarks", { params })
         .catch(function (error) {
@@ -184,7 +185,7 @@ export default {
     //Pagination logic
     const nextPage = () => {
       if (newPageNumber.value >= landmarksFromServerMeta.value.totalPages) {
-        console.log("Not enough pages");
+        console.log("No more pages to show");
       } else {
         newPageNumber.value++;
         console.log("next", newPageNumber.value);
@@ -218,7 +219,7 @@ export default {
     //log out the user
     const logout = async () => {
       localStorage.removeItem("token");
-      console.log("token removed");
+      console.log("Logged out, token removed");
       await getLandmarks();
       location.reload(); //not a good solution
       //router.push('/');

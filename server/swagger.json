@@ -1,0 +1,428 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.2",
+    "title": "Landmarks API description",
+    "description": "Documentation for Landmarks API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "http://localhost:8080/login",
+      "tokenUrl": "http://localhost:8080",
+      "scopes": {
+        "scope_name": ["read", "write"]
+      },
+      "example": "login:example@test.ee,  password:example"
+    }
+  },
+  "tags": [
+    {
+      "name": "Landmarks",
+      "description": "Operations with Landmarks"
+    },
+    {
+      "name": "Users",
+      "description": "Operations with Users"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/get-landmarks": {
+      "get": {
+        "tags": ["Landmarks"],
+        "description": "This endpoint returns a page of landmarks based on the parameters provided",
+        "summary": "Get a page of landmarks",
+        "operationId": "ApiGetLandmarks_GET",
+        "deprecated": false,
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "Amount of records per page",
+            "default": 8
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "Page number to display",
+            "default": 1
+          },
+          {
+            "name": "searchFor",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter the records with a search string",
+            "default": "",
+            "example": "tower"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/landmarks_page_schema"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/get-landmark/{id}": {
+      "get": {
+        "tags": ["Landmarks"],
+        "description": "Returns a landmark object by ID",
+        "summary": "Returns a landmark by ID",
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of landmark",
+            "type": "string",
+            "example": "62113cfdceb8edeae3bd0ff6"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/landmark_schema"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/add-landmark": {
+      "post": {
+        "tags": ["Landmarks"],
+        "description": "Add a landmark",
+        "summary": "Add a landmark to database",
+        "operationId": "ApiAddLandmark_POST",
+        "deprecated": false,
+        "produces": ["text/html; charset=utf-8"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": ["text/html; charset=utf-8"],
+            "type": "string",
+            "description": "The header"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "The object containing a new landmark passed in the body",
+            "schema": {
+              "$ref": "#/definitions/landmark_schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Addition sucessful"
+          }
+        }
+      }
+    },
+
+    "/api/add-comment/{id}": {
+      "post": {
+        "tags": ["Landmarks"],
+        "description": "Add a comment to a landmark",
+        "summary": "Add a comment to a landmark",
+        "operationId": "ApiAddComment_POST",
+        "deprecated": false,
+        "produces": ["text/html; charset=utf-8"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": ["application/json"],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Comment data in request body",
+            "schema": {
+              "$ref": "#/definitions/comment_schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment Added"
+          }
+        }
+      }
+    },
+
+    "/api/edit-landmark/{id}": {
+      "patch": {
+        "tags": ["Landmarks"],
+        "description": "Edit a landmark",
+        "summary": "Edit a landmark by ID",
+        "operationId": "ApiEditLandmark_PATCH",
+        "deprecated": false,
+        "produces": ["text/html; charset=utf-8"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": ["application/json"],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Passing edited landmark data in request body",
+            "schema": {
+              "$ref": "#/definitions/landmark_schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edit successful"
+          }
+        }
+      }
+    },
+
+    "/api/delete-landmark/{id}": {
+      "delete": {
+        "tags": ["Landmarks"],
+        "description": "Delete a landmark",
+        "summary": "Delete a landmark by ID",
+        "operationId": "ApiDeleteLandmark_DELETE",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Register an account",
+        "summary": "Register an account",
+        "operationId": "ApiAuthRegister_POST",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": ["application/json"],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/auth_schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string",
+              "default": "All Good"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Login to Landmarks app",
+        "summary": "Login to Landmarks app",
+        "operationId": "ApiAuthLogin_POST",
+        "deprecated": false,
+        "produces": ["application/json; charset=utf-8"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": ["application/json"],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/auth_schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "landmarks_page_schema": {
+      "title": "landmarks_page_schema",
+      "type": "object",
+      "properties": {
+        "docs": {
+          "type": "object",
+          "schema": {
+            "$ref": "#/definitions/landmark_schema"
+          }
+        },
+        "totalDocs": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "totalPages": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "pagingCounter": {
+          "type": "integer"
+        },
+        "hasPrevPage": {
+          "type": "boolean"
+        },
+        "hasNextPage": {
+          "type": "boolean"
+        },
+        "prevPage": {
+          "type": "integer"
+        },
+        "nextPage": {
+          "type": "integer"
+        }
+      }
+    },
+    "landmark_schema": {
+      "title": "landmark_schema",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+
+        "imageUrlSet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/comment_schema"
+            }
+          }
+        }
+      }
+    },
+    "comment_schema": {
+      "title": "comment_schema",
+      "type": "object",
+      "properties": {
+        "commentBody": {
+          "type": "string"
+        },
+        "userEmail": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "auth_schema": {
+      "title": "auth_schema",
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
