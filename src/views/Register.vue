@@ -9,7 +9,9 @@
           <h3>Register</h3>
           <div class="card-body">
             <div class="input-group mb-3">
-               <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+              <span class="input-group-text"
+                ><i class="fas fa-envelope"></i
+              ></span>
               <input
                 type="text"
                 class="form-control"
@@ -20,7 +22,7 @@
             </div>
             <br />
             <div class="input-group mb-2">
-            <span class="input-group-text"><i class="fas fa-key"></i></span>
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
               <input
                 type="password"
                 class="form-control"
@@ -31,7 +33,7 @@
             </div>
             <br />
             <div class="input-group mb-2">
-            <span class="input-group-text"><i class="fas fa-key"></i></span>
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
               <input
                 type="password"
                 class="form-control"
@@ -46,17 +48,18 @@
                 Register
               </button>
             </div>
-              <br />
-              <div class="d-flex justify-content-between">Allready have an account? Log in
+            <br />
+            <div class="d-flex justify-content-between">
+              Allready have an account? Log in
               <button class="btn btn-secondary" @click="$router.push('/login')">
                 Login
               </button>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 <script>
 import { defineComponent } from "vue";
@@ -74,7 +77,7 @@ export default defineComponent({
           password: password.value,
         });
       } else {
-        alert("Password are not matching!");
+        alert("Passwords are not matching!");
       }
     }
     return {
@@ -87,22 +90,22 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.btn-primary{
+.btn-primary {
   width: 100%;
 }
-.card{
+.card {
   background-color: #2ab1ce;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-button{
-    background: linear-gradient(to right, #16c0b0, #84cf6a);
+button {
+  background: linear-gradient(to right, #16c0b0, #84cf6a);
   border: none;
   border-radius: 0.5em;
 }
 .input-group-text {
- background: #4d4d4d  !important;
- color: white !important;
- border: 0 !important;
- border-radius: 0.25rem 0 0 0.25rem !important;
- }
+  background: #4d4d4d !important;
+  color: white !important;
+  border: 0 !important;
+  border-radius: 0.25rem 0 0 0.25rem !important;
+}
 </style>

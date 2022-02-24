@@ -10,12 +10,15 @@ router.post("/register", async function (request, response) {
     if (request.body.password) {
       request.body.password = bcrypt.hashSync(request.body.password, 10);
     }
+    console.error("request.body.password ", request.body.password);
+    console.error("request.body ", request.body);
     await Users.create(request.body);
-    response.send({ status: "All Good" });
+    response.status(200).send({ status: "OK" });
   } catch (error) {
     console.error("register endpoint failed");
     response.status(500).send({ status: "Not good" });
   }
+  console.error("registering passed");
 });
 
 router.post("/login", async function (request, response) {
