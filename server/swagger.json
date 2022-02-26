@@ -16,7 +16,7 @@
     "/api/get-landmarks": {
       "get": {
         "tags": ["Landmarks"],
-        "summary": "ApiGetLandmarks_GET",
+        "summary": "Get a page of Landmarks",
         "description": "This endpoint returns a page of landmarks based on the parameters provided",
         "operationId": "ApiGetLandmarks_GET",
         "parameters": [
@@ -66,6 +66,9 @@
                 }
               }
             }
+          },
+          "5XX": {
+            "description": "Unexpected error."
           }
         },
         "deprecated": false
@@ -74,7 +77,7 @@
     "/api/get-landmark/{id}": {
       "get": {
         "tags": ["Landmarks"],
-        "summary": "Returns a landmark by ID",
+        "summary": "Returns a landmark",
         "description": "Returns a landmark object by ID",
         "operationId": "ReturnsalandmarkbyID",
         "parameters": [
@@ -86,7 +89,8 @@
             "style": "simple",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "61c1e8a132c709508ca09ca8"
           }
         ],
         "responses": {
@@ -100,6 +104,9 @@
                 }
               }
             }
+          },
+          "5XX": {
+            "description": "Unexpected error."
           }
         },
         "deprecated": false
@@ -108,10 +115,13 @@
     "/api/add-landmark": {
       "post": {
         "tags": ["Landmarks"],
-        "summary": "ApiAddLandmark_POST",
+        "summary": "Add Landmark",
         "description": "Add a landmark",
         "operationId": "ApiAddLandmark_POST",
         "parameters": [],
+        "security": {
+          "BearerAuth": []
+        },
         "requestBody": {
           "description": "The object containing a new landmark passed in the body",
           "content": {
@@ -128,6 +138,9 @@
             "description": "Addition sucessful",
             "headers": {},
             "content": {}
+          },
+          "5XX": {
+            "description": "Unexpected error."
           }
         },
         "deprecated": false
@@ -136,7 +149,7 @@
     "/api/add-comment/{id}": {
       "post": {
         "tags": ["Landmarks"],
-        "summary": "ApiAddComment_POST",
+        "summary": "Add Comment",
         "description": "Add a comment to a landmark",
         "operationId": "ApiAddComment_POST",
         "parameters": [
@@ -148,9 +161,13 @@
             "style": "simple",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "61c1e8a132c709508ca09ca8"
           }
         ],
+        "security": {
+          "BearerAuth": []
+        },
         "requestBody": {
           "description": "Comment data in request body",
           "content": {
@@ -169,13 +186,16 @@
             "content": {}
           }
         },
+        "5XX": {
+          "description": "Unexpected error."
+        },
         "deprecated": false
       }
     },
     "/api/edit-landmark/{id}": {
       "patch": {
         "tags": ["Landmarks"],
-        "summary": "ApiEditLandmark_PATCH",
+        "summary": "Edit Landmark",
         "description": "Edit a landmark",
         "operationId": "ApiEditLandmark_PATCH",
         "parameters": [
@@ -187,11 +207,12 @@
             "style": "simple",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "61c1e8a132c709508ca09ca8"
           }
         ],
         "security": {
-          "jwt": []
+          "BearerAuth": []
         },
         "requestBody": {
           "description": "Passing edited landmark data in request body",
@@ -217,7 +238,7 @@
     "/api/delete-landmark/{id}": {
       "delete": {
         "tags": ["Landmarks"],
-        "summary": "ApiDeleteLandmark_DELETE",
+        "summary": "Delete Landmark",
         "description": "Delete a landmark",
         "operationId": "ApiDeleteLandmark_DELETE",
         "parameters": [
@@ -229,14 +250,21 @@
             "style": "simple",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "61c1e8a132c709508ca09ca8"
           }
         ],
+        "security": {
+          "BearerAuth": []
+        },
         "responses": {
           "200": {
             "description": "OK",
             "headers": {},
             "content": {}
+          },
+          "5XX": {
+            "description": "Unexpected error."
           }
         },
         "deprecated": false
@@ -245,7 +273,7 @@
     "/api/auth/register": {
       "post": {
         "tags": ["Users"],
-        "summary": "ApiAuthRegister_POST",
+        "summary": "Register account",
         "description": "Register an account",
         "operationId": "ApiAuthRegister_POST",
         "parameters": [],
@@ -272,6 +300,9 @@
                 }
               }
             }
+          },
+          "5XX": {
+            "description": "Unexpected error."
           }
         },
         "deprecated": false
@@ -280,7 +311,7 @@
     "/api/auth/login": {
       "post": {
         "tags": ["Users"],
-        "summary": "ApiAuthLogin_POST",
+        "summary": "Login",
         "description": "Login to Landmarks app",
         "operationId": "ApiAuthLogin_POST",
         "parameters": [],
@@ -306,6 +337,9 @@
                 }
               }
             }
+          },
+          "5XX": {
+            "description": "Unexpected error."
           }
         },
         "deprecated": false
@@ -429,21 +463,21 @@
           }
         }
       },
-      "Content-Type": {
-        "title": "Content-Type",
+      "Content-Type text/html": {
+        "title": "Content-Type text/html",
         "enum": ["text/html; charset=utf-8"],
         "type": "string",
         "example": "text/html; charset=utf-8"
       },
-      "Content-Type1": {
-        "title": "Content-Type1",
+      "Content-Type application/json": {
+        "title": "Content-Type application/json",
         "enum": ["application/json"],
         "type": "string",
         "example": "application/json"
       }
     },
     "securitySchemes": {
-      "jwt": {
+      "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
         "in": "header",
@@ -453,7 +487,7 @@
   },
   "security": [
     {
-      "jwt": []
+      "BearerAuth": []
     }
   ],
   "tags": [
